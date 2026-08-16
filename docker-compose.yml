@@ -1,0 +1,60 @@
+services:
+  # 1. PostgreSQL Database Service
+  db:
+    image: postgres:15-alpine
+    container_name: swipex_db
+    environment:
+      POSTGRES_USER: swipex_user
+      POSTGRES_PASSWORD: swipex_password
+      POSTGRES_DB: swipex_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U swipex_user -d swipex_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - swipex_network
+
+  # 2. FastAPI Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: swipex_backend
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_URL: postgresql://swipex_user:swipex_password@db:5432/swipex_db
+      SECRET_KEY: supersecretkeyforlocaltesting12345
+      FRONTEND_URL: http://localhost:3000
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - swipex_network
+
+  # 3. React Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: swipex_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - swipex_network
+
+networks:
+  swipex_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
