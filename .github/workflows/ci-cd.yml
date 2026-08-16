@@ -29,8 +29,8 @@ jobs:
 
       - name: Run Backend Tests
         env:
-          DATABASE_URL: sqlite:///:memory:
-          SECRET_KEY: ci_test_secret_key_not_for_production
+          DATABASE_URL: "sqlite:///:memory:"
+          SECRET_KEY: "ci_test_secret_key_not_for_production"
         run: |
           cd backend
           pytest
