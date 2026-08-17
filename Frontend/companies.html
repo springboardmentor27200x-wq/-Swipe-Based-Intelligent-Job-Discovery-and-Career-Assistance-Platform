@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SwipeX Companies</title>
+
+    <link
+        rel="stylesheet"
+        href="companies.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================================
+         HEADER
+    ================================= -->
+
+    <div class="page-header">
+
+        <!-- DASHBOARD BUTTON -->
+        <button
+    class="dashboard-btn"
+    type="button"
+    onclick="backToDashboard()">
+    ← Dashboard
+</button>
+
+
+        <!-- HEADER TEXT -->
+        <div class="header-text">
+
+            <h1>
+                🏢 Explore Companies
+            </h1>
+
+            <p>
+                Discover companies and explore
+                available job opportunities.
+            </p>
+
+        </div>
+
+
+        <!-- COMPANY COUNT -->
+        <div class="company-count">
+
+            <span id="companyCount">
+                0 Companies
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         SEARCH
+    ================================= -->
+
+    <div class="search-box">
+
+        <span class="search-icon">
+            🔍
+        </span>
+
+        <input
+            type="text"
+            id="searchCompany"
+            placeholder="Search companies..."
+            onkeyup="searchCompany()">
+
+    </div>
+
+
+    <!-- ================================
+         COMPANY LIST
+    ================================= -->
+
+    <div id="companyList"></div>
+
+
+</div>
+
+<script src="api-config.js"></script>
+<script src="companies.js"></script>
+
+</body>
+
+</html>

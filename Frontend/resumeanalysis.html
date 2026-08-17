@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SwipeX - AI Resume Analysis</title>
+
+    <link
+        rel="stylesheet"
+        href="resumeanalysis.css">
+
+</head>
+
+<body>
+
+<div class="analysis-page">
+
+    <!-- =========================================
+         TOP BAR
+    ========================================== -->
+
+    <div class="top-bar">
+
+        <button
+            class="back-button"
+            type="button"
+            onclick="goBackToResume()">
+
+            ← My Resume
+
+        </button>
+
+
+        <div class="page-heading">
+
+            <h1>
+                🤖 AI Resume Analysis
+            </h1>
+
+            <p>
+                Understand how your resume performs with SwipeX AI.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         RESUME NAME
+    ========================================== -->
+
+    <div class="resume-info">
+
+        <div class="resume-icon">
+            📄
+        </div>
+
+        <div>
+
+            <span class="section-label">
+                ANALYZED RESUME
+            </span>
+
+            <h2 id="resumeFileName">
+                Resume
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SCORE SECTION
+    ========================================== -->
+
+    <section class="score-grid">
+
+        <!-- ATS SCORE -->
+
+        <div class="score-card ats-card">
+
+            <div class="score-header">
+
+                <span>
+                    🎯 ATS SCORE
+                </span>
+
+                <span class="score-badge">
+                    AI Evaluated
+                </span>
+
+            </div>
+
+
+            <div class="score-content">
+
+                <div
+                    class="score-circle"
+                    id="atsCircle">
+
+                    <div>
+
+                        <strong id="atsScore">
+                            0%
+                        </strong>
+
+                        <small>
+                            ATS Score
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score-description">
+
+                    <h3 id="atsTitle">
+                        Resume Performance
+                    </h3>
+
+                    <p id="atsDescription">
+                        Your resume compatibility score will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MATCH SCORE -->
+
+        <div class="score-card match-card">
+
+            <div class="score-header">
+
+                <span>
+                    ⭐ JOB MATCH
+                </span>
+
+                <span class="score-badge">
+                    SwipeX AI
+                </span>
+
+            </div>
+
+
+            <div class="match-content">
+
+                <div class="match-number">
+
+                    <strong id="matchPercentage">
+                        0%
+                    </strong>
+
+                    <span>
+                        Match Percentage
+                    </span>
+
+                </div>
+
+
+                <div class="progress-container">
+
+                    <div class="progress-bar">
+
+                        <div
+                            id="matchProgress"
+                            class="progress-fill">
+                        </div>
+
+                    </div>
+
+                    <p>
+                        Based on your resume skills and recommended jobs.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         SKILLS
+    ========================================== -->
+
+    <section class="analysis-card">
+
+        <div class="card-heading">
+
+            <div class="heading-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <h2>
+                    Matched Skills
+                </h2>
+
+                <p>
+                    Skills detected in your resume that match available opportunities.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="matchedSkills"
+            class="skills-container">
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         MISSING SKILLS
+    ========================================== -->
+
+    <section class="analysis-card">
+
+        <div class="card-heading">
+
+            <div class="heading-icon warning-icon">
+                !
+            </div>
+
+            <div>
+
+                <h2>
+                    Missing Skills
+                </h2>
+
+                <p>
+                    Skills you can add to improve your job compatibility.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="missingSkills"
+            class="skills-container">
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         SUGGESTIONS
+    ========================================== -->
+
+    <section class="analysis-card">
+
+        <div class="card-heading">
+
+            <div class="heading-icon">
+                💡
+            </div>
+
+            <div>
+
+                <h2>
+                    AI Suggestions
+                </h2>
+
+                <p>
+                    Personalized recommendations to strengthen your resume.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="suggestions"
+            class="suggestions-list">
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         RECOMMENDED JOBS
+    ========================================== -->
+
+    <section class="jobs-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span>
+                    SWIPEX AI
+                </span>
+
+                <h2>
+                    Recommended Jobs
+                </h2>
+
+                <p>
+                    Opportunities that match your resume profile.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="recommendations"
+            class="jobs-grid">
+
+        </div>
+
+    </section>
+
+
+</div>
+
+<script src="api-config.js"></script>
+<script src="resumeanalysis.js"></script>
+
+</body>
+
+</html>

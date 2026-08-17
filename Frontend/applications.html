@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>My Applications</title>
+
+    <link
+        rel="stylesheet"
+        href="applications.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================================
+         BACK TO DASHBOARD
+    ================================= -->
+
+    <button
+        class="dashboard-btn"
+        type="button"
+        onclick="goBackToDashboard()">
+
+        ← Dashboard
+
+    </button>
+
+
+    <!-- ================================
+         HEADER
+    ================================= -->
+
+    <div class="page-header">
+
+        <div class="header-text">
+
+            <h1>
+                📋 My Applications
+            </h1>
+
+            <p class="subtitle">
+                Track the jobs you have applied for.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         APPLICATIONS
+    ================================= -->
+
+    <div id="applicationsList"></div>
+
+</div>
+
+<script src="api-config.js"></script>
+<script src="applications.js"></script>
+
+</body>
+
+</html>

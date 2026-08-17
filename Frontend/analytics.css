@@ -1,0 +1,804 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 20% 0%,
+            rgba(86, 67, 180, 0.13),
+            transparent 35%
+        ),
+        #080b20;
+
+    color: #f5f7ff;
+
+    min-height: 100vh;
+
+}
+
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.analytics-container {
+
+    width: 100%;
+
+    padding: 28px 32px 45px;
+
+}
+
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-area {
+
+    display: flex;
+
+    justify-content: flex-start;
+
+    margin-bottom: 25px;
+
+}
+
+
+.back-button {
+
+    border: 1px solid #293457;
+
+    background: #10162d;
+
+    color: #b9c5e7;
+
+    padding: 10px 17px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+}
+
+
+.back-button:hover {
+
+    background: #171f3b;
+
+    border-color: #4c67a8;
+
+    color: white;
+
+}
+
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.analytics-header {
+
+    margin-bottom: 30px;
+
+}
+
+
+.analytics-label,
+.section-label {
+
+    color: #5fa8ff;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.analytics-header h1 {
+
+    margin-top: 7px;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+}
+
+
+.analytics-header p {
+
+    margin-top: 7px;
+
+    color: #7f8caf;
+
+    font-size: 13px;
+
+}
+
+
+
+/* =========================================
+   STAT CARDS
+========================================= */
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 17px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.stat-card {
+
+    min-height: 135px;
+
+    padding: 22px;
+
+    border-radius: 16px;
+
+    border:
+        1px solid #20294a;
+
+    background:
+        linear-gradient(
+            145deg,
+            #11172e,
+            #0e1429
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 17px;
+
+    transition: 0.25s ease;
+
+}
+
+
+.stat-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color: #3a4d82;
+
+}
+
+
+.highlight-card {
+
+    border-color:
+        rgba(255, 190, 70, 0.25);
+
+}
+
+
+.stat-icon {
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 23px;
+
+    flex-shrink: 0;
+
+}
+
+
+.stat-icon.purple {
+
+    background:
+        rgba(126, 76, 241, 0.18);
+
+}
+
+
+.stat-icon.blue {
+
+    background:
+        rgba(57, 133, 255, 0.18);
+
+}
+
+
+.stat-icon.cyan {
+
+    background:
+        rgba(28, 195, 221, 0.16);
+
+}
+
+
+.stat-icon.gold {
+
+    background:
+        rgba(255, 183, 58, 0.15);
+
+}
+
+
+.stat-content {
+
+    min-width: 0;
+
+}
+
+
+.stat-content span {
+
+    display: block;
+
+    color: #8a96b8;
+
+    font-size: 12px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.stat-content strong {
+
+    display: block;
+
+    font-size: 27px;
+
+    line-height: 1.15;
+
+}
+
+
+.stat-content small {
+
+    display: block;
+
+    color: #596686;
+
+    font-size: 10px;
+
+    margin-top: 5px;
+
+}
+
+
+.popular-name {
+
+    font-size: 17px !important;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    max-width: 170px;
+
+}
+
+
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+.analytics-section {
+
+    background:
+        linear-gradient(
+            145deg,
+            #10162d,
+            #0d1328
+        );
+
+    border:
+        1px solid #20294a;
+
+    border-radius: 17px;
+
+    padding: 24px;
+
+}
+
+
+.graph-section {
+
+    margin-bottom: 20px;
+
+}
+
+
+.section-header {
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-header h2 {
+
+    font-size: 19px;
+
+    margin-top: 5px;
+
+}
+
+
+.section-header p {
+
+    color: #737f9f;
+
+    font-size: 12px;
+
+    margin-top: 5px;
+
+}
+
+
+
+/* =========================================
+   BAR GRAPH
+========================================= */
+
+.chart-container {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    padding:
+        15px 5px 5px;
+
+}
+
+
+.bar-chart {
+
+    min-height: 290px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-evenly;
+
+    gap: 20px;
+
+    padding:
+        20px 10px 0;
+
+    border-bottom:
+        1px solid #27304d;
+
+    position: relative;
+
+}
+
+
+.bar-chart::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    top: 25%;
+
+    border-top:
+        1px dashed #202a46;
+
+    opacity: 0.7;
+
+}
+
+
+.bar-chart::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    top: 50%;
+
+    border-top:
+        1px dashed #202a46;
+
+    opacity: 0.7;
+
+}
+
+
+.bar-column {
+
+    min-width: 80px;
+
+    max-width: 130px;
+
+    height: 250px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+.bar-value {
+
+    color: #dce7ff;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
+
+}
+
+
+.bar {
+
+    width: 52px;
+
+    min-height: 4px;
+
+    border-radius:
+        8px 8px 2px 2px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #55b9ff,
+            #6044e8
+        );
+
+    box-shadow:
+        0 8px 25px
+        rgba(76, 108, 255, 0.18);
+
+    transition:
+        height 0.7s ease,
+        filter 0.2s ease;
+
+}
+
+
+.bar:hover {
+
+    filter:
+        brightness(1.25);
+
+}
+
+
+.bar-title {
+
+    width: 100px;
+
+    text-align: center;
+
+    margin-top: 10px;
+
+    color: #aab5d4;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.bar-company {
+
+    width: 100px;
+
+    text-align: center;
+
+    margin-top: 3px;
+
+    color: #586583;
+
+    font-size: 9px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+
+/* =========================================
+   LOWER GRID
+========================================= */
+
+.lower-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.25fr
+        0.75fr;
+
+    gap: 20px;
+
+}
+
+
+
+/* =========================================
+   COMPETITION
+========================================= */
+
+.competition-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+}
+
+
+.competition-card {
+
+    min-height: 105px;
+
+    border-radius: 13px;
+
+    padding: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    border: 1px solid;
+
+}
+
+
+.competition-card.low {
+
+    background: rgba(34, 197, 94, 0.07);
+
+    border-color:
+        rgba(34, 197, 94, 0.18);
+
+}
+
+
+.competition-card.medium {
+
+    background: rgba(234, 179, 8, 0.07);
+
+    border-color:
+        rgba(234, 179, 8, 0.18);
+
+}
+
+
+.competition-card.high {
+
+    background: rgba(239, 68, 68, 0.07);
+
+    border-color:
+        rgba(239, 68, 68, 0.18);
+
+}
+
+
+.competition-icon {
+
+    font-size: 20px;
+
+}
+
+
+.competition-card strong {
+
+    display: block;
+
+    font-size: 25px;
+
+}
+
+
+.competition-card span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #7c88a8;
+
+    font-size: 10px;
+
+}
+
+
+
+/* =========================================
+   TOP JOB
+========================================= */
+
+.top-job-card {
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(101, 63, 222, 0.15),
+            rgba(26, 151, 223, 0.08)
+        );
+
+    border:
+        1px solid #2a3762;
+
+}
+
+
+.top-job-card h3 {
+
+    font-size: 20px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.top-job-card p {
+
+    color: #8995b5;
+
+    font-size: 12px;
+
+    margin-top: 8px;
+
+}
+
+
+.top-job-card .application-count {
+
+    color: #67b5ff;
+
+    font-weight: 700;
+
+    margin-top: 16px;
+
+}
+
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading {
+
+    color: #657291;
+
+    font-size: 12px;
+
+    padding: 30px;
+
+    text-align: center;
+
+}
+
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:1100px) {
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media(max-width:750px) {
+
+    .analytics-container {
+
+        padding: 20px;
+
+    }
+
+
+    .stats-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .lower-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .competition-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}

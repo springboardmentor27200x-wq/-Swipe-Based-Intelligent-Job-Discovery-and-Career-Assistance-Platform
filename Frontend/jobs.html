@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SwipeX Jobs</title>
+
+    <link
+        rel="stylesheet"
+        href="jobs.css">
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- ==========================================
+         NAVBAR
+    =========================================== -->
+
+    <div class="navbar">
+
+        <button
+    type="button"
+    onclick="goToDashboard()">
+
+    ← Dashboard
+
+</button>
+
+        <h2>
+            SwipeX Jobs
+        </h2>
+
+    </div>
+
+
+    <!-- ==========================================
+         FILTERS
+    =========================================== -->
+
+    <div class="filters">
+
+        <input
+            type="text"
+            id="companyFilter"
+            placeholder="🔍 Search Company">
+
+        <select id="locationFilter">
+
+            <option value="">
+                All Locations
+            </option>
+
+            <option value="Bangalore">
+                Bangalore
+            </option>
+
+            <option value="Hyderabad">
+                Hyderabad
+            </option>
+
+            <option value="Pune">
+                Pune
+            </option>
+
+            <option value="Chennai">
+                Chennai
+            </option>
+
+        </select>
+
+        <select id="experienceFilter">
+
+            <option value="">
+                Experience
+            </option>
+
+            <option value="0-2 Years">
+                0-2 Years
+            </option>
+
+            <option value="2-5 Years">
+                2-5 Years
+            </option>
+
+            <option value="5+ Years">
+                5+ Years
+            </option>
+
+        </select>
+
+        <button
+            type="button"
+            onclick="applyFilters()">
+
+            🔎 Filter
+
+        </button>
+
+    </div>
+
+
+    <!-- ==========================================
+         JOB CARD
+    =========================================== -->
+
+    <div
+        class="job-card"
+        id="jobCard">
+
+        <div class="top">
+
+            <div class="logo">
+                G
+            </div>
+
+            <div>
+
+                <h2 id="company">
+                    Google
+                </h2>
+
+                <h3 id="title">
+                    Software Engineer
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <div class="tags">
+
+            <span id="location">
+                📍 Bangalore
+            </span>
+
+            <span id="experience">
+                Mid Level
+            </span>
+
+            <span>
+                Full Time
+            </span>
+
+        </div>
+
+
+        <p id="description">
+
+            Build scalable web applications using
+            Java, Spring Boot and Cloud technologies.
+
+        </p>
+
+
+        <h4>
+            Skills
+        </h4>
+
+        <div class="skills">
+
+            <span>
+                Java
+            </span>
+
+            <span>
+                Spring
+            </span>
+
+            <span>
+                SQL
+            </span>
+
+            <span>
+                Git
+            </span>
+
+        </div>
+
+
+        <div class="compatibility-box">
+
+            <h4>
+                🎯 Resume Compatibility
+            </h4>
+
+            <p id="compatibility">
+                Upload Resume
+            </p>
+
+            <p id="matchedSkills"></p>
+
+            <p id="missingSkills"></p>
+
+        </div>
+
+
+        <div class="bottom">
+
+            <div>
+
+                <p>
+                    Salary
+                </p>
+
+                <h3 id="salary">
+                    ₹12 LPA
+                </h3>
+
+            </div>
+
+            <div>
+
+                <p>
+                    Competition
+                </p>
+
+                <h3 id="competition">
+                    🟢 Low
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <hr>
+
+
+        <div class="job-meta">
+
+            <span id="applicantCount">
+                👥 0 Applicants
+            </span>
+
+            <span id="earlyApplicant">
+                🚀 Early Applicant
+            </span>
+
+            <span id="recentlyPosted">
+                🕒 Recently Posted
+            </span>
+
+        </div>
+
+
+        <hr>
+
+    </div>
+
+
+    <!-- ==========================================
+         ACTION BUTTONS
+    =========================================== -->
+
+    <div class="actions">
+
+        <button
+            type="button"
+            class="skip"
+            onclick="swipe('Skip')">
+
+            ❌
+
+        </button>
+
+
+        <button
+            type="button"
+            class="save-btn"
+            onclick="saveJob(jobs[current])">
+
+            🔖
+
+        </button>
+
+
+        <button
+            type="button"
+            class="apply"
+            onclick="swipe('Interested')">
+
+            ✅
+
+        </button>
+
+    </div>
+
+</div>
+
+<script src="api-config.js"></script>
+<script src="jobs.js"></script>
+
+</body>
+
+</html>

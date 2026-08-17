@@ -1,0 +1,516 @@
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: "Segoe UI", sans-serif;
+
+}
+
+
+body {
+
+    background: #070B18;
+
+    color: #F8FAFC;
+
+    min-height: 100vh;
+
+}
+
+
+.add-job-page {
+
+    min-height: 100vh;
+
+    padding: 25px 40px 50px;
+
+}
+
+
+/* =========================================
+   TOP BAR
+========================================= */
+
+.page-topbar {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.back-button {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    border: 1px solid #293252;
+
+    background: #10152A;
+
+    color: #CBD5E1;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    transition: .2s;
+
+}
+
+
+.back-button:hover {
+
+    background: #18213D;
+
+    border-color: #3B82F6;
+
+    color: white;
+
+}
+
+
+.page-topbar h1 {
+
+    font-size: 22px;
+
+}
+
+
+.page-topbar p {
+
+    margin-top: 3px;
+
+    color: #7F8BA8;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.job-card {
+
+    max-width: 1050px;
+
+    margin: auto;
+
+    background: #10152A;
+
+    border: 1px solid #252D49;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.25);
+
+}
+
+
+/* =========================================
+   CARD TITLE
+========================================= */
+
+.card-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid #252D49;
+
+    margin-bottom: 28px;
+
+}
+
+
+.title-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7C3AED,
+            #0EA5E9
+        );
+
+}
+
+
+.card-title h2 {
+
+    font-size: 18px;
+
+}
+
+
+.card-title p {
+
+    color: #6F7B97;
+
+    font-size: 11px;
+
+    margin-top: 4px;
+
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+
+.section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 25px 0 18px;
+
+}
+
+
+.section-title span {
+
+    width: 27px;
+
+    height: 27px;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #18213D;
+
+    color: #60A5FA;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+}
+
+
+.section-title h3 {
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================
+   FORM GRID
+========================================= */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-group {
+
+    margin-bottom: 18px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    color: #CBD5E1;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+
+    border: 1px solid #293252;
+
+    background: #0B1026;
+
+    color: white;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    outline: none;
+
+    font-size: 12px;
+
+    transition: .2s;
+
+}
+
+
+.form-group select {
+
+    cursor: pointer;
+
+}
+
+
+.form-group textarea {
+
+    resize: vertical;
+
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    border-color: #3B82F6;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(59,130,246,.08);
+
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+
+    color: #53607D;
+
+}
+
+
+.form-group small {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #66708A;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.form-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding-top: 25px;
+
+    margin-top: 10px;
+
+    border-top: 1px solid #252D49;
+
+}
+
+
+.cancel-button {
+
+    padding: 11px 20px;
+
+    border-radius: 10px;
+
+    border: 1px solid #293252;
+
+    background: #151B34;
+
+    color: #AAB4D0;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+}
+
+
+.cancel-button:hover {
+
+    background: #202945;
+
+    color: white;
+
+}
+
+
+.publish-button {
+
+    padding: 11px 22px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7C3AED,
+            #0EA5E9
+        );
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    transition: .2s;
+
+}
+
+
+.publish-button:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(59,130,246,.25);
+
+}
+
+
+.message {
+
+    text-align: right;
+
+    margin-top: 12px;
+
+    font-size: 11px;
+
+    min-height: 16px;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 750px) {
+
+    .add-job-page {
+
+        padding: 20px;
+
+    }
+
+
+    .job-card {
+
+        padding: 20px;
+
+    }
+
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .page-topbar {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .form-actions {
+
+        flex-direction: column;
+
+    }
+
+
+    .cancel-button,
+    .publish-button {
+
+        width: 100%;
+
+    }
+
+}

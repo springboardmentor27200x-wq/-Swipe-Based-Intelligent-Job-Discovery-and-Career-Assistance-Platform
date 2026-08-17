@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SwipeX - Add New Job</title>
+
+    <link
+        rel="stylesheet"
+        href="addjob.css">
+
+</head>
+
+<body>
+
+<div class="add-job-page">
+
+
+    <!-- =========================================
+         TOP BAR
+    ========================================== -->
+
+    <header class="page-topbar">
+
+        <button
+            class="back-button"
+            onclick="backToRecruiterDashboard()">
+
+            ←
+
+            <span>
+                Back to Dashboard
+            </span>
+
+        </button>
+
+
+        <div>
+
+            <h1>
+                Add New Job
+            </h1>
+
+            <p>
+                Create and publish a new opportunity
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         FORM CARD
+    ========================================== -->
+
+    <section class="job-card">
+
+        <div class="card-title">
+
+            <div class="title-icon">
+                ➕
+            </div>
+
+            <div>
+
+                <h2>
+                    Create Job Posting
+                </h2>
+
+                <p>
+                    Enter the details of the position you want to publish.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form id="jobForm">
+
+
+            <!-- =====================================
+                 BASIC INFORMATION
+            ====================================== -->
+
+            <div class="section-title">
+
+                <span>
+                    01
+                </span>
+
+                <h3>
+                    Basic Information
+                </h3>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Job Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="e.g. Software Engineer"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Company
+                    </label>
+
+                    <input
+                        type="text"
+                        id="company"
+                        placeholder="e.g. Infosys"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="e.g. Hyderabad / Remote"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Salary
+                    </label>
+
+                    <input
+                        type="text"
+                        id="salary"
+                        placeholder="e.g. ₹6 - ₹10 LPA"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Experience
+                    </label>
+
+                    <select
+                        id="experience"
+                        required>
+
+                        <option value="">
+                            Select experience
+                        </option>
+
+                        <option value="Fresher">
+                            Fresher
+                        </option>
+
+                        <option value="0-1 years">
+                            0-1 years
+                        </option>
+
+                        <option value="1-3 years">
+                            1-3 years
+                        </option>
+
+                        <option value="3-5 years">
+                            3-5 years
+                        </option>
+
+                        <option value="5+ years">
+                            5+ years
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Job Type
+                    </label>
+
+                    <select
+                        id="jobType">
+
+                        <option>
+                            Full Time
+                        </option>
+
+                        <option>
+                            Part Time
+                        </option>
+
+                        <option>
+                            Internship
+                        </option>
+
+                        <option>
+                            Contract
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 DESCRIPTION
+            ====================================== -->
+
+            <div class="section-title">
+
+                <span>
+                    02
+                </span>
+
+                <h3>
+                    Job Description
+                </h3>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    rows="7"
+                    placeholder="Describe the role, responsibilities and requirements..."
+                    required></textarea>
+
+            </div>
+
+
+            <!-- =====================================
+                 SKILLS
+            ====================================== -->
+
+            <div class="section-title">
+
+                <span>
+                    03
+                </span>
+
+                <h3>
+                    Required Skills
+                </h3>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Skills
+                </label>
+
+                <input
+                    type="text"
+                    id="skills"
+                    placeholder="Python, Java, SQL, React, Git">
+
+                <small>
+                    Separate skills using commas.
+                </small>
+
+            </div>
+
+
+            <!-- =====================================
+                 ACTIONS
+            ====================================== -->
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    onclick="backToRecruiterDashboard()">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="publish-button">
+
+                    🚀 Publish Job
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="message"
+                class="message">
+            </div>
+
+
+        </form>
+
+    </section>
+
+</div>
+
+<script src="api-config.js"></script>
+<script src="addjob.js"></script>
+
+</body>
+
+</html>

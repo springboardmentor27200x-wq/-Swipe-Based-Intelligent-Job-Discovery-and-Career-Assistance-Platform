@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SwipeX Job Seeker Analytics</title>
+
+    <link rel="stylesheet" href="analytics.css">
+</head>
+
+<body>
+
+<div class="analytics-container">
+
+    <!-- BACK BUTTON -->
+    <div class="back-area">
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="goBackToDashboard()">
+
+            ← Back to Dashboard
+
+        </button>
+
+    </div>
+
+
+    <!-- HEADER -->
+    <div class="analytics-header">
+
+        <div>
+
+            <span class="analytics-label">
+                JOB SEEKER INSIGHTS
+            </span>
+
+            <h1>
+                📊 Career Analytics
+            </h1>
+
+            <p>
+                Track your applications, resume performance and career activity.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUMMARY CARDS -->
+    <div class="stats-grid">
+
+        <!-- TOTAL APPLICATIONS -->
+        <div class="stat-card">
+
+            <div class="stat-icon purple">
+                💼
+            </div>
+
+            <div class="stat-content">
+
+                <span>Jobs Applied</span>
+
+                <strong id="totalApplications">
+                    0
+                </strong>
+
+                <small>
+                    Total applications submitted
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACCEPTED -->
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+                ✅
+            </div>
+
+            <div class="stat-content">
+
+                <span>Accepted</span>
+
+                <strong id="totalAccepted">
+                    0
+                </strong>
+
+                <small>
+                    Applications accepted
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING -->
+        <div class="stat-card">
+
+            <div class="stat-icon cyan">
+                ⏳
+            </div>
+
+            <div class="stat-content">
+
+                <span>Pending</span>
+
+                <strong id="totalPending">
+                    0
+                </strong>
+
+                <small>
+                    Waiting for response
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- ATS SCORE -->
+        <div class="stat-card highlight-card">
+
+            <div class="stat-icon gold">
+                ⭐
+            </div>
+
+            <div class="stat-content">
+
+                <span>ATS Score</span>
+
+                <strong
+                    id="atsScore"
+                    class="popular-name">
+                    0%
+                </strong>
+
+                <small>
+                    Resume performance
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- APPLICATION GRAPH -->
+    <div class="analytics-section graph-section">
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-label">
+                    APPLICATION PERFORMANCE
+                </span>
+
+                <h2>
+                    Application Status
+                </h2>
+
+                <p>
+                    Track the current status of your submitted applications.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="chart-container">
+
+            <div
+                id="jobChart"
+                class="bar-chart">
+
+                <div class="loading">
+                    Loading application data...
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOWER GRID -->
+    <div class="lower-grid">
+
+
+        <!-- APPLICATION STATUS -->
+        <div class="analytics-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        APPLICATION STATUS
+                    </span>
+
+                    <h2>
+                        Status Overview
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!--
+                IMPORTANT:
+                Keeping the SAME competition-grid /
+                competition-card classes so your
+                current CSS/UI stays unchanged.
+            -->
+            <div class="competition-grid">
+
+                <!-- ACCEPTED -->
+                <div class="competition-card low">
+
+                    <div class="competition-icon">
+                        🟢
+                    </div>
+
+                    <div>
+
+                        <strong id="acceptedApplications">
+                            0
+                        </strong>
+
+                        <span>
+                            Accepted
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PENDING -->
+                <div class="competition-card medium">
+
+                    <div class="competition-icon">
+                        🟡
+                    </div>
+
+                    <div>
+
+                        <strong id="pendingApplications">
+                            0
+                        </strong>
+
+                        <span>
+                            Pending
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- REJECTED -->
+                <div class="competition-card high">
+
+                    <div class="competition-icon">
+                        🔴
+                    </div>
+
+                    <div>
+
+                        <strong id="rejectedApplications">
+                            0
+                        </strong>
+
+                        <span>
+                            Rejected
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BEST JOB MATCH -->
+        <div class="analytics-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        BEST MATCH
+                    </span>
+
+                    <h2>
+                        🎯 Best Job Match
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!--
+                Same topJob container structure.
+                Existing CSS still works.
+            -->
+            <div id="topJob">
+
+                <div class="loading">
+                    Loading...
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="api-config.js"></script>
+<script src="analytics.js"></script>
+
+</body>
+
+</html>

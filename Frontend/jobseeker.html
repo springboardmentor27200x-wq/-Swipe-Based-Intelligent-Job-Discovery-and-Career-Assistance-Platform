@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SwipeX - Job Seeker</title>
+
+    <link
+        rel="stylesheet"
+        href="jobseeker.css">
+
+</head>
+
+<body>
+
+
+<div class="dashboard">
+
+
+    <!-- ==========================================
+         SIDEBAR
+    =========================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ⚡
+            </div>
+
+            <div>
+
+                <h2>
+                    SwipeX
+                </h2>
+
+                <span>
+                    CAREER AI
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENU -->
+
+        <div class="sidebar-menu">
+
+
+            <button
+                class="active"
+                onclick="loadPage('home.html', this)">
+
+                🏠
+
+                <span>
+                    Dashboard
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="loadPage('jobs.html', this)">
+
+                💼
+
+                <span>
+                    Browse Jobs
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="loadPage('recommendations.html', this)">
+
+                ⭐
+
+                <span>
+                    Recommended Jobs
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="loadPage('companies.html', this)">
+
+                🏢
+
+                <span>
+                    Companies
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="loadPage('savedjobs.html', this)">
+
+                ❤️
+
+                <span>
+                    Saved Jobs
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="loadPage('resume.html', this)">
+
+                📄
+
+                <span>
+                    Resume
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="loadPage('applications.html', this)">
+
+                📋
+
+                <span>
+                    Applications
+                </span>
+
+            </button>
+
+            
+
+
+        <!-- ANALYTICS -->
+
+        <button
+            class="menu-item"
+            onclick="loadPage('analytics.html', this)">
+
+            <span class="menu-icon">
+                📊
+            </span>
+
+            <span>
+                Analytics
+            </span>
+
+        </button>
+
+            <button
+                onclick="loadPage('profile.html', this)">
+
+                👤
+
+                <span>
+                    My Profile
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <button
+            class="logout"
+            onclick="logout()">
+
+            🚪
+
+            <span>
+                Logout
+            </span>
+
+        </button>
+
+
+    </aside>
+
+
+
+    <!-- ==========================================
+         MAIN AREA
+    =========================================== -->
+
+    <main class="main-area">
+
+
+        <!-- ======================================
+             TOP HEADER
+        ======================================= -->
+
+        <header class="top-header">
+
+
+            <!-- LEFT -->
+
+            <div class="page-heading">
+
+                <h1 id="pageTitle">
+                    Dashboard
+                </h1>
+
+                <p>
+
+                    Welcome back,
+
+                    <span id="headerUsername">
+                        Job Seeker
+                    </span>
+
+                </p>
+
+            </div>
+
+
+
+            <!-- ==================================
+                 HEADER RIGHT
+            =================================== -->
+
+            <div class="header-actions">
+
+
+                <!-- SEARCH -->
+
+                <div class="search-box">
+
+                    <span>
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        id="headerSearch"
+                        placeholder="Search for jobs...">
+
+                </div>
+
+
+
+                <!-- NOTIFICATIONS -->
+
+                <div class="notification-area">
+
+                    <button
+                        id="notificationButton"
+                        class="notification-btn"
+                        onclick="toggleNotifications()"
+                        title="Notifications">
+
+                        🔔
+
+                        <span
+                            id="notificationCount"
+                            class="notification-count hidden">
+
+                            0
+
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- PROFILE -->
+
+                <button
+                    type="button"
+                    id="headerProfileButton"
+                    class="profile-button"
+                    onclick="loadPage('profile.html')"
+                    title="My Profile">
+
+                    <img
+                        id="headerProfileImage"
+                        src=""
+                        alt="Profile">
+
+                    <span
+                        id="headerProfileInitials">
+
+                        👤
+
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- ======================================
+             PAGE CONTENT
+        ======================================= -->
+
+        <section class="content">
+
+            <iframe
+                id="contentFrame"
+                src="home.html"
+                title="Job Seeker Content">
+
+            </iframe>
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- ==========================================
+     NOTIFICATION OVERLAY
+=========================================== -->
+
+<div
+    id="notificationOverlay"
+    class="notification-overlay"
+    onclick="closeNotificationPanel()">
+</div>
+
+
+
+<!-- ==========================================
+     NOTIFICATION PANEL
+=========================================== -->
+<aside
+    id="notificationPanel"
+    class="notification-panel">
+
+    <!-- HEADER -->
+    <div class="notification-header">
+        <div>
+            <h2>
+                🔔 Notifications
+            </h2>
+            <p>
+                Stay updated with your career activity.
+            </p>
+        </div>
+        <button
+            class="notification-close"
+            onclick="closeNotificationPanel()">
+
+            ✕
+        </button>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="notification-summary">
+        <span id="notificationSummary">
+            No new notifications
+        </span>
+        <button
+            class="mark-read-btn"
+            onclick="markAllRead()">
+            Mark all as read
+        </button>
+    </div>
+
+    <!-- LIST -->
+    <div
+        id="notificationList"
+        class="notification-list">
+        <div class="no-notifications">
+            Loading notifications...
+        </div>
+    </div>
+
+    <!-- VIEW ALL -->
+    <button
+        class="view-all-btn"
+        onclick="loadNotificationsPage()">
+        View all notifications →
+    </button>
+</aside>
+
+<script src="api-config.js"></script>
+<script src="jobseeker.js"></script>
+
+</body>
+</html>

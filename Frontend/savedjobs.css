@@ -1,0 +1,321 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: #0B1020;
+    color: white;
+    min-height: 100vh;
+}
+
+
+/* ==========================================
+   PAGE
+========================================== */
+
+.page {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 40px;
+}
+
+
+/* ==========================================
+   NAVBAR
+========================================== */
+
+.navbar {
+    width: 100%;
+    max-width: 1000px;
+
+    margin: 0 auto 40px auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+.navbar h1 {
+    font-size: 34px;
+    color: #F8FAFC;
+}
+
+
+/* ==========================================
+   DASHBOARD BUTTON
+========================================== */
+
+.back-dashboard-btn {
+
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+
+    background: #3B82F6;
+    color: white;
+
+    border: none;
+
+    padding: 10px 18px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+.back-dashboard-btn:hover {
+
+    background: #2563EB;
+
+    transform:
+        translateY(-50%)
+        translateX(-2px);
+}
+
+
+/* ==========================================
+   SAVED JOBS GRID
+========================================== */
+
+.saved-jobs-container {
+
+    width: 100%;
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 25px;
+
+    align-items: start;
+}
+
+
+/* ==========================================
+   SAVED JOB CARD
+========================================== */
+
+.job-card {
+
+    width: 100%;
+
+    background: #181B2E;
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    border: 1px solid #2F3550;
+
+    border-top: 5px solid #F59E0B;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45);
+
+    transition: 0.3s ease;
+
+    min-height: 280px;
+}
+
+.job-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: #3B82F6;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.55);
+}
+
+
+/* ==========================================
+   SAVED LABEL
+========================================== */
+
+.saved-label {
+
+    display: inline-block;
+
+    background: #252942;
+
+    color: #FFD54F;
+
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 18px;
+}
+
+
+/* ==========================================
+   COMPANY
+========================================== */
+
+.job-card h2 {
+
+    color: white;
+
+    font-size: 23px;
+
+    margin-bottom: 6px;
+}
+
+
+/* ==========================================
+   JOB TITLE
+========================================== */
+
+.job-card h3 {
+
+    color: #BBBBBB;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================
+   DETAILS
+========================================== */
+
+.job-card p {
+
+    color: #CBD5E1;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin: 8px 0;
+}
+
+.job-card b {
+
+    color: #F8FAFC;
+}
+
+
+/* ==========================================
+   DESCRIPTION
+========================================== */
+
+.job-description {
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+
+    margin-top: 18px !important;
+
+    padding-top: 15px;
+
+    color: #CFCFCF !important;
+}
+
+
+/* ==========================================
+   NO JOBS
+========================================== */
+
+.no-jobs {
+
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    background: #181B2E;
+
+    border-radius: 20px;
+
+    padding: 50px;
+
+    text-align: center;
+
+    border: 1px solid #2F3550;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.no-jobs h2 {
+
+    color: white;
+
+    margin-bottom: 10px;
+}
+
+.no-jobs p {
+
+    color: #AEB5C7;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 700px) {
+
+    .page {
+        padding: 25px 15px;
+    }
+
+    .navbar {
+        justify-content: flex-end;
+    }
+
+    .navbar h1 {
+        font-size: 27px;
+    }
+
+    .back-dashboard-btn {
+
+        position: static;
+
+        transform: none;
+
+        margin-right: auto;
+    }
+
+    .back-dashboard-btn:hover {
+
+        transform: translateX(-2px);
+    }
+
+    .saved-jobs-container {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}

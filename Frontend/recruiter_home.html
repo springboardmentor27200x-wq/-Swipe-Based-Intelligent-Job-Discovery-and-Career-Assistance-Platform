@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Recruiter Dashboard</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+
+        body {
+
+            background: #080b1f;
+
+            color: #f8fafc;
+
+            padding: 40px;
+
+        }
+
+
+        /* =========================================
+           STATS
+        ========================================= */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .card {
+
+            background: #11162d;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            transition:
+                0.3s;
+
+        }
+
+
+        .card:hover {
+
+            border-color:
+                #3b82f6;
+
+            transform:
+                translateY(-3px);
+
+        }
+
+
+        .card-icon {
+
+            font-size: 40px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .card h2 {
+
+            font-size: 32px;
+
+            color: #60a5fa;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .card p {
+
+            color: #cbd5e1;
+
+            font-size: 16px;
+
+        }
+
+
+        /* =========================================
+           QUICK ACTIONS
+        ========================================= */
+
+        .quick-actions {
+
+            background: #11162d;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+        }
+
+
+        .quick-actions h2 {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .actions {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+
+        }
+
+
+        .action-btn {
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .action-btn:hover {
+
+            background: #1d4ed8;
+
+            transform: translateY(-2px);
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media(max-width:700px) {
+
+            body {
+
+                padding: 20px;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .actions {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     STATISTICS
+========================================= -->
+
+<div class="stats">
+
+
+    <!-- JOBS POSTED -->
+
+    <div class="card">
+
+        <div class="card-icon">
+            💼
+        </div>
+
+        <h2 id="jobsPosted">
+            ...
+        </h2>
+
+        <p>
+            Jobs Posted
+        </p>
+
+    </div>
+
+
+
+    <!-- APPLICATIONS RECEIVED -->
+
+    <div class="card">
+
+        <div class="card-icon">
+            👥
+        </div>
+
+        <h2 id="applicationsReceived">
+            ...
+        </h2>
+
+        <p>
+            Applications Received
+        </p>
+
+    </div>
+
+
+
+    <!-- ACTIVE JOBS -->
+
+    <div class="card">
+
+        <div class="card-icon">
+            📋
+        </div>
+
+        <h2 id="activeJobs">
+            ...
+        </h2>
+
+        <p>
+            Active Jobs
+        </p>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================
+     QUICK ACTIONS
+========================================= -->
+
+<div class="quick-actions">
+
+    <h2>
+        ⚡ Quick Actions
+    </h2>
+
+
+    <div class="actions">
+
+
+        <button
+            type="button"
+            class="action-btn"
+            onclick="goToPage('addjob.html')">
+
+            ➕ Add New Job
+
+        </button>
+
+
+        <button
+            type="button"
+            class="action-btn"
+            onclick="goToPage('postedjobs.html')">
+
+            📋 View Posted Jobs
+
+        </button>
+
+
+        <button
+            type="button"
+            class="action-btn"
+            onclick="goToPage('recruiter_applications.html')">
+
+            👥 View Applicants
+
+        </button>
+
+
+        <button
+            type="button"
+            class="action-btn"
+            onclick="goToPage('analytics.html')">
+
+            📊 Analytics
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+<script src="api-config.js"></script>
+
+<script>
+
+
+const API_URL =
+    window.SWIPEX_API_URL;
+
+
+// =========================================
+// NAVIGATION
+// =========================================
+
+function goToPage(page) {
+
+    if (
+        window.parent &&
+        window.parent !== window &&
+        typeof window.parent.loadPage ===
+            "function"
+    ) {
+
+        window.parent.loadPage(
+            page
+        );
+
+        return;
+
+    }
+
+
+    window.location.href =
+        page;
+
+}
+
+
+// =========================================
+// LOAD DASHBOARD STATS
+// =========================================
+
+async function loadDashboardStats() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/jobs`,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load jobs"
+            );
+
+        }
+
+
+        const jobs =
+            await response.json();
+
+
+        const jobsPosted =
+            jobs.length;
+
+
+        let totalApplications =
+            0;
+
+
+        jobs.forEach(
+            function(job) {
+
+                totalApplications +=
+                    Number(
+                        job.applicant_count ||
+                        0
+                    );
+
+            }
+        );
+
+
+        const activeJobs =
+            jobs.length;
+
+
+        const jobsPostedElement =
+            document.getElementById(
+                "jobsPosted"
+            );
+
+
+        const applicationsElement =
+            document.getElementById(
+                "applicationsReceived"
+            );
+
+
+        const activeJobsElement =
+            document.getElementById(
+                "activeJobs"
+            );
+
+
+        if (jobsPostedElement) {
+
+            jobsPostedElement.textContent =
+                jobsPosted;
+
+        }
+
+
+        if (applicationsElement) {
+
+            applicationsElement.textContent =
+                totalApplications;
+
+        }
+
+
+        if (activeJobsElement) {
+
+            activeJobsElement.textContent =
+                activeJobs;
+
+        }
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+
+        document.getElementById(
+            "jobsPosted"
+        ).textContent =
+            "0";
+
+
+        document.getElementById(
+            "applicationsReceived"
+        ).textContent =
+            "0";
+
+
+        document.getElementById(
+            "activeJobs"
+        ).textContent =
+            "0";
+
+    }
+
+}
+
+
+// =========================================
+// START
+// =========================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadDashboardStats();
+
+    }
+);
+
+
+// =========================================
+// AUTO REFRESH
+// =========================================
+
+setInterval(
+    loadDashboardStats,
+    10000
+);
+
+
+</script>
+
+
+</body>
+
+</html>

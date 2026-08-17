@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SwipeX Recruiter Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="recruiter.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+
+    <!-- LOGO -->
+
+    <div class="logo-section">
+
+        <div class="logo-icon">
+            ⚡
+        </div>
+
+        <div class="logo-text">
+
+            <h2>
+                SwipeX
+            </h2>
+
+            <span>
+                CAREER AI
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SIDEBAR MENU -->
+
+    <nav class="sidebar-menu">
+
+
+        <!-- DASHBOARD -->
+
+        <button
+            class="menu-item active"
+            onclick="loadPage('recruiter_home.html', this)">
+
+            <span class="menu-icon">
+                🏠
+            </span>
+
+            <span>
+                Dashboard
+            </span>
+
+        </button>
+
+
+
+        <!-- ADD JOB -->
+
+        <button
+            class="menu-item"
+            onclick="loadPage('addjob.html', this)">
+
+            <span class="menu-icon">
+                ➕
+            </span>
+
+            <span>
+                Add Job
+            </span>
+
+        </button>
+
+
+
+        <!-- POSTED JOBS -->
+
+        <button
+            class="menu-item"
+            onclick="loadPage('postedjobs.html', this)">
+
+            <span class="menu-icon">
+                💼
+            </span>
+
+            <span>
+                Posted Jobs
+            </span>
+
+        </button>
+
+
+
+        <!-- APPLICANTS -->
+
+        <button
+            id="applicantsMenuButton"
+            class="menu-item"
+            onclick="loadPage('recruiter_applications.html', this)">
+
+            <span class="menu-icon">
+                👥
+            </span>
+
+            <span>
+                Applicants
+            </span>
+
+            <span
+                id="applicantBadge"
+                class="sidebar-badge"
+                style="display:none;">
+
+                0
+
+            </span>
+
+        </button>
+
+        <!-- PROFILE -->
+
+        <button
+            class="menu-item"
+            onclick="loadPage('recruiter_profile.html', this)">
+
+            <span class="menu-icon">
+                👤
+            </span>
+
+            <span>
+                My Profile
+            </span>
+
+        </button>
+
+
+    </nav>
+
+
+
+    <!-- LOGOUT -->
+
+    <button
+        class="logout-button"
+        onclick="logout()">
+
+        <span class="menu-icon">
+            🚪
+        </span>
+
+        <span>
+            Logout
+        </span>
+
+    </button>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- =================================================
+         TOPBAR
+    ================================================== -->
+
+    <header class="topbar">
+
+
+        <div class="topbar-left">
+
+            <h1 id="pageTitle">
+                Recruiter Dashboard
+            </h1>
+
+            <p>
+
+                Welcome back,
+
+                <span id="welcomeName">
+                    Recruiter
+                </span>
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =============================================
+             RIGHT ACTIONS
+        ============================================== -->
+
+        <div class="topbar-right">
+
+
+            <!-- NOTIFICATIONS -->
+
+            <button
+                class="top-notification"
+                onclick="toggleNotifications()"
+                title="Notifications">
+
+                🔔
+
+                <span
+                    class="top-notification-badge"
+                    id="topNotificationBadge"
+                    style="display:none;">
+
+                    0
+
+                </span>
+
+            </button>
+
+
+
+            <!-- PROFILE PHOTO -->
+
+            <button
+                class="top-profile"
+                onclick="loadPage('recruiter_profile.html')"
+                title="My Profile">
+
+                <img
+                    id="topProfileImage"
+                    src=""
+                    alt="Profile">
+
+                <span
+                    id="topProfileInitial">
+                    👤
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =================================================
+         CONTENT PANEL
+    ================================================== -->
+
+    <section class="content-panel">
+
+        <iframe
+            id="contentFrame"
+            name="recruiterContentFrame"
+            src="recruiter_home.html"
+            title="Recruiter Content"
+            frameborder="0">
+        </iframe>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     NOTIFICATION OVERLAY
+===================================================== -->
+
+<div
+    class="notification-overlay"
+    id="notificationOverlay"
+    onclick="closeNotifications()">
+</div>
+
+
+
+<!-- =====================================================
+     NOTIFICATION PANEL
+===================================================== -->
+
+<aside
+    class="notification-panel"
+    id="notificationPanel">
+
+
+    <!-- HEADER -->
+
+    <div class="notification-panel-header">
+
+
+        <div>
+
+            <h2>
+                🔔 Notifications
+            </h2>
+
+            <p>
+                Stay updated with your recruitment activity.
+            </p>
+
+        </div>
+
+
+        <button
+            class="close-notifications"
+            onclick="closeNotifications()">
+
+            ✕
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- SUMMARY -->
+
+    <div class="notification-actions">
+
+        <span id="notificationSummary">
+            No new notifications
+        </span>
+
+        <button
+            onclick="markAllAsRead()">
+
+            Mark all as read
+
+        </button>
+
+    </div>
+
+
+
+    <!-- LIST -->
+
+    <div
+        class="notification-list"
+        id="notificationList">
+
+        <div class="notification-empty">
+            Loading notifications...
+        </div>
+
+    </div>
+
+
+</aside>
+
+
+<script src="api-config.js"></script>
+<script src="recruiter.js"></script>
+
+
+</body>
+
+</html>

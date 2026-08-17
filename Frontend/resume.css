@@ -1,0 +1,800 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+
+/* ==========================================
+   BODY
+========================================== */
+
+body {
+    background: #0F172A;
+    color: #F8FAFC;
+    min-height: 100vh;
+}
+
+
+/* ==========================================
+   MAIN PAGE
+========================================== */
+
+.resume-page {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 35px 30px 60px;
+}
+
+
+/* ==========================================
+   MY RESUME HEADER
+========================================== */
+
+.page-header {
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+.page-header h1 {
+    font-size: 27px;
+    color: #F8FAFC;
+    margin-bottom: 6px;
+}
+
+.page-header p {
+    color: #94A3B8;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   UPLOAD SECTION
+========================================== */
+
+.upload-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 45px;
+}
+
+
+/* ==========================================
+   UPLOAD CARD
+========================================== */
+
+.upload-card {
+    width: 100%;
+    max-width: 650px;
+
+    background: #111827;
+
+    border: 1px solid #1E293B;
+
+    border-radius: 20px;
+
+    padding: 45px;
+
+    text-align: center;
+
+    transition: 0.25s;
+}
+
+.upload-card:hover {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 15px 40px
+        rgba(37, 99, 235, 0.12);
+}
+
+
+/* ==========================================
+   UPLOAD ICON
+========================================== */
+
+.upload-icon {
+    width: 80px;
+    height: 80px;
+
+    margin: auto;
+    margin-bottom: 20px;
+
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563EB,
+            #7C3AED
+        );
+
+    font-size: 35px;
+}
+
+
+/* ==========================================
+   UPLOAD CARD TEXT
+========================================== */
+
+.upload-card h2 {
+    font-size: 22px;
+    color: #F8FAFC;
+    margin-bottom: 8px;
+}
+
+.upload-card > p {
+    color: #94A3B8;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   FILE AREA
+========================================== */
+
+.file-area {
+    margin-top: 25px;
+}
+
+
+input[type="file"] {
+    width: 100%;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    border: 1px solid #334155;
+
+    background: #0F172A;
+
+    color: #CBD5E1;
+
+    cursor: pointer;
+}
+
+
+input[type="file"]::file-selector-button {
+    background: #2563EB;
+
+    color: white;
+
+    border: none;
+
+    padding: 9px 14px;
+
+    border-radius: 7px;
+
+    margin-right: 10px;
+
+    cursor: pointer;
+}
+
+
+input[type="file"]::file-selector-button:hover {
+    background: #1D4ED8;
+}
+
+
+.file-name {
+    margin-top: 12px;
+
+    color: #60A5FA;
+
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   UPLOAD BUTTON
+========================================== */
+
+.upload-button {
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563EB,
+            #7C3AED
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.upload-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(37, 99, 235, 0.25);
+}
+
+
+.upload-note {
+    margin-top: 14px;
+
+    color: #64748B;
+
+    font-size: 10px;
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.loading-section {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 30px;
+}
+
+
+.loading-card {
+    width: 100%;
+    max-width: 650px;
+
+    background: #111827;
+
+    border: 1px solid #1E293B;
+
+    border-radius: 20px;
+
+    padding: 50px;
+
+    text-align: center;
+}
+
+
+.loader {
+    width: 45px;
+    height: 45px;
+
+    margin: auto;
+    margin-bottom: 20px;
+
+    border: 4px solid #1E293B;
+
+    border-top-color: #2563EB;
+
+    border-radius: 50%;
+
+    animation: spin 1s linear infinite;
+}
+
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.loading-card h2 {
+    color: #F8FAFC;
+    margin-bottom: 8px;
+}
+
+
+.loading-card p {
+    color: #94A3B8;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   AI ANALYSIS SECTION
+   ONLY ONE DIVIDER LINE
+========================================== */
+
+.analysis-section {
+    width: 100%;
+
+    margin-top: 45px;
+
+    padding-top: 30px;
+
+    /* ONE LINE ONLY */
+    border-top: 1px solid #334155;
+}
+
+
+/* ==========================================
+   AI ANALYSIS HEADER
+========================================== */
+
+.analysis-title {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 25px;
+
+    /* IMPORTANT:
+       NO border-bottom here
+    */
+}
+
+
+.analysis-title h1 {
+    font-size: 27px;
+
+    color: #F8FAFC;
+
+    margin-bottom: 5px;
+}
+
+
+.analysis-title p {
+    color: #94A3B8;
+
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   NEW RESUME BUTTON
+========================================== */
+
+.new-resume-button {
+    border: 1px solid #334155;
+
+    background: #111827;
+
+    color: #CBD5E1;
+
+    padding: 10px 14px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    transition: 0.25s;
+}
+
+
+.new-resume-button:hover {
+    border-color: #2563EB;
+
+    color: white;
+
+    background: #1E293B;
+}
+
+
+/* ==========================================
+   ANALYSIS CARD
+========================================== */
+
+.analysis-card {
+    background: #111827;
+
+    color: #F8FAFC;
+
+    border: 1px solid #1E293B;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.25);
+
+    transition: 0.25s;
+}
+
+
+.analysis-card:hover {
+    border-color: #334155;
+
+    box-shadow:
+        0 12px 30px
+        rgba(37, 99, 235, 0.08);
+}
+
+
+/* ==========================================
+   CARD TITLE
+========================================== */
+
+.card-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+
+.card-title span {
+    font-size: 21px;
+}
+
+
+.card-title h2 {
+    color: #60A5FA;
+
+    font-size: 20px;
+}
+
+
+/* ==========================================
+   CANDIDATE DETAILS
+========================================== */
+
+.candidate-details {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.detail-row {
+    font-size: 14px;
+
+    color: #CBD5E1;
+}
+
+
+.detail-row strong {
+    color: #F8FAFC;
+
+    margin-right: 5px;
+}
+
+
+/* ==========================================
+   SKILLS
+========================================== */
+
+.skills-container {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+.skill-tag {
+    background: #1E3A8A;
+
+    color: #BFDBFE;
+
+    border: 1px solid #2563EB;
+
+    padding: 9px 16px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+}
+
+
+.empty-text {
+    color: #64748B;
+
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   SCORE GRID
+========================================== */
+
+.score-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================
+   SCORE CARD
+========================================== */
+
+.score-card {
+    background: #111827;
+
+    color: #F8FAFC;
+
+    border: 1px solid #1E293B;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+.score-card:hover {
+    border-color: #334155;
+}
+
+
+.score-card .card-title {
+    text-align: left;
+}
+
+
+/* ==========================================
+   SCORE CIRCLE
+========================================== */
+
+.score-circle {
+    width: 145px;
+    height: 145px;
+
+    margin: 15px auto;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #22C55E,
+            #16A34A
+        );
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 0 30px
+        rgba(34, 197, 94, 0.15);
+}
+
+
+.score-circle span {
+    color: white;
+
+    font-size: 32px;
+
+    font-weight: 800;
+}
+
+
+.match-circle {
+    background:
+        linear-gradient(
+            135deg,
+            #2563EB,
+            #7C3AED
+        );
+
+    box-shadow:
+        0 0 30px
+        rgba(59, 130, 246, 0.15);
+}
+
+
+.score-status {
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #4ADE80;
+}
+
+
+/* ==========================================
+   TWO COLUMN
+========================================== */
+
+.two-column {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* ==========================================
+   LIST
+========================================== */
+
+.analysis-list {
+    padding-left: 22px;
+}
+
+
+.analysis-list li {
+    margin-bottom: 10px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    color: #CBD5E1;
+}
+
+
+.analysis-list li::marker {
+    color: #60A5FA;
+}
+
+
+/* ==========================================
+   RECOMMENDED JOBS
+========================================== */
+
+.recommendations {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+.job-card {
+    border-bottom: 1px solid #334155;
+
+    padding-bottom: 16px;
+}
+
+
+.job-card:last-child {
+    border-bottom: none;
+}
+
+
+.job-card h3 {
+    color: #F8FAFC;
+
+    font-size: 16px;
+
+    margin-bottom: 7px;
+}
+
+
+.job-company {
+    color: #CBD5E1;
+
+    font-size: 13px;
+
+    margin-bottom: 6px;
+}
+
+
+.job-location {
+    color: #94A3B8;
+
+    font-size: 12px;
+
+    margin-bottom: 6px;
+}
+
+
+.job-match {
+    color: #4ADE80;
+
+    font-weight: 700;
+
+    font-size: 13px;
+}
+
+
+.job-skills {
+    color: #94A3B8;
+
+    font-size: 12px;
+
+    margin-top: 5px;
+}
+
+
+/* ==========================================
+   HIDDEN
+========================================== */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 800px) {
+
+    .resume-page {
+        padding: 25px 18px 40px;
+    }
+
+
+    .score-grid,
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+
+
+    .analysis-title {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .upload-card {
+        max-width: 100%;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .upload-card {
+        padding: 30px 20px;
+    }
+
+
+    .analysis-card {
+        padding: 20px;
+    }
+
+
+    .analysis-title h1 {
+        font-size: 22px;
+    }
+
+
+    .page-header h1 {
+        font-size: 24px;
+    }
+}

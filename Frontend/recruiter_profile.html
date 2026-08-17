@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Recruiter Profile</title>
+
+    <link
+        rel="stylesheet"
+        href="recruiter_profile.css">
+
+</head>
+
+<body>
+
+<div class="profile-page">
+
+    <!-- ==========================================
+         BACK BUTTON
+    ========================================== -->
+
+    <button
+        class="back-button"
+        onclick="goBack()">
+
+        ← Back to Dashboard
+
+    </button>
+
+
+    <!-- ==========================================
+         PROFILE HEADER
+    ========================================== -->
+
+    <div class="profile-header">
+
+        <div class="profile-avatar-wrapper">
+
+            <div
+                class="profile-avatar"
+                id="profileAvatar">
+
+                👤
+
+            </div>
+
+
+            <label
+                for="profilePhoto"
+                class="upload-photo-button">
+
+                📷 Upload Photo
+
+            </label>
+
+
+            <input
+                type="file"
+                id="profilePhoto"
+                accept="image/*"
+                hidden>
+
+        </div>
+
+
+        <div class="profile-header-info">
+
+            <h1 id="profileName">
+                Recruiter
+            </h1>
+
+            <p>
+                Recruiter Profile
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         PROFILE CARD
+    ========================================== -->
+
+    <div class="profile-card">
+
+        <h2>
+            Personal Information
+        </h2>
+
+
+        <div class="profile-grid">
+
+            <div class="profile-field">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your name">
+
+            </div>
+
+
+            <div class="profile-field">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email">
+
+            </div>
+
+
+            <div class="profile-field">
+
+                <label>
+                    Phone
+                </label>
+
+                <input
+                    type="text"
+                    id="phone"
+                    placeholder="Enter phone number">
+
+            </div>
+
+
+            <div class="profile-field">
+
+                <label>
+                    Company
+                </label>
+
+                <input
+                    type="text"
+                    id="company"
+                    placeholder="Company name">
+
+            </div>
+
+
+            <div class="profile-field">
+
+                <label>
+                    Designation
+                </label>
+
+                <input
+                    type="text"
+                    id="designation"
+                    placeholder="Recruiter / HR">
+
+            </div>
+
+
+            <div class="profile-field">
+
+                <label>
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="location"
+                    placeholder="Location">
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-actions">
+
+            <button
+                class="save-button"
+                onclick="saveProfile()">
+
+                Save Changes
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         RECRUITER INFORMATION
+    ========================================== -->
+
+    <div class="profile-card">
+
+        <h2>
+            Recruiter Information
+        </h2>
+
+
+        <div class="info-grid">
+
+            <!-- JOBS POSTED -->
+
+            <div class="info-box">
+
+                <span class="info-icon">
+                    💼
+                </span>
+
+                <div>
+
+                    <strong>
+                        Jobs Posted
+                    </strong>
+
+                    <p id="jobsPosted">
+                        0
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- APPLICATIONS -->
+
+            <div class="info-box">
+
+                <span class="info-icon">
+                    👥
+                </span>
+
+                <div>
+
+                    <strong>
+                        Applications
+                    </strong>
+
+                    <p id="applications">
+                        0
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- COMPANY -->
+
+            <div class="info-box">
+
+                <span class="info-icon">
+                    🏢
+                </span>
+
+                <div>
+
+                    <strong>
+                        Company
+                    </strong>
+
+                    <p id="companyDisplay">
+                        Not added
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="api-config.js"></script>
+<script src="recruiter_profile.js"></script>
+
+</body>
+
+</html>

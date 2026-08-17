@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SwipeX Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="home.css">
+
+</head>
+
+<body>
+
+
+<!-- ==========================================
+     DASHBOARD STAT CARDS
+=========================================== -->
+
+<div class="stats">
+
+
+    <!-- PROFILE -->
+
+    <div class="stat-card">
+
+        <h2>
+            👤
+        </h2>
+
+        <h3>
+            Profile Completion
+        </h3>
+
+        <p id="profileCompletion">
+            0%
+        </p>
+
+    </div>
+
+
+
+    <!-- RESUME -->
+
+    <div class="stat-card">
+
+        <h2>
+            📄
+        </h2>
+
+        <h3>
+            Resume
+        </h3>
+
+        <p id="resumeStatus">
+            Not Uploaded ❌
+        </p>
+
+    </div>
+
+
+
+    <!-- APPLICATIONS -->
+
+    <div class="stat-card">
+
+        <h2>
+            💼
+        </h2>
+
+        <h3>
+            Jobs Applied
+        </h3>
+
+        <p id="jobsApplied">
+            0
+        </p>
+
+    </div>
+
+
+
+    <!-- ATS -->
+
+    <div class="stat-card ats-card">
+
+        <h2>
+            ⭐
+        </h2>
+
+        <h3>
+            ATS Resume Score
+        </h3>
+
+        <div
+            class="ats-circle"
+            id="atsCircle">
+
+            <span id="atsScore">
+                0%
+            </span>
+
+        </div>
+
+        <p id="atsText">
+            Upload your resume
+        </p>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==========================================
+     RECENT ACTIVITY
+========================================== -->
+
+<div class="activity">
+
+    <h2>
+        📢 Recent Activity
+    </h2>
+
+    <ul id="recentActivity">
+
+        <li>
+            No recent activity
+        </li>
+
+    </ul>
+
+</div>
+
+
+<script>
+
+
+function loadDashboard() {
+
+    let resume =
+        null;
+
+
+    let profile =
+        {};
+
+
+    // ==========================================
+    // RESUME
+    // ==========================================
+
+    try {
+
+        resume =
+            JSON.parse(
+                localStorage.getItem(
+                    "resumeData"
+                )
+            );
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Resume data error:",
+            error
+        );
+
+    }
+
+
+    // ==========================================
+    // PROFILE
+    // ==========================================
+
+    try {
+
+        profile =
+            JSON.parse(
+                localStorage.getItem(
+                    "swipex_profile"
+                )
+            )
+            ||
+            {};
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Profile data error:",
+            error
+        );
+
+
+        profile =
+            {};
+
+    }
+
+
+    // ==========================================
+    // ELEMENTS
+    // ==========================================
+
+    const profileCompletion =
+        document.getElementById(
+            "profileCompletion"
+        );
+
+
+    const resumeStatus =
+        document.getElementById(
+            "resumeStatus"
+        );
+
+
+    const atsScore =
+        document.getElementById(
+            "atsScore"
+        );
+
+
+    const atsCircle =
+        document.getElementById(
+            "atsCircle"
+        );
+
+
+    const atsText =
+        document.getElementById(
+            "atsText"
+        );
+
+
+    const activity =
+        document.getElementById(
+            "recentActivity"
+        );
+
+
+    const jobsApplied =
+        document.getElementById(
+            "jobsApplied"
+        );
+
+
+    // ==========================================
+    // PROFILE COMPLETION
+    // ==========================================
+
+    const profileFields = [
+
+        profile.fullName,
+
+        profile.email,
+
+        profile.phone,
+
+        profile.location,
+
+        profile.headline,
+
+        profile.about,
+
+        profile.skills,
+
+        profile.education,
+
+        profile.experience
+
+    ];
+
+
+    let completedFields =
+        0;
+
+
+    profileFields.forEach(
+        function(field) {
+
+            if (
+                field &&
+                String(
+                    field
+                ).trim() !==
+                ""
+            ) {
+
+                completedFields++;
+
+            }
+
+        }
+    );
+
+
+    if (resume) {
+
+        completedFields++;
+
+    }
+
+
+    const totalFields =
+        10;
+
+
+    const completion =
+        Math.round(
+            (
+                completedFields /
+                totalFields
+            )
+            *
+            100
+        );
+
+
+    if (profileCompletion) {
+
+        profileCompletion.textContent =
+            completion +
+            "%";
+
+    }
+
+
+    // ==========================================
+    // APPLICATIONS
+    // ==========================================
+
+    let applications =
+        [];
+
+
+    try {
+
+        applications =
+            JSON.parse(
+                localStorage.getItem(
+                    "applications"
+                )
+            )
+            ||
+            [];
+
+    }
+
+    catch(error) {
+
+        applications =
+            [];
+
+    }
+
+
+    if (jobsApplied) {
+
+        jobsApplied.textContent =
+            applications.length;
+
+    }
+
+
+    // ==========================================
+    // NO RESUME
+    // ==========================================
+
+    if (!resume) {
+
+        if (resumeStatus) {
+
+            resumeStatus.textContent =
+                "Not Uploaded ❌";
+
+        }
+
+
+        if (atsScore) {
+
+            atsScore.textContent =
+                "0%";
+
+        }
+
+
+        if (atsText) {
+
+            atsText.textContent =
+                "Upload your resume";
+
+        }
+
+
+        if (atsCircle) {
+
+            atsCircle.style.setProperty(
+                "--score",
+                "0deg"
+            );
+
+        }
+
+
+        if (activity) {
+
+            if (
+                completedFields ===
+                0
+            ) {
+
+                activity.innerHTML =
+                    "<li>No recent activity</li>";
+
+            }
+
+            else {
+
+                activity.innerHTML =
+                    "<li>👤 Profile completion: " +
+                    completion +
+                    "%</li>";
+
+            }
+
+        }
+
+
+        return;
+
+    }
+
+
+    // ==========================================
+    // ATS
+    // ==========================================
+
+    const score =
+        Number(
+            resume.ats_score
+        )
+        ||
+        0;
+
+
+    if (resumeStatus) {
+
+        resumeStatus.textContent =
+            "Uploaded ✅";
+
+    }
+
+
+    if (atsScore) {
+
+        atsScore.textContent =
+            score +
+            "%";
+
+    }
+
+
+    if (atsCircle) {
+
+        atsCircle.style.setProperty(
+            "--score",
+            (
+                score *
+                3.6
+            )
+            +
+            "deg"
+        );
+
+    }
+
+
+    // ==========================================
+    // ATS MESSAGE
+    // ==========================================
+
+    if (atsText) {
+
+        if (
+            score >=
+            80
+        ) {
+
+            atsText.textContent =
+                "Excellent resume";
+
+        }
+
+        else if (
+            score >=
+            60
+        ) {
+
+            atsText.textContent =
+                "Good resume";
+
+        }
+
+        else if (
+            score >=
+            40
+        ) {
+
+            atsText.textContent =
+                "Needs improvement";
+
+        }
+
+        else {
+
+            atsText.textContent =
+                "Improve your resume";
+
+        }
+
+    }
+
+
+    // ==========================================
+    // ACTIVITY
+    // ==========================================
+
+    if (!activity) {
+
+        return;
+
+    }
+
+
+    activity.innerHTML =
+        "";
+
+
+    activity.innerHTML +=
+        "<li>👤 Profile completion: " +
+        completion +
+        "%</li>";
+
+
+    activity.innerHTML +=
+        "<li>✅ Resume uploaded and analyzed successfully</li>";
+
+
+    activity.innerHTML +=
+        "<li>⭐ ATS Resume Score: " +
+        score +
+        "%</li>";
+
+
+    if (
+        resume.match_percentage !==
+        undefined
+    ) {
+
+        activity.innerHTML +=
+            "<li>🤖 Best Job Match: " +
+            resume.match_percentage +
+            "%</li>";
+
+    }
+
+
+    if (
+        resume.recommendations &&
+        resume.recommendations.length >
+        0
+    ) {
+
+        activity.innerHTML +=
+            "<li>💼 " +
+            resume.recommendations.length +
+            " AI job recommendations available</li>";
+
+    }
+
+
+    if (
+        applications.length >
+        0
+    ) {
+
+        activity.innerHTML +=
+            "<li>📋 " +
+            applications.length +
+            " job application(s) submitted</li>";
+
+    }
+
+}
+
+
+// ==========================================
+// START
+// ==========================================
+
+loadDashboard();
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,903 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.14),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(124, 58, 237, 0.13),
+            transparent 32%
+        ),
+        #070B18;
+
+    color: #F8FAFC;
+
+}
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+.analysis-page {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 35px 30px 60px;
+
+}
+
+
+/* =========================================
+   TOP BAR
+========================================= */
+
+.top-bar {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.back-button {
+
+    border: 1px solid #293252;
+
+    background: #10152A;
+
+    color: #CBD5E1;
+
+    padding: 10px 16px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: .2s ease;
+
+    white-space: nowrap;
+
+}
+
+
+.back-button:hover {
+
+    background: #18213D;
+
+    border-color: #3B82F6;
+
+    color: white;
+
+    transform: translateX(-3px);
+
+}
+
+
+.page-heading h1 {
+
+    font-size: 30px;
+
+    color: #F8FAFC;
+
+    margin-bottom: 5px;
+
+}
+
+
+.page-heading p {
+
+    color: #7F8BA8;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================
+   RESUME INFO
+========================================= */
+
+.resume-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    margin-bottom: 22px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #10152A,
+            #121A35
+        );
+
+    border: 1px solid #252D49;
+
+}
+
+
+.resume-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #18213D;
+
+    font-size: 21px;
+
+}
+
+
+.section-label {
+
+    display: block;
+
+    color: #60A5FA;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 3px;
+
+}
+
+
+.resume-info h2 {
+
+    font-size: 15px;
+
+    color: #F8FAFC;
+
+}
+
+
+/* =========================================
+   SCORE GRID
+========================================= */
+
+.score-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* =========================================
+   SCORE CARD
+========================================= */
+
+.score-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            #10152A,
+            #111A34
+        );
+
+    border: 1px solid #252D49;
+
+    border-radius: 18px;
+
+    padding: 23px;
+
+    box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, .25);
+
+}
+
+
+.score-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    color: #CBD5E1;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+
+}
+
+
+.score-badge {
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: #18213D;
+
+    color: #60A5FA;
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================
+   ATS SCORE
+========================================= */
+
+.score-content {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+}
+
+
+.score-circle {
+
+    width: 145px;
+
+    height: 145px;
+
+    min-width: 145px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        conic-gradient(
+            #3B82F6 0deg,
+            #7C3AED 0deg,
+            #202A46 0deg
+        );
+
+    position: relative;
+
+}
+
+
+.score-circle::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 115px;
+
+    height: 115px;
+
+    border-radius: 50%;
+
+    background: #10152A;
+
+}
+
+
+.score-circle > div {
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+}
+
+
+.score-circle strong {
+
+    display: block;
+
+    font-size: 30px;
+
+    color: #F8FAFC;
+
+}
+
+
+.score-circle small {
+
+    color: #7F8BA8;
+
+    font-size: 9px;
+
+}
+
+
+.score-description h3 {
+
+    font-size: 17px;
+
+    margin-bottom: 7px;
+
+}
+
+
+.score-description p {
+
+    color: #7F8BA8;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =========================================
+   MATCH
+========================================= */
+
+.match-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+}
+
+
+.match-number strong {
+
+    display: block;
+
+    font-size: 42px;
+
+    color: #4ADE80;
+
+}
+
+
+.match-number span {
+
+    color: #7F8BA8;
+
+    font-size: 11px;
+
+}
+
+
+.progress-container {
+
+    width: 100%;
+
+}
+
+
+.progress-bar {
+
+    width: 100%;
+
+    height: 10px;
+
+    background: #202A46;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+}
+
+
+.progress-fill {
+
+    height: 100%;
+
+    width: 0%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7C3AED,
+            #3B82F6
+        );
+
+    transition: width .7s ease;
+
+}
+
+
+.progress-container p {
+
+    margin-top: 8px;
+
+    color: #66708A;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================
+   ANALYSIS CARDS
+========================================= */
+
+.analysis-card {
+
+    background: #10152A;
+
+    border: 1px solid #252D49;
+
+    border-radius: 16px;
+
+    padding: 23px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.card-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.heading-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 10px;
+
+    background: #18213D;
+
+    color: #4ADE80;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 800;
+
+}
+
+
+.warning-icon {
+
+    color: #FBBF24;
+
+}
+
+
+.card-heading h2 {
+
+    font-size: 16px;
+
+    margin-bottom: 3px;
+
+}
+
+
+.card-heading p {
+
+    color: #66708A;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================
+   SKILLS
+========================================= */
+
+.skills-container {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+}
+
+
+.skill {
+
+    padding: 8px 12px;
+
+    border-radius: 20px;
+
+    background: #18213D;
+
+    border: 1px solid #293252;
+
+    color: #93C5FD;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+.skill.missing {
+
+    color: #FCA5A5;
+
+    border-color: #4B252C;
+
+    background: #24151C;
+
+}
+
+
+.no-data {
+
+    color: #66708A;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   SUGGESTIONS
+========================================= */
+
+.suggestions-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.suggestion {
+
+    display: flex;
+
+    gap: 12px;
+
+    padding: 13px 15px;
+
+    background: #0B1026;
+
+    border: 1px solid #252D49;
+
+    border-radius: 11px;
+
+    color: #CBD5E1;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+}
+
+
+.suggestion-icon {
+
+    color: #FBBF24;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================
+   JOB SECTION
+========================================= */
+
+.jobs-section {
+
+    margin-top: 30px;
+
+}
+
+
+.section-heading {
+
+    margin-bottom: 18px;
+
+}
+
+
+.section-heading > div > span {
+
+    color: #60A5FA;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.section-heading h2 {
+
+    font-size: 24px;
+
+    margin-top: 4px;
+
+}
+
+
+.section-heading p {
+
+    color: #7F8BA8;
+
+    font-size: 11px;
+
+    margin-top: 4px;
+
+}
+
+
+/* =========================================
+   JOB GRID
+========================================= */
+
+.jobs-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 16px;
+
+}
+
+
+.job-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            #10152A,
+            #121A35
+        );
+
+    border: 1px solid #252D49;
+
+    border-radius: 15px;
+
+    padding: 19px;
+
+    transition: .25s ease;
+
+}
+
+
+.job-card:hover {
+
+    transform: translateY(-4px);
+
+    border-color: #3B82F6;
+
+    box-shadow:
+        0 15px 35px
+        rgba(0, 0, 0, .3);
+
+}
+
+
+.job-company {
+
+    color: #60A5FA;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    margin-bottom: 7px;
+
+}
+
+
+.job-card h3 {
+
+    font-size: 17px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.job-location {
+
+    color: #94A3B8;
+
+    font-size: 11px;
+
+    margin-bottom: 13px;
+
+}
+
+
+.job-match {
+
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: #122B24;
+
+    color: #4ADE80;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+}
+
+
+.job-card p {
+
+    color: #CBD5E1;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+}
+
+
+.no-jobs {
+
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    padding: 35px;
+
+    border: 1px solid #252D49;
+
+    border-radius: 15px;
+
+    background: #10152A;
+
+    color: #66708A;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .analysis-page {
+
+        padding: 25px 18px 45px;
+
+    }
+
+
+    .score-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .jobs-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .top-bar {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .page-heading h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .score-content {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+}

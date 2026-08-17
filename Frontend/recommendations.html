@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>AI Recommended Jobs</title>
+
+<link
+    rel="stylesheet"
+    href="recommendations.css">
+
+</head>
+
+<body>
+
+
+<!-- ==================================
+     HEADER
+================================== -->
+
+<div class="page-header">
+
+
+    <!-- DASHBOARD BUTTON -->
+
+    <button
+        class="dashboard-btn"
+        type="button"
+        onclick="goBack()">
+
+        ← Dashboard
+
+    </button>
+
+
+    <!-- TITLE -->
+
+    <div>
+
+        <p class="eyebrow">
+            🤖 SWIPEX AI
+        </p>
+
+        <h1>
+            Recommended Jobs
+        </h1>
+
+        <p class="subtitle">
+            Jobs ranked using the skills
+            found in your resume.
+        </p>
+
+    </div>
+
+
+    <!-- ATS SCORE -->
+
+    <div class="header-score">
+
+        <span>
+            ATS SCORE
+        </span>
+
+        <strong id="headerAtsScore">
+            0%
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- ==================================
+     MAIN LAYOUT
+================================== -->
+
+<div class="recommendation-layout">
+
+
+    <!-- JOB CARDS -->
+
+    <main>
+
+        <div id="recommendations"></div>
+
+    </main>
+
+
+    <!-- COMPATIBILITY PANEL -->
+
+    <aside class="compatibility-panel">
+
+        <h2>
+            ✨ AI Compatibility
+        </h2>
+
+
+        <div
+            class="compatibility-circle"
+            id="compatibilityCircle">
+
+            <span id="compatibilityScore">
+                0%
+            </span>
+
+        </div>
+
+
+        <p id="compatibilityText">
+            Select a recommendation
+        </p>
+
+
+        <!-- ROLE REQUIREMENTS -->
+
+        <div class="panel-section">
+
+            <h3>
+                Role Requirements
+            </h3>
+
+            <ul id="roleRequirements">
+
+                <li>
+                    Select a job to
+                    view its requirements.
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- MATCHED SKILLS -->
+
+        <div class="panel-section">
+
+            <h3>
+                Matched Skills
+            </h3>
+
+            <div
+                id="panelMatched"
+                class="skill-list">
+            </div>
+
+        </div>
+
+
+        <!-- MISSING SKILLS -->
+
+        <div class="panel-section">
+
+            <h3>
+                Missing Skills
+            </h3>
+
+            <div
+                id="panelMissing"
+                class="skill-list missing">
+            </div>
+
+        </div>
+
+    </aside>
+
+</div>
+
+<script src="api-config.js"></script>
+<script src="recommendations.js"></script>
+
+</body>
+
+</html>

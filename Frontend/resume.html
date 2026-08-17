@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SwipeX - Resume</title>
+
+    <link
+        rel="stylesheet"
+        href="resume.css">
+
+</head>
+
+<body>
+
+<div class="resume-page">
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                📄 My Resume
+            </h1>
+
+            <p>
+                Upload your resume and let SwipeX analyze it using AI.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         UPLOAD SECTION
+    =========================================== -->
+
+    <section
+        id="uploadSection"
+        class="upload-section">
+
+        <div class="upload-card">
+
+            <div class="upload-icon">
+                📄
+            </div>
+
+            <h2>
+                Upload Your Resume
+            </h2>
+
+            <p>
+                Upload your latest resume in PDF format.
+            </p>
+
+            <div class="file-area">
+
+                <input
+                    type="file"
+                    id="resumeFile"
+                    accept=".pdf">
+
+                <p
+                    id="fileName"
+                    class="file-name">
+                    No file selected
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="uploadButton"
+                class="upload-button"
+                onclick="uploadResume()">
+
+                🤖 Analyze Resume
+
+            </button>
+
+            <p class="upload-note">
+                Supported format: PDF • Maximum size: 5 MB
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         LOADING
+    =========================================== -->
+
+    <section
+        id="loadingSection"
+        class="loading-section hidden">
+
+        <div class="loading-card">
+
+            <div class="loader"></div>
+
+            <h2>
+                Analyzing your resume...
+            </h2>
+
+            <p>
+                SwipeX AI is checking your skills and matching your profile with jobs.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         ANALYSIS SECTION
+    =========================================== -->
+
+    <section
+        id="analysisSection"
+        class="analysis-section hidden">
+
+
+        <!-- ======================================
+             ANALYSIS HEADER
+        ======================================= -->
+
+        <div class="analysis-title">
+
+            <div>
+
+                <h1>
+                    🤖 AI Resume Analysis
+                </h1>
+
+                <p>
+                    Here's how your resume performs with SwipeX AI.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="new-resume-button"
+                onclick="showUploadSection()">
+
+                ↻ Upload New Resume
+
+            </button>
+
+        </div>
+
+
+        <!-- ======================================
+             CANDIDATE DETAILS
+        ======================================= -->
+
+        <div class="analysis-card">
+
+            <div class="card-title">
+
+                <span>
+                    👤
+                </span>
+
+                <h2>
+                    Candidate Details
+                </h2>
+
+            </div>
+
+
+            <div class="candidate-details">
+
+                <div class="detail-row">
+
+                    <strong>
+                        Resume:
+                    </strong>
+
+                    <span id="analysisFilename">
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <strong>
+                        Username:
+                    </strong>
+
+                    <span id="analysisUsername">
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ======================================
+             RESUME SKILLS
+        ======================================= -->
+
+        <div class="analysis-card">
+
+            <div class="card-title">
+
+                <span>
+                    🛠️
+                </span>
+
+                <h2>
+                    Resume Skills
+                </h2>
+
+            </div>
+
+
+            <div
+                id="skillsContainer"
+                class="skills-container">
+
+                <span class="empty-text">
+                    No skills detected.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ======================================
+             SCORE GRID
+        ======================================= -->
+
+        <div class="score-grid">
+
+
+            <!-- ATS SCORE -->
+
+            <div class="score-card">
+
+                <div class="card-title">
+
+                    <span>
+                        ⭐
+                    </span>
+
+                    <h2>
+                        ATS Score
+                    </h2>
+
+                </div>
+
+
+                <div
+                    id="atsScoreCircle"
+                    class="score-circle">
+
+                    <span id="atsScore">
+                        0%
+                    </span>
+
+                </div>
+
+
+                <p
+                    id="atsStatus"
+                    class="score-status">
+
+                    -
+
+                </p>
+
+            </div>
+
+
+            <!-- MATCH SCORE -->
+
+            <div class="score-card">
+
+                <div class="card-title">
+
+                    <span>
+                        🎯
+                    </span>
+
+                    <h2>
+                        Match Percentage
+                    </h2>
+
+                </div>
+
+
+                <div
+                    id="matchScoreCircle"
+                    class="score-circle match-circle">
+
+                    <span id="matchPercentage">
+                        0%
+                    </span>
+
+                </div>
+
+
+                <p
+                    id="matchStatus"
+                    class="score-status">
+
+                    -
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ======================================
+             SKILL ANALYSIS
+        ======================================= -->
+
+        <div class="two-column">
+
+
+            <!-- MATCHED SKILLS -->
+
+            <div class="analysis-card">
+
+                <div class="card-title">
+
+                    <span>
+                        ✅
+                    </span>
+
+                    <h2>
+                        Matched Skills
+                    </h2>
+
+                </div>
+
+
+                <ul
+                    id="matchedSkills"
+                    class="analysis-list">
+
+                </ul>
+
+            </div>
+
+
+            <!-- MISSING SKILLS -->
+
+            <div class="analysis-card">
+
+                <div class="card-title">
+
+                    <span>
+                        ❌
+                    </span>
+
+                    <h2>
+                        Missing Skills
+                    </h2>
+
+                </div>
+
+
+                <ul
+                    id="missingSkills"
+                    class="analysis-list">
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- ======================================
+             SUGGESTIONS
+        ======================================= -->
+
+        <div class="analysis-card">
+
+            <div class="card-title">
+
+                <span>
+                    💡
+                </span>
+
+                <h2>
+                    Resume Suggestions
+                </h2>
+
+            </div>
+
+
+            <ul
+                id="suggestions"
+                class="analysis-list">
+
+            </ul>
+
+        </div>
+
+
+        <!-- ======================================
+             RECOMMENDED JOBS
+        ======================================= -->
+
+        <div class="analysis-card">
+
+            <div class="card-title">
+
+                <span>
+                    💼
+                </span>
+
+                <h2>
+                    AI Recommended Jobs
+                </h2>
+
+            </div>
+
+
+            <div
+                id="recommendations"
+                class="recommendations">
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</div>
+
+<script src="api-config.js"></script>
+<script src="resume.js"></script>
+
+</body>
+
+</html>

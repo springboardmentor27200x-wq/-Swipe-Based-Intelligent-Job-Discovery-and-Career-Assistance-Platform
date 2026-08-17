@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Notifications - SwipeX</title>
+
+    <link rel="stylesheet" href="notifications.css">
+
+</head>
+
+<body>
+
+<div class="notifications-page">
+
+
+    <div class="notifications-top">
+
+        <div>
+
+            <h1>🔔 Notifications</h1>
+
+            <p>
+                Stay updated with your latest activity.
+            </p>
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="markAllRead()">
+
+            ✓ Mark all as read
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="fullNotificationList"
+        class="full-notification-list">
+
+        <div class="loading">
+            Loading notifications...
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="api-config.js"></script>
+
+<script>
+
+const API_URL =
+    window.SWIPEX_API_URL;
+
+
+// =====================================================
+// GET USERNAME
+// =====================================================
+
+function getUsername() {
+
+    return (
+        localStorage.getItem(
+            "swipex_username"
+        )
+        ||
+        localStorage.getItem(
+            "username"
+        )
+        ||
+        ""
+    );
+
+}
+
+
+// =====================================================
+// LOAD FULL NOTIFICATIONS
+// =====================================================
+
+async function loadFullNotifications() {
+
+    const username =
+        getUsername();
+
+
+    if (!username) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/notifications/${encodeURIComponent(username)}`,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load notifications"
+            );
+
+        }
+
+
+        const notifications =
+            await response.json();
+
+
+        const container =
+            document.getElementById(
+                "fullNotificationList"
+            );
+
+
+        container.innerHTML = "";
+
+
+        if (
+            !Array.isArray(notifications) ||
+            notifications.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    🎉
+
+                    <h2>
+                        You're all caught up!
+                    </h2>
+
+                    <p>
+                        No new notifications.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        notifications.forEach(
+            function(notification) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "full-notification";
+
+
+                if (!notification.is_read) {
+
+                    card.classList.add(
+                        "unread"
+                    );
+
+                }
+
+
+                card.innerHTML = `
+
+                    <div class="notification-icon">
+                        🔔
+                    </div>
+
+                    <div class="notification-content">
+
+                        <h3>
+                            ${escapeHtml(
+                                notification.title ||
+                                "Notification"
+                            )}
+                        </h3>
+
+                        <p>
+                            ${escapeHtml(
+                                notification.message ||
+                                ""
+                            )}
+                        </p>
+
+                        <span>
+                            ${formatTime(
+                                notification.created_at
+                            )}
+                        </span>
+
+                    </div>
+
+                `;
+
+
+                card.addEventListener(
+                    "click",
+                    function() {
+
+                        if (
+                            notification.is_read ===
+                            false
+                        ) {
+
+                            markRead(
+                                notification.id
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+    catch(error) {
+
+        console.error(
+            "Notifications error:",
+            error
+        );
+
+
+        const container =
+            document.getElementById(
+                "fullNotificationList"
+            );
+
+
+        if (container) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    ⚠️
+
+                    <h2>
+                        Unable to load notifications
+                    </h2>
+
+                    <p>
+                        Please try again.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+// =====================================================
+// MARK ONE READ
+// =====================================================
+
+async function markRead(id) {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/notifications/${id}/read`,
+                {
+                    method: "PUT"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to mark notification as read"
+            );
+
+        }
+
+
+        await loadFullNotifications();
+
+    }
+    catch(error) {
+
+        console.error(
+            "Mark notification read error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// MARK ALL READ
+// =====================================================
+
+async function markAllRead() {
+
+    const username =
+        getUsername();
+
+
+    if (!username) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/notifications/${encodeURIComponent(username)}/read-all`,
+                {
+                    method: "PUT"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to mark all notifications as read"
+            );
+
+        }
+
+
+        await loadFullNotifications();
+
+    }
+    catch(error) {
+
+        console.error(
+            "Mark all read error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// FORMAT TIME
+// =====================================================
+
+function formatTime(timestamp) {
+
+    if (!timestamp) {
+
+        return "Recently";
+
+    }
+
+
+    const date =
+        new Date(timestamp);
+
+
+    if (
+        isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "Recently";
+
+    }
+
+
+    return date.toLocaleString();
+
+}
+
+
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        value == null
+            ? ""
+            : String(value);
+
+
+    return div.innerHTML;
+
+}
+
+
+// =====================================================
+// START
+// =====================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadFullNotifications();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Posted Jobs</title>
+
+    <link
+        rel="stylesheet"
+        href="postedjobs.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- TOP BAR -->
+
+    <div class="page-header">
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="backToRecruiterDashboard()">
+
+            ← Back to Dashboard
+
+        </button>
+
+
+        <div>
+
+            <h1>
+                📋 Posted Jobs
+            </h1>
+
+            <p>
+                Manage your active job postings and applications.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- JOB LIST -->
+
+    <div id="jobsList">
+
+        <div class="empty-message">
+            Loading jobs...
+        </div>
+
+    </div>
+
+</div>
+
+<script src="api-config.js"></script>
+<script src="postedjobs.js"></script>
+
+</body>
+
+</html>

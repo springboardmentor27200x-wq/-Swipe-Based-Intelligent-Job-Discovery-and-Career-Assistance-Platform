@@ -1,0 +1,444 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+    background:#0B1020;
+    color:white;
+}
+
+.page{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:40px;
+}
+
+/* ==========================================
+   NAVBAR
+========================================== */
+
+.navbar{
+    width:100%;
+    max-width:900px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:40px;
+    position:relative;
+}
+
+.navbar h2{
+    font-size:34px;
+}
+
+/* Dashboard button moved to LEFT */
+
+.navbar button{
+    position:absolute;
+    left:0;
+    top:50%;
+    transform:translateY(-50%);
+
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    background:#3B82F6;
+    color:white;
+
+    border:none;
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+
+    transition:0.2s ease;
+}
+
+.navbar button:hover{
+    background:#2563EB;
+    transform:translateY(-50%) translateX(-2px);
+}
+
+
+/* ==========================================
+   FILTERS
+========================================== */
+
+.filters{
+    width:100%;
+    max-width:900px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+}
+
+.filters input,
+.filters select{
+    width:220px;
+    padding:12px;
+    background:#181B2E;
+    color:white;
+    border:1px solid #2F3550;
+    border-radius:10px;
+    font-size:15px;
+}
+
+.filters button{
+    padding:12px 24px;
+    background:#2563EB;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.filters button:hover{
+    background:#1D4ED8;
+}
+
+
+/* ==========================================
+   JOB CARD
+========================================== */
+
+.job-card{
+    width:480px;
+    background:#181B2E;
+    border-radius:25px;
+    padding:25px;
+    box-shadow:0 20px 50px rgba(0,0,0,.45);
+    border-top:5px solid orange;
+    transition:.3s;
+}
+
+.job-card:hover{
+    transform:translateY(-5px);
+}
+
+.top{
+    display:flex;
+    gap:18px;
+    align-items:center;
+}
+
+.logo{
+    width:65px;
+    height:65px;
+    background:#2563EB;
+    border-radius:15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.top h2{
+    color:white;
+}
+
+.top h3{
+    color:#BBBBBB;
+    font-size:17px;
+    margin-top:5px;
+}
+
+
+/* ==========================================
+   TAGS
+========================================== */
+
+.tags{
+    display:flex;
+    gap:10px;
+    margin:25px 0;
+    flex-wrap:wrap;
+}
+
+.tags span{
+    background:#252942;
+    padding:8px 15px;
+    border-radius:30px;
+    color:#ddd;
+    font-size:13px;
+}
+
+
+/* ==========================================
+   DESCRIPTION
+========================================== */
+
+#description{
+    color:#CFCFCF;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+
+/* ==========================================
+   SKILLS
+========================================== */
+
+.skills{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:15px 0 25px;
+}
+
+.skills span{
+    background:#4F46E5;
+    color:white;
+    padding:8px 14px;
+    border-radius:8px;
+    font-size:13px;
+}
+
+
+/* ==========================================
+   BOTTOM
+========================================== */
+
+.bottom{
+    display:flex;
+    justify-content:space-between;
+    border-top:1px solid rgba(255,255,255,0.07);
+    padding-top:20px;
+}
+
+.bottom p{
+    color:#999;
+    margin-bottom:8px;
+}
+
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.actions{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:30px;
+
+    position:relative;
+    z-index:10;
+}
+
+.actions button{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    border:none;
+    font-size:28px;
+    cursor:pointer;
+    transition:.3s;
+
+    position:relative;
+    z-index:11;
+}
+
+.skip{
+    background:#2A1E2B;
+    color:#FF4D6D;
+}
+
+.save{
+    background:#2C2938;
+    color:#FFD54F;
+}
+
+.apply{
+    background:#16312A;
+    color:#00E676;
+}
+
+.actions button:hover{
+    transform:scale(1.15);
+    box-shadow:0 0 20px rgba(255,255,255,.25);
+}
+
+
+/* ==========================================
+   SWIPE ANIMATIONS
+========================================== */
+
+.swipe-left{
+    transform:translateX(-700px) rotate(-20deg);
+    opacity:0;
+    transition:0.5s;
+}
+
+.swipe-right{
+    transform:translateX(700px) rotate(20deg);
+    opacity:0;
+    transition:0.5s;
+}
+
+.job-card{
+    transition:0.4s ease;
+    cursor:grab;
+    user-select:none;
+}
+
+.job-card:active{
+    cursor:grabbing;
+}
+
+.save-btn:hover{
+    transform:scale(1.12);
+    box-shadow:0 0 18px gold;
+}
+
+
+/* ==========================================
+   JOB INDICATORS
+========================================== */
+
+.job-indicators{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:18px;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,0.06);
+    color:#AEB5C7;
+    font-size:13px;
+}
+
+#applicantCount{
+    color:#AEB5C7;
+}
+
+#earlyApplicant{
+    color:#00E676;
+    font-weight:600;
+}
+
+#postedTime{
+    color:#BBBBBB;
+}
+
+.job-stats{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid rgba(255,255,255,0.06);
+    padding-top:15px;
+    margin-top:15px;
+    color:#BBBBBB;
+    font-size:13px;
+}
+
+.job-stats span{
+    white-space:nowrap;
+}
+
+#earlyApplicant{
+    color:#00E676;
+}
+
+.job-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding-top:12px;
+
+    color:#B8B8C8;
+
+    font-size:13px;
+
+    gap:15px;
+}
+
+.job-meta span{
+    white-space:nowrap;
+}
+
+#earlyApplicant{
+    color:#00E676;
+}
+
+#recentlyPosted{
+    color:#BBBBBB;
+}
+
+
+/* ==========================================
+   SEPARATOR
+========================================== */
+
+hr{
+    border:none;
+    border-top:1px solid rgba(255,255,255,0.06);
+    margin:0;
+}
+
+
+/* ==========================================
+   COMPATIBILITY
+========================================== */
+
+.compatibility-box{
+    background:#20243A;
+    border-radius:12px;
+    padding:15px;
+    margin:20px 0;
+}
+
+.compatibility-box h4{
+    margin-bottom:10px;
+}
+
+.compatibility-box p{
+    color:#CCCCCC;
+    margin:6px 0;
+    line-height:1.5;
+}
+
+
+/* ==========================================
+   BACK DASHBOARD BUTTON
+========================================== */
+
+.back-dashboard-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 18px;
+    margin-bottom:20px;
+
+    border:none;
+    border-radius:8px;
+
+    background:#f1f5f9;
+    color:#1e293b;
+
+    font-size:15px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:0.2s ease;
+}
+
+.back-dashboard-btn:hover{
+    background:#e2e8f0;
+    transform:translateX(-2px);
+}
