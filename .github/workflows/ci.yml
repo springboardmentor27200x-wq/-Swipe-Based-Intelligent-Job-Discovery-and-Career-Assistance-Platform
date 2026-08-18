@@ -1,0 +1,48 @@
+name: SwipeX CI Verification
+
+on:
+  push:
+    branches:
+      - Roopa-Sree
+  pull_request:
+    branches:
+      - Roopa-Sree
+
+jobs:
+
+  verify-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install backend dependencies
+        run: |
+          cd Backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Verify FastAPI backend
+        run: |
+          cd Backend
+          python -m py_compile app.py database.py
+
+  verify-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify frontend files
+        run: |
+          test -f Frontend/index.html
+          test -f Frontend/api-config.js
+          test -f Frontend/jobs.html
+          test -f Frontend/jobs.js
