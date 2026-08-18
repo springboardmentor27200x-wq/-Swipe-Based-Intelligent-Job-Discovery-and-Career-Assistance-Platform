@@ -59,45 +59,30 @@ FRONTEND_URL = os.getenv(
     "FRONTEND_URL"
 )
 
-
 allowed_origins = [
-
     "http://127.0.0.1:5500",
-
-    "http://localhost:5500",
-
-    "http://127.0.0.1:51096",
-
-    "http://localhost:51096"
-
+    "http://localhost:5500"
 ]
 
-
 if FRONTEND_URL:
-
     allowed_origins.append(
         FRONTEND_URL.rstrip("/")
     )
 
-
 app.add_middleware(
-
     CORSMiddleware,
 
-    allow_origins=
-        allowed_origins,
+    allow_origins=allowed_origins,
 
-    allow_credentials=
-        True,
+    # Allow ANY Live Server localhost port
+    allow_origin_regex=
+        r"^http://(localhost|127\.0\.0\.1):\d+$",
 
-    allow_methods=[
-        "*"
-    ],
+    allow_credentials=True,
 
-    allow_headers=[
-        "*"
-    ]
+    allow_methods=["*"],
 
+    allow_headers=["*"]
 )
 
 # =========================================================
@@ -108,18 +93,11 @@ BASE_DIR = os.path.dirname(
     os.path.abspath(__file__)
 )
 
-
-UPLOAD_FOLDER = os.path.join(
-    BASE_DIR,
-    "uploads"
-)
-
-
+UPLOAD_FOLDER = "/tmp/uploads"
 os.makedirs(
     UPLOAD_FOLDER,
     exist_ok=True
 )
-
 
 # =========================================================
 # DATABASE DEPENDENCY

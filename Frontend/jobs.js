@@ -1918,6 +1918,100 @@ if (card) {
 
 }
 
+// =====================================================
+// EXPERIENCE MATCH
+// =====================================================
+
+function matchesExperience(
+    jobExperience,
+    selectedExperience
+) {
+
+    if (!selectedExperience) {
+        return true;
+    }
+
+    const jobExp =
+        normalizeText(jobExperience);
+
+    const selected =
+        normalizeText(selectedExperience);
+
+
+    if (jobExp === selected) {
+        return true;
+    }
+
+
+    // Fresher
+    if (
+        selected === "fresher"
+        &&
+        (
+            jobExp === "fresher" ||
+            jobExp === "0 years" ||
+            jobExp === "0-1 years"
+        )
+    ) {
+        return true;
+    }
+
+
+    // 0-1 Years
+    if (
+        selected === "0-1 years"
+        &&
+        (
+            jobExp === "0-1 years" ||
+            jobExp === "0-2 years"
+        )
+    ) {
+        return true;
+    }
+
+
+    // 1-3 Years
+    if (
+        selected === "1-3 years"
+        &&
+        (
+            jobExp === "1-3 years" ||
+            jobExp === "2-5 years"
+        )
+    ) {
+        return true;
+    }
+
+
+    // 3-5 Years
+    if (
+        selected === "3-5 years"
+        &&
+        (
+            jobExp === "3-5 years" ||
+            jobExp === "2-5 years"
+        )
+    ) {
+        return true;
+    }
+
+
+    // 5+ Years
+    if (
+        selected === "5+ years"
+        &&
+        (
+            jobExp === "5+ years" ||
+            jobExp === "5 years+" ||
+            jobExp === "5+"
+        )
+    ) {
+        return true;
+    }
+
+
+    return false;
+}
 
 // =====================================================
 // FILTER JOBS
@@ -2000,9 +2094,10 @@ function applyFilters() {
 
 
                 const experienceMatch =
-                    experience === "" ||
-                    job.experience ===
-                    experience;
+    matchesExperience(
+        job.experience,
+        experience
+    );
 
 
                 return (

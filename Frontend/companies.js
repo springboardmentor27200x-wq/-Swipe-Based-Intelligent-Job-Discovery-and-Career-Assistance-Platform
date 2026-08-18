@@ -1,5 +1,6 @@
-const API_URL =
-    window.SWIPEX_API_URL;
+const API =
+    window.SWIPEX_API_URL ||
+    "https://swipex-backend-iota.vercel.app";
 
 let jobs = [];
 
