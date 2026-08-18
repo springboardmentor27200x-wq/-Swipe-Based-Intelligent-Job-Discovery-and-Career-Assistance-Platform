@@ -1,0 +1,32 @@
+Django==4.2.11
+djangorestframework==3.15.1
+djangorestframework-simplejwt==5.3.1
+django-cors-headers==4.3.1
+django-environ==0.11.2
+psycopg2-binary==2.9.9
+Pillow==10.3.0
+dj-database-url==2.1.0
+social-auth-app-django==5.4.0
+social-auth-core==4.5.4
+requests==2.31.0
+PyJWT==2.8.0
+python-decouple==3.8
+whitenoise==6.6.0
+gunicorn==21.2.0
+pytest==8.1.1
+pytest-django==4.8.0
+factory-boy==3.3.0
+reportlab==4.2.5  # test-only: generates real PDFs with embedded hyperlinks for parser tests
+
+# Milestone 3 — Resume parsing & ATS engine
+pdfplumber==0.11.9
+python-docx==1.2.0
+
+# Milestone 3.1 — AI-enhanced recommendation engine (semantic similarity)
+# scikit-learn powers the offline TF-IDF cosine-similarity fallback, which
+# works out of the box with no downloads. For stronger sentence-embedding
+# similarity, optionally install one of the following (auto-detected at
+# runtime — see apps/jobs/semantic.py — no code changes needed):
+#   pip install sentence-transformers   # downloads 'all-MiniLM-L6-v2' on first use
+#   pip install spacy && python -m spacy download en_core_web_md
+scikit-learn==1.5.2

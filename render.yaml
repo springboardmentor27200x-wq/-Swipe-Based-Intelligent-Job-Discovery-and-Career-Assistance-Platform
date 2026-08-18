@@ -1,0 +1,51 @@
+# Render Blueprint — SwipeX backend + PostgreSQL
+#
+# This file lets Render provision both services automatically from
+# "New +" → "Blueprint" in the Render dashboard, pointed at this repo.
+# You can also skip this file entirely and create the Web Service +
+# PostgreSQL database manually — DEPLOYMENT_GUIDE.md documents both paths.
+#
+# Vars marked `sync: false` must be filled in manually in the Render
+# dashboard after your Vercel frontend URL is known (see DEPLOYMENT_GUIDE.md).
+
+databases:
+  - name: swipex-db
+    databaseName: swipex_db
+    user: swipex_user
+    plan: free
+    region: oregon
+
+services:
+  - type: web
+    name: swipex-backend
+    runtime: python
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+    # migrate runs on every boot — safe/idempotent when there's nothing new
+    # to apply, and guarantees the schema is current after every deploy
+    # without needing a paid-plan-only preDeployCommand.
+    startCommand: "python manage.py migrate && gunicorn swipex.wsgi:application --bind 0.0.0.0:$PORT"
+    healthCheckPath: /api/v1/health/
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: swipex-db
+          property: connectionString
+      # Fill these in after deploying the Vercel frontend — see
+      # DEPLOYMENT_GUIDE.md step "Update backend CORS/CSRF".
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+      - key: CSRF_TRUSTED_ORIGINS
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
