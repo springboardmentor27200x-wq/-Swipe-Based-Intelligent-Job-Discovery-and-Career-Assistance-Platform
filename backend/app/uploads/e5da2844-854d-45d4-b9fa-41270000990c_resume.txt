@@ -1,0 +1,2 @@
+Candidate Name: Audit Seeker
+Skills: Python, FastAPI, React, PostgreSQL, Docker, AWS, Git

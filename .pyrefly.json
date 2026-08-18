@@ -1,0 +1,11 @@
+{
+  "pythonPath": "d:/Personal Documets/Desktop/SwipeX/venv/Scripts/python.exe",
+  "extraPaths": [
+    "d:/Personal Documets/Desktop/SwipeX/backend",
+    "d:/Personal Documets/Desktop/SwipeX/venv/Lib/site-packages"
+  ],
+  "ignore": [
+    "**/__pyrefly_virtual__/**",
+    "**/inmemory/**"
+  ]
+}
