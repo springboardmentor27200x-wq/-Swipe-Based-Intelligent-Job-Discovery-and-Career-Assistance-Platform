@@ -1,35 +1,60 @@
 const API_URL =
     window.SWIPEX_API_URL;
 
-// ================================
+
+// =====================================================
 // ROLE SELECTION
-// ================================
+// =====================================================
 
 function selectRole(button, role) {
 
     const buttons =
-        document.querySelectorAll(".role-btn");
+        document.querySelectorAll(
+            ".role-btn"
+        );
 
-    buttons.forEach(function(btn) {
 
-        btn.classList.remove("selected");
+    buttons.forEach(
+        function(btn) {
 
-    });
+            btn.classList.remove(
+                "selected"
+            );
 
-    button.classList.add("selected");
+        }
+    );
 
-    document.getElementById("role").value =
-        role;
+
+    button.classList.add(
+        "selected"
+    );
+
+
+    const roleInput =
+        document.getElementById(
+            "role"
+        );
+
+
+    if (roleInput) {
+
+        roleInput.value =
+            role;
+
+    }
 
 }
 
 
-// ================================
+
+// =====================================================
 // REGISTER
-// ================================
+// =====================================================
 
 const registerForm =
-    document.getElementById("registerForm");
+    document.getElementById(
+        "registerForm"
+    );
 
 
 if (registerForm) {
@@ -71,9 +96,9 @@ if (registerForm) {
                 ).value;
 
 
-            // ============================
+            // ==========================================
             // PASSWORD CHECK
-            // ============================
+            // ==========================================
 
             if (
                 password !==
@@ -89,9 +114,9 @@ if (registerForm) {
             }
 
 
-            // ============================
+            // ==========================================
             // ROLE CHECK
-            // ============================
+            // ==========================================
 
             if (role === "") {
 
@@ -111,7 +136,8 @@ if (registerForm) {
                         `${API_URL}/register`,
                         {
 
-                            method: "POST",
+                            method:
+                                "POST",
 
                             headers: {
 
@@ -145,13 +171,11 @@ if (registerForm) {
                     await response.json();
 
 
-                // ============================
+                // ======================================
                 // SUCCESS
-                // ============================
+                // ======================================
 
                 if (response.ok) {
-
-                    // Save login information
 
                     localStorage.setItem(
                         "swipex_username",
@@ -171,15 +195,22 @@ if (registerForm) {
                     );
 
 
-                    // ========================
-                    // ROLE-BASED REDIRECT
-                    // ========================
-
-                    if (
+                    const normalizedRole =
                         data.role
                             .toLowerCase()
-                            .replace(/\s+/g, "")
-                            === "recruiter"
+                            .replace(
+                                /\s+/g,
+                                ""
+                            );
+
+
+                    // ==================================
+                    // RECRUITER
+                    // ==================================
+
+                    if (
+                        normalizedRole ===
+                        "recruiter"
                     ) {
 
                         window.location.href =
@@ -187,17 +218,21 @@ if (registerForm) {
 
                     }
 
+
+                    // ==================================
+                    // JOB SEEKER
+                    // ==================================
+
                     else if (
-                        data.role
-                            .toLowerCase()
-                            .replace(/\s+/g, "")
-                            === "jobseeker"
+                        normalizedRole ===
+                        "jobseeker"
                     ) {
 
                         window.location.href =
                             "jobseeker.html";
 
                     }
+
 
                     else {
 
@@ -208,6 +243,11 @@ if (registerForm) {
                     }
 
                 }
+
+
+                // ======================================
+                // FAILURE
+                // ======================================
 
                 else {
 
@@ -220,15 +260,17 @@ if (registerForm) {
 
             }
 
-            catch (error) {
+
+            catch(error) {
 
                 console.error(
                     "Registration error:",
                     error
                 );
 
+
                 alert(
-                    "Backend is not running!"
+                    "Unable to connect to the server."
                 );
 
             }
@@ -239,12 +281,15 @@ if (registerForm) {
 }
 
 
-// ================================
+
+// =====================================================
 // LOGIN
-// ================================
+// =====================================================
 
 const loginForm =
-    document.getElementById("loginForm");
+    document.getElementById(
+        "loginForm"
+    );
 
 
 if (loginForm) {
@@ -275,7 +320,8 @@ if (loginForm) {
                         `${API_URL}/login`,
                         {
 
-                            method: "POST",
+                            method:
+                                "POST",
 
                             headers: {
 
@@ -303,9 +349,9 @@ if (loginForm) {
                     await response.json();
 
 
-                // ============================
-                // SUCCESS
-                // ============================
+                // ======================================
+                // LOGIN SUCCESS
+                // ======================================
 
                 if (response.ok) {
 
@@ -327,15 +373,22 @@ if (loginForm) {
                     );
 
 
-                    // ========================
-                    // ROLE-BASED REDIRECT
-                    // ========================
-
-                    if (
+                    const normalizedRole =
                         data.role
                             .toLowerCase()
-                            .replace(/\s+/g, "")
-                            === "jobseeker"
+                            .replace(
+                                /\s+/g,
+                                ""
+                            );
+
+
+                    // ==================================
+                    // JOB SEEKER
+                    // ==================================
+
+                    if (
+                        normalizedRole ===
+                        "jobseeker"
                     ) {
 
                         window.location.href =
@@ -343,17 +396,21 @@ if (loginForm) {
 
                     }
 
+
+                    // ==================================
+                    // RECRUITER
+                    // ==================================
+
                     else if (
-                        data.role
-                            .toLowerCase()
-                            .replace(/\s+/g, "")
-                            === "recruiter"
+                        normalizedRole ===
+                        "recruiter"
                     ) {
 
                         window.location.href =
                             "recruiter.html";
 
                     }
+
 
                     else {
 
@@ -364,6 +421,11 @@ if (loginForm) {
                     }
 
                 }
+
+
+                // ======================================
+                // LOGIN FAILURE
+                // ======================================
 
                 else {
 
@@ -376,15 +438,17 @@ if (loginForm) {
 
             }
 
-            catch (error) {
+
+            catch(error) {
 
                 console.error(
                     "Login error:",
                     error
                 );
 
+
                 alert(
-                    "Backend is not running"
+                    "Unable to connect to the server."
                 );
 
             }
@@ -395,13 +459,15 @@ if (loginForm) {
 }
 
 
-// ================================
+
+// =====================================================
 // LOGOUT
-// ================================
+// =====================================================
 
 function logout() {
 
     localStorage.clear();
+
 
     window.location.href =
         "login.html";

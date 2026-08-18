@@ -1,304 +1,681 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Segoe UI",sans-serif;
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
 }
 
-body{
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
-    background:#0F172A;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+
+/* =====================================================
+   BODY
+===================================================== */
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
 }
 
-.container{
 
-    width:95%;
-    max-width:1400px;
-    height:90vh;
+body {
 
-    display:flex;
+    background: #0F172A;
 
-    border-radius:25px;
+    min-height: 100vh;
 
-    overflow:hidden;
+    display: flex;
 
-    background:#111827;
+    justify-content: center;
 
-    box-shadow:0 20px 60px rgba(0,0,0,.45);
+    align-items: center;
 
-}
-
-.left-panel{
-
-    flex:1;
-
-    background:linear-gradient(180deg,#111827,#1E293B);
-
-    color:white;
-
-    padding:70px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
+    padding: 25px;
 
 }
 
-.left-panel h1{
 
-    font-size:60px;
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
 
-    color:#3B82F6;
+.container {
 
-    margin-bottom:10px;
+    width: 95%;
 
-}
+    max-width: 1400px;
 
-.tagline{
+    min-height: 90vh;
 
-    color:#94A3B8;
+    display: flex;
 
-    font-size:20px;
+    border-radius: 25px;
 
-    margin-bottom:40px;
+    overflow: hidden;
 
-}
+    background: #111827;
 
-.left-panel h2{
-
-    font-size:42px;
-
-    margin-bottom:20px;
-
-}
-
-.description{
-
-    font-size:18px;
-
-    line-height:1.8;
-
-    color:#CBD5E1;
-
-    margin-bottom:35px;
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.45);
 
 }
 
-.features{
 
-    margin-top:20px;
+/* =====================================================
+   LEFT PANEL
+===================================================== */
 
-}
+.left-panel {
 
-.features p{
+    flex: 1;
 
-    font-size:18px;
+    background:
+        linear-gradient(
+            180deg,
+            #111827,
+            #1E293B
+        );
 
-    margin:18px 0;
+    color: white;
 
-}
+    padding: 70px;
 
-.right-panel{
+    display: flex;
 
-    width:520px;
+    flex-direction: column;
 
-    background:white;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-.login-box{
-
-    width:400px;
+    justify-content: center;
 
 }
 
-.logo{
 
-    font-size:42px;
+.left-panel h1 {
 
-    font-weight:bold;
+    font-size: 60px;
 
-    color:#2563EB;
+    color: #3B82F6;
 
-    margin-bottom:15px;
-
-}
-
-.subtitle{
-    text-align:center;
-    color:#666;
-    margin-bottom:30px;
-}
-
-.login-box h2{
-    text-align:center;
-    margin-bottom:10px;
-}
-
-.input-box{
-    margin-bottom:18px;
-}
-
-.input-box input{
-
-    width:100%;
-
-    padding:16px;
-
-    border:2px solid #E5E7EB;
-
-    border-radius:12px;
-
-    margin-bottom:18px;
-
-    font-size:16px;
-
-    transition:.3s;
+    margin-bottom: 10px;
 
 }
 
-.input-box input:focus{
 
-    outline:none;
+.tagline {
 
-    border-color:#2563EB;
+    color: #94A3B8;
 
-    box-shadow:0 0 12px rgba(37,99,235,.25);
+    font-size: 20px;
 
-}
-
-.role-title{
-    text-align:center;
-    margin:20px 0 15px;
-    color:#374151;
-}
-
-.role-buttons{
-
-    display:flex;
-
-    gap:15px;
-
-    margin:20px 0;
+    margin-bottom: 40px;
 
 }
 
-.role-btn{
 
-    flex:1;
+.left-panel h2 {
 
-    padding:14px;
+    font-size: 42px;
 
-    border:2px solid #2563EB;
-
-    border-radius:12px;
-
-    background:white;
-
-    cursor:pointer;
-
-    transition:.3s;
+    margin-bottom: 20px;
 
 }
 
-.role-btn:hover{
 
-    background:#DBEAFE;
+.description {
 
-}
+    font-size: 18px;
 
-.role-btn.selected{
+    line-height: 1.8;
 
-    background:#2563EB;
+    color: #CBD5E1;
 
-    color:white;
-
-}
-
-.main-btn{
-
-    width:100%;
-
-    padding:16px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:#2563EB;
-
-    color:white;
-
-    font-size:17px;
-
-    cursor:pointer;
-
-    transition:.3s;
+    margin-bottom: 35px;
 
 }
 
-.main-btn:hover{
 
-    background:#1D4ED8;
+.features {
 
-    transform:translateY(-3px);
+    margin-top: 20px;
 
 }
-.bottom-text{
-    margin-top:20px;
-    text-align:center;
-    color:#555;
+
+
+.features p {
+
+    font-size: 18px;
+
+    margin: 18px 0;
+
 }
 
-.bottom-text a{
-    color:#2563EB;
-    text-decoration:none;
-    font-weight:bold;
+
+/* =====================================================
+   RIGHT PANEL
+===================================================== */
+
+.right-panel {
+
+    width: 520px;
+
+    background: #FFFFFF;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 50px;
+
 }
 
-.bottom-text a:hover{
-    text-decoration:underline;
+
+/* =====================================================
+   LOGIN BOX
+===================================================== */
+
+.login-box {
+
+    width: 100%;
+
+    max-width: 400px;
+
 }
 
-@media(max-width:900px){
 
-    .container{
-        flex-direction:column;
+.logo {
+
+    text-align: center;
+
+    font-size: 42px;
+
+    font-weight: bold;
+
+    color: #2563EB;
+
+    margin-bottom: 15px;
+
+}
+
+
+.login-box h2 {
+
+    text-align: center;
+
+    color: #111827;
+
+    margin-bottom: 10px;
+
+}
+
+
+.subtitle {
+
+    text-align: center;
+
+    color: #6B7280;
+
+    margin-bottom: 30px;
+
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.input-box {
+
+    margin-bottom: 18px;
+
+}
+
+
+.input-box input {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border:
+        2px solid #E5E7EB;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+
+    color: #111827;
+
+    background: white;
+
+    transition: 0.3s;
+
+}
+
+
+.input-box input::placeholder {
+
+    color: #9CA3AF;
+
+}
+
+
+.input-box input:focus {
+
+    outline: none;
+
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 12px
+        rgba(37, 99, 235, 0.25);
+
+}
+
+
+/* =====================================================
+   ROLE
+===================================================== */
+
+.role-title {
+
+    text-align: center;
+
+    margin: 20px 0 15px;
+
+    color: #374151;
+
+}
+
+
+.role-buttons {
+
+    display: flex;
+
+    gap: 15px;
+
+    margin: 20px 0;
+
+}
+
+
+.role-btn {
+
+    flex: 1;
+
+    padding: 14px;
+
+    border:
+        2px solid #2563EB;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #2563EB;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.role-btn:hover {
+
+    background: #DBEAFE;
+
+}
+
+
+.role-btn.selected {
+
+    background: #2563EB;
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   MAIN BUTTON
+===================================================== */
+
+.main-btn {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #2563EB;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.main-btn:hover {
+
+    background: #1D4ED8;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =====================================================
+   BOTTOM TEXT
+===================================================== */
+
+.bottom-text {
+
+    margin-top: 22px;
+
+    text-align: center;
+
+    color: #555;
+
+}
+
+
+.bottom-text a {
+
+    color: #2563EB;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+}
+
+
+.bottom-text a:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* =====================================================
+   TABLET / MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    body {
+
+        display: block;
+
+        min-height: 100vh;
+
+        padding: 20px;
+
     }
 
-    .left-panel{
-        text-align:center;
-        padding:50px 30px;
+
+    .container {
+
+        width: 100%;
+
+        max-width: 650px;
+
+        min-height: 0;
+
+        height: auto;
+
+        margin: 0 auto;
+
+        flex-direction: column;
+
+        /*
+            VERY IMPORTANT:
+            Do not use overflow:hidden here.
+            The login panel must be allowed
+            to continue below the left panel.
+        */
+
+        overflow: visible;
+
+        border-radius: 22px;
+
     }
 
-    .left-panel h1{
-        font-size:42px;
+
+    .left-panel {
+
+        width: 100%;
+
+        flex: none;
+
+        min-height: auto;
+
+        padding: 45px 32px;
+
+        text-align: center;
+
+        justify-content: flex-start;
+
+        border-radius:
+            22px 22px 0 0;
+
     }
 
-    .left-panel h2{
-        font-size:32px;
+
+    .left-panel h1 {
+
+        font-size: 46px;
+
     }
 
-    .description{
-        max-width:100%;
+
+    .tagline {
+
+        font-size: 17px;
+
+        margin-bottom: 28px;
+
     }
 
-    .login-box{
-        width:100%;
-        max-width:420px;
+
+    .left-panel h2 {
+
+        font-size: 32px;
+
+        line-height: 1.25;
+
+    }
+
+
+    .description {
+
+        font-size: 16px;
+
+        line-height: 1.7;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .features {
+
+        margin-top: 10px;
+
+    }
+
+
+    .features p {
+
+        font-size: 16px;
+
+        margin: 14px 0;
+
+    }
+
+
+    .right-panel {
+
+        width: 100%;
+
+        min-height: auto;
+
+        padding: 50px 30px;
+
+        border-radius:
+            0 0 22px 22px;
+
+    }
+
+
+    .login-box {
+
+        width: 100%;
+
+        max-width: 420px;
+
+        margin: auto;
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 500px) {
+
+    body {
+
+        padding: 12px;
+
+    }
+
+
+    .container {
+
+        border-radius: 18px;
+
+    }
+
+
+    .left-panel {
+
+        padding:
+            38px 22px;
+
+        border-radius:
+            18px 18px 0 0;
+
+    }
+
+
+    .left-panel h1 {
+
+        font-size: 42px;
+
+    }
+
+
+    .tagline {
+
+        font-size: 16px;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .left-panel h2 {
+
+        font-size: 29px;
+
+        margin-bottom: 18px;
+
+    }
+
+
+    .description {
+
+        font-size: 15px;
+
+        line-height: 1.7;
+
+    }
+
+
+    .features p {
+
+        font-size: 15px;
+
+        margin: 13px 0;
+
+    }
+
+
+    .right-panel {
+
+        padding:
+            42px 22px;
+
+        border-radius:
+            0 0 18px 18px;
+
+    }
+
+
+    .logo {
+
+        font-size: 38px;
+
+    }
+
+
+    .login-box h2 {
+
+        font-size: 25px;
+
+    }
+
+
+    .subtitle {
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .input-box input {
+
+        padding: 14px;
+
+        font-size: 16px;
+
+    }
+
+
+    .main-btn {
+
+        padding: 14px;
+
     }
 
 }

@@ -5,11 +5,15 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>SwipeX - Login</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
 
 </head>
 
@@ -17,35 +21,58 @@
 
 <div class="container">
 
+    <!-- =========================================
+         LEFT PANEL
+    ========================================== -->
+
     <div class="left-panel">
 
-        <h1>SwipeX</h1>
+        <h1>
+            SwipeX
+        </h1>
 
         <p class="tagline">
             AI Powered Recruitment Platform
         </p>
 
-        <h2>Find Your Dream Career 🚀</h2>
+        <h2>
+            Find Your Dream Career 🚀
+        </h2>
 
         <p class="description">
 
-            SwipeX helps job seekers discover opportunities with AI-powered recommendations while helping recruiters hire the best talent faster.
+            SwipeX helps job seekers discover opportunities
+            with AI-powered recommendations while helping
+            recruiters hire the best talent faster.
 
         </p>
 
         <div class="features">
 
-            <p>🤖 AI Job Recommendations</p>
+            <p>
+                🤖 AI Job Recommendations
+            </p>
 
-            <p>💼 1000+ Career Opportunities</p>
+            <p>
+                💼 1000+ Career Opportunities
+            </p>
 
-            <p>⚡ Fast Recruitment Process</p>
+            <p>
+                ⚡ Fast Recruitment Process
+            </p>
 
-            <p>🔒 Secure Login System</p>
+            <p>
+                🔒 Secure Login System
+            </p>
 
         </div>
 
     </div>
+
+
+    <!-- =========================================
+         RIGHT PANEL / LOGIN
+    ========================================== -->
 
     <div class="right-panel">
 
@@ -63,31 +90,36 @@
                 Login to continue
             </p>
 
+
             <form id="loginForm">
 
                 <div class="input-box">
 
                     <input
-                    type="email"
-                    id="loginEmail"
-                    placeholder="Email Address"
-                    required>
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Email Address"
+                        autocomplete="email"
+                        required>
 
                 </div>
+
 
                 <div class="input-box">
 
                     <input
-                    type="password"
-                    id="loginPassword"
-                    placeholder="Password"
-                    required>
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Password"
+                        autocomplete="current-password"
+                        required>
 
                 </div>
 
+
                 <button
-                type="submit"
-                class="main-btn">
+                    type="submit"
+                    class="main-btn">
 
                     Login
 
@@ -95,14 +127,13 @@
 
             </form>
 
+
             <p class="bottom-text">
 
                 Don't have an account?
 
                 <a href="register.html">
-
                     Register
-
                 </a>
 
             </p>
@@ -113,7 +144,9 @@
 
 </div>
 
+
 <script src="api-config.js"></script>
+
 <script src="script.js"></script>
 
 </body>
