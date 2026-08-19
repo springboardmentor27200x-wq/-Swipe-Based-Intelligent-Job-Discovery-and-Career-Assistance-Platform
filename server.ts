@@ -69,7 +69,7 @@ interface Job {
   requiredSkills: string[];
   isActive: boolean;
   created_at: string;
-  organizationType: "mnc" | "startup" | "newly_founded";
+  organizationType: "mnc" | "startup" | "newly_founded" | "product";
   jobType: "remote" | "internship" | "full_time";
   experienceLevel: "fresher" | "junior" | "mid" | "senior";
   isFresherFriendly: boolean;
@@ -77,6 +77,8 @@ interface Job {
   competitionLevel: "low" | "medium" | "high";
   matchScore?: number;
   aiRecommendationReason?: string;
+  matchingKeywords?: string[];
+  missingKeywords?: string[];
 }
 
 interface Swipe {
@@ -2943,7 +2945,7 @@ async function startServer() {
     }
 
     const newSwipe = swipeRecord;
-    const isMatched = status === "matched";
+    const isMatched = (status as string) === "matched";
 
     // Notify Recruiter when a candidate submits an application!
     if (status === "applied" && job.recruiterId) {

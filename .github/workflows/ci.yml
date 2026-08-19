@@ -1,0 +1,31 @@
+name: SwipeX CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, seetha-lakshmi, master, "*" ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-verify:
+    name: Build, Lint & Verify
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Verify TypeScript Types
+        run: npm run lint
+
+      - name: Build Fullstack Bundle (Vite Frontend + Express Server)
+        run: npm run build
