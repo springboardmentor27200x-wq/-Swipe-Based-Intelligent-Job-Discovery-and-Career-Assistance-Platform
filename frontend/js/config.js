@@ -1,1 +1,1 @@
-window.API_BASE_URL = "http://127.0.0.1:8000";
+window.API_BASE_URL = "https://swipex-f83k4ufoc-nidrashris-projects.vercel.app/";
