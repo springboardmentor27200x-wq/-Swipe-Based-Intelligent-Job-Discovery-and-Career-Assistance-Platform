@@ -1,0 +1,6 @@
+{
+  "name": "SwipeX",
+  "description": "AI-powered swipe-to-hire career discovery platform foundations, featuring JWT role-based authentication, a robust SQLite backend simulation, and an interactive matching interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
