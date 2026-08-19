@@ -1,18 +1,33 @@
-from sentence_transformers import SentenceTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
-_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
+# Lightweight replacement for sentence-transformers, which needed PyTorch
+# and exceeded free-tier hosting memory limits (512MB). TF-IDF has no
+# heavy runtime dependency and works well enough for resume/job matching
+# on keyword and phrase overlap.
 
-# Simple in-memory caches keyed by DB row id, so we don't re-embed the
-# same resume/job text on every request. Swap for a DB column or Redis
-# once you're past prototyping -- see the note at the bottom of this file.
 _job_embedding_cache = {}
 _resume_embedding_cache = {}
+_vectorizer = TfidfVectorizer(stop_words="english", max_features=2000)
+_vectorizer_fitted = False
+_corpus = []
+
+
+def _refit_vectorizer():
+    global _vectorizer_fitted
+    if len(_corpus) >= 2:
+        _vectorizer.fit(_corpus)
+        _vectorizer_fitted = True
 
 
 def embed_text(text: str) -> np.ndarray:
-    return _MODEL.encode(text or "", normalize_embeddings=True)
+    text = text or ""
+    _corpus.append(text)
+    _refit_vectorizer()
+    if not _vectorizer_fitted:
+        return np.zeros((1,))
+    return _vectorizer.transform([text]).toarray()[0]
 
 
 def get_job_embedding(job_id, description: str) -> np.ndarray:
@@ -28,6 +43,8 @@ def get_resume_embedding(resume_id, resume_text: str) -> np.ndarray:
 
 
 def semantic_similarity(embedding_a: np.ndarray, embedding_b: np.ndarray) -> float:
+    if embedding_a.shape != embedding_b.shape or embedding_a.sum() == 0 or embedding_b.sum() == 0:
+        return 0.0
     sim = cosine_similarity(embedding_a.reshape(1, -1), embedding_b.reshape(1, -1))[0][0]
     return float(np.clip(sim, -1.0, 1.0))
 
