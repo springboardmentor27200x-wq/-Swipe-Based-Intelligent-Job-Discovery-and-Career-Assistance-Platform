@@ -2,67 +2,68 @@ name: SwipeX CI/CD Pipeline
 
 on:
   push:
-      branches:
-        - Ganta_Dileep
+    branches:
+      - Ganta_Dileep
   pull_request:
-        branches:
-          - main
+    branches:
+      - main
 
 jobs:
   # 1. Test and Validate Code
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Test Backend Syntax
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+
       - name: Install Backend Deps
         run: |
           cd backend
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Test Frontend Build
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Build Frontend
         run: |
           cd frontend
           npm install
           npm run build
 
-  # 2. Build and Release Docker Containers (Only on main branch merge)
+  # 2. Build and Release Docker Containers
   build-and-release:
     needs: test
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/Ganta_Dileep' && github.event_name == 'push'
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      # Build & Publish Backend Image
       - name: Build & Push Backend Image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v6
         with:
           context: ./backend
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/swipex-backend:latest
 
-      # Build & Publish Frontend Image
       - name: Build & Push Frontend Image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v6
         with:
           context: ./frontend
           push: true
