@@ -2,7 +2,11 @@ name: SwipeX CI/CD Pipeline
 
 on:
   push:
+      branches:
+        - Ganta_Dileep
   pull_request:
+        branches:
+          - main
 
 jobs:
   # 1. Test and Validate Code
