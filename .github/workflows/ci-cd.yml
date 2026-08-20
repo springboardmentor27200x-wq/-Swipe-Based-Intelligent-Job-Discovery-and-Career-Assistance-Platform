@@ -60,11 +60,11 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/swipex-backend:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}swipex-backend:latest
 
       - name: Build & Push Frontend Image
         uses: docker/build-push-action@v6
         with:
           context: ./frontend
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/swipex-frontend:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}swipex-frontend:latest
