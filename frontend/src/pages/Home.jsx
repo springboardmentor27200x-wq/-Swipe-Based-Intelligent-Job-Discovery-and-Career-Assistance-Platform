@@ -65,15 +65,15 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden text-left bg-[#090e1a]">
+    <div className="relative min-h-screen overflow-hidden text-left bg-[#f8fafc] text-slate-800">
       
       {/* Background aurora lighting */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
-        <div className="absolute top-[5%] left-[-10%] w-[60vw] h-[60vh] bg-gradient-to-tr from-violet-605/15 via-blue-500/10 to-transparent rounded-full blur-[130px]" />
-        <div className="absolute bottom-[20%] right-[-10%] w-[50vw] h-[50vh] bg-gradient-to-br from-cyan-600/15 via-violet-650/10 to-transparent rounded-full blur-[130px]" />
+        <div className="absolute top-[5%] left-[-10%] w-[60vw] h-[60vh] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[130px]" />
+        <div className="absolute bottom-[20%] right-[-10%] w-[50vw] h-[50vh] bg-gradient-to-br from-indigo-500/5 via-blue-500/5 to-transparent rounded-full blur-[130px]" />
       </div>
 
-      {/* 1. HERO SECTION (Theme: Navy + Purple + Cyan) */}
+      {/* 1. HERO SECTION (Theme: Light Navy + Blue + Indigo) */}
       <section className="relative pt-36 pb-28 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-16 items-center relative z-10">
           
@@ -82,36 +82,36 @@ export default function Home() {
             <motion.div 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-slate-950 border border-violet-500/20 text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-cyan-400 to-blue-400 text-xs font-black uppercase tracking-widest shadow-lg"
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-black uppercase tracking-widest shadow-sm"
             >
-              <Sparkles size={13} className="text-violet-400 mr-1.5 animate-pulse" />
+              <Sparkles size={13} className="text-blue-500 mr-1.5 animate-pulse" />
               <span>The Future of AI Job Discovery</span>
             </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-black leading-[0.9] tracking-tight text-white">
+            <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-black leading-[0.9] tracking-tight text-slate-800">
               Find Your Perfect Job.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 drop-shadow-[0_0_35px_rgba(139,92,246,0.18)]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 drop-shadow-[0_0_35px_rgba(37,99,235,0.08)]">
                 Powered by AI.
               </span>
             </h1>
 
-            <p className="text-slate-400 text-base sm:text-lg max-w-xl leading-relaxed font-semibold">
+            <p className="text-slate-500 text-base sm:text-lg max-w-xl leading-relaxed font-semibold">
               Bypass intermediate questionnaires. Swipe through roles, check match scores, and schedule virtual calls directly in recruiter calendars.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
               <Link
                 to="/register"
-                className="flex items-center space-x-2.5 px-10 py-5.5 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white font-black text-xs rounded-full transition-all shadow-xl hover:scale-[1.03] active:scale-95 group uppercase tracking-widest border border-violet-555"
+                className="flex items-center space-x-2.5 px-10 py-5.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs rounded-full transition-all shadow-xl shadow-blue-500/10 hover:scale-[1.03] active:scale-95 group uppercase tracking-widest border border-transparent"
               >
                 <span>🚀 Start Swiping</span>
                 <ChevronRight size={15} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <button
                 onClick={() => setDemoState('swipe')}
-                className="flex items-center space-x-2 px-10 py-5.5 border border-white/10 hover:border-white/20 bg-slate-900/60 hover:bg-slate-900/90 text-slate-355 hover:text-white font-black text-xs rounded-full transition-all hover:scale-[1.03] active:scale-95 uppercase tracking-widest backdrop-blur-md cursor-pointer"
+                className="flex items-center space-x-2 px-10 py-5.5 border border-slate-200 hover:bg-slate-100 bg-white text-slate-600 font-black text-xs rounded-full transition-all hover:scale-[1.03] active:scale-95 uppercase tracking-widest shadow-sm cursor-pointer"
               >
-                <Play size={14} className="fill-slate-300 text-slate-300 mr-1.5 animate-pulse" />
+                <Play size={14} className="fill-slate-500 text-slate-500 mr-1.5 animate-pulse" />
                 <span>Watch Live Demo</span>
               </button>
             </div>
@@ -123,10 +123,10 @@ export default function Home() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="w-full relative p-[1.5px] rounded-[38px] bg-gradient-to-tr from-violet-500/30 to-cyan-500/30 shadow-[0_0_50px_rgba(139,92,246,0.15)] select-none"
+                className="w-full relative p-[1px] rounded-[38px] bg-slate-200/50 shadow-md select-none"
               >
-                <div className="w-full h-[460px] bg-slate-955 rounded-[37px] p-8 flex flex-col justify-between overflow-hidden relative border border-white/5">
-                  <div className="absolute top-0 left-0 right-0 h-44 bg-gradient-to-b from-violet-600/15 to-transparent -z-10" />
+                <div className="w-full h-[460px] bg-white rounded-[37px] p-8 flex flex-col justify-between overflow-hidden relative border border-slate-100">
+                  <div className="absolute top-0 left-0 right-0 h-44 bg-gradient-to-b from-blue-50 to-transparent -z-10" />
 
                   <AnimatePresence mode="wait">
                     {demoState === 'swipe' && (
@@ -144,51 +144,51 @@ export default function Home() {
                       >
                         <div className="space-y-4">
                           <div className="flex justify-between items-start">
-                            <span className="px-3 py-1 rounded bg-violet-600/20 border border-violet-500/30 text-violet-400 text-[9px] font-black uppercase tracking-widest">
+                            <span className="px-3 py-1 rounded bg-blue-50 border border-blue-100 text-blue-600 text-[9px] font-black uppercase tracking-widest">
                               Full-Time
                             </span>
-                            <span className="px-3 py-1 rounded bg-cyan-600/20 border border-cyan-500/30 text-cyan-400 text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5">
+                            <span className="px-3 py-1 rounded bg-indigo-50 border border-indigo-100 text-indigo-600 text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5">
                               <Cpu size={10} className="animate-spin" />
                               <span>98% Match</span>
                             </span>
                           </div>
 
                           <div>
-                            <h3 className="text-2xl font-black text-white leading-tight">Lead AI Platform Engineer</h3>
-                            <p className="text-violet-400 text-xs font-extrabold mt-0.5">NVIDIA Corporation</p>
+                            <h3 className="text-2xl font-black text-slate-800 leading-tight">Lead AI Platform Engineer</h3>
+                            <p className="text-blue-600 text-xs font-extrabold mt-0.5">NVIDIA Corporation</p>
                           </div>
 
-                          <div className="flex items-center space-x-2 text-slate-500 text-xxs font-black uppercase tracking-wider">
-                            <span className="text-white font-extrabold">$230k - $280k</span>
+                          <div className="flex items-center space-x-2 text-slate-400 text-xxs font-black uppercase tracking-wider">
+                            <span className="text-slate-700 font-extrabold">$230k - $280k</span>
                             <span>•</span>
                             <span>Santa Clara, CA</span>
                           </div>
 
-                          <p className="text-slate-400 text-xs leading-relaxed font-semibold">
+                          <p className="text-slate-600 text-xs leading-relaxed font-semibold">
                             Orchestrate generative agent hardware layers. Run CUDA optimizations on GPU stream clusters.
                           </p>
                         </div>
 
                         {/* Recruiter Activity preview */}
-                        <div className="p-3.5 bg-white/5 border border-white/10 rounded-2xl text-[10px] text-slate-350 font-bold flex items-center gap-2">
+                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-[10px] text-slate-600 font-bold flex items-center gap-2">
                           <span className="relative flex h-2 w-2 shrink-0">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
                           </span>
                           <span>Active Recruiter reviewing stack...</span>
                         </div>
 
                         {/* Swiper deck buttons */}
-                        <div className="flex justify-center items-center space-x-6 pt-4 border-t border-white/5">
+                        <div className="flex justify-center items-center space-x-6 pt-4 border-t border-slate-100">
                           <button 
                             onClick={() => handleDemoAction('dislike')}
-                            className="w-12 h-12 rounded-full bg-slate-900 border border-rose-500/20 hover:border-rose-500/60 hover:bg-rose-950/20 flex items-center justify-center text-rose-500 shadow-md hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                            className="w-12 h-12 rounded-full bg-white border border-rose-200 hover:bg-rose-50 flex items-center justify-center text-rose-500 shadow-md hover:scale-110 active:scale-95 transition-all cursor-pointer"
                           >
                             <X size={18} />
                           </button>
                           <button 
                             onClick={() => handleDemoAction('like')}
-                            className="w-14 h-14 rounded-full bg-gradient-to-r from-violet-650 via-fuchsia-600 to-blue-650 hover:from-violet-500 hover:to-blue-550 flex items-center justify-center text-white shadow-xl shadow-blue-600/20 hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                            className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 flex items-center justify-center text-white shadow-xl shadow-blue-500/20 hover:scale-110 active:scale-95 transition-all cursor-pointer"
                           >
                             <Heart size={22} className="fill-white animate-pulse" />
                           </button>
@@ -205,27 +205,27 @@ export default function Home() {
                         className="h-full flex flex-col justify-between items-center text-center py-6"
                       >
                         <div className="space-y-4">
-                          <div className="inline-flex p-4.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-450 animate-bounce shadow-md">
+                          <div className="inline-flex p-4.5 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-600 animate-bounce shadow-sm">
                             <Sparkles size={32} />
                           </div>
-                          <h4 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-450 to-cyan-400 tracking-tight">It's a Match!</h4>
-                          <p className="text-slate-400 text-xs leading-relaxed max-w-[280px] mx-auto font-semibold">
+                          <h4 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-650 tracking-tight">It's a Match!</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed max-w-[280px] mx-auto font-semibold">
                             Hiring squad approved your qualifications. Messaging and calendar slots are unlocked.
                           </p>
                         </div>
 
                         <div className="flex items-center justify-center -space-x-3 my-4">
-                          <div className="w-12 h-12 rounded-full border-2 border-slate-950 bg-gradient-to-tr from-violet-600 to-blue-600 flex items-center justify-center font-black text-xs text-white shadow-lg">
+                          <div className="w-12 h-12 rounded-full border-2 border-white bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-black text-xs text-white shadow-lg">
                             YOU
                           </div>
-                          <div className="w-12 h-12 rounded-full border-2 border-slate-950 bg-slate-900 flex items-center justify-center font-black text-[9px] text-violet-400 border-white/10 shadow-lg">
+                          <div className="w-12 h-12 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center font-black text-[9px] text-blue-600 shadow-lg">
                             NVDA
                           </div>
                         </div>
 
                         <button 
                           onClick={resetDemo}
-                          className="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 text-slate-350 font-extrabold text-xs transition-all border border-white/10 uppercase tracking-widest cursor-pointer"
+                          className="w-full py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-650 font-extrabold text-xs transition-all border border-slate-250 uppercase tracking-widest cursor-pointer"
                         >
                           Reswipe Deck
                         </button>
@@ -241,18 +241,18 @@ export default function Home() {
                         className="h-full flex flex-col justify-between items-center text-center py-8"
                       >
                         <div className="space-y-3">
-                          <div className="inline-flex p-4 rounded-full bg-slate-900 border border-white/10 text-slate-500">
+                          <div className="inline-flex p-4 rounded-full bg-slate-50 border border-slate-200 text-slate-400">
                             <Compass size={32} />
                           </div>
-                          <h4 className="text-xl font-black text-white">Listing Passed</h4>
-                          <p className="text-slate-550 text-xs leading-relaxed max-w-[240px] mx-auto font-semibold">
+                          <h4 className="text-xl font-black text-slate-800">Listing Passed</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed max-w-[240px] mx-auto font-semibold">
                             Skip records committed successfully. Loading next matching card...
                           </p>
                         </div>
 
                         <button 
                           onClick={resetDemo}
-                          className="w-full py-4 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-extrabold text-xs transition-all uppercase tracking-widest cursor-pointer"
+                          className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-605 text-white font-extrabold text-xs transition-all uppercase tracking-widest cursor-pointer"
                         >
                           Reswipe Deck
                         </button>
@@ -268,16 +268,16 @@ export default function Home() {
       </section>
 
       {/* 2. FLOATING LOGOS SCROLLING PANEL (Theme: White Glass Cards) */}
-      <section className="py-14 bg-gradient-to-r from-slate-900/40 via-slate-950/20 to-slate-900/40 border-y border-white/5 relative z-10">
+      <section className="py-14 bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 border-y border-slate-200/80 relative z-10">
         <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-center mb-8">Trusted by talent matching squads worldwide</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 text-center mb-8">Trusted by talent matching squads worldwide</p>
           <div className="w-full overflow-hidden relative">
             <div className="flex space-x-8 animate-scroll-left whitespace-nowrap">
               {[
                 'Google', 'Microsoft', 'Apple', 'Amazon', 'Netflix', 'Figma', 'Stripe', 'Nvidia', 'Meta', 'Airbnb',
                 'Google', 'Microsoft', 'Apple', 'Amazon', 'Netflix', 'Figma', 'Stripe', 'Nvidia', 'Meta', 'Airbnb'
               ].map((logo, i) => (
-                <div key={i} className="inline-block px-8 py-4.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:border-white/20 hover:bg-white/10 transition-all text-xs font-black tracking-widest text-slate-350 uppercase shadow-sm select-none cursor-default">
+                <div key={i} className="inline-block px-8 py-4.5 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-all text-xs font-black tracking-widest text-slate-650 uppercase shadow-sm select-none cursor-default">
                   {logo}
                 </div>
               ))}
@@ -287,30 +287,30 @@ export default function Home() {
       </section>
 
       {/* 3. STATISTICS METRICS (Theme: Cyan + Blue cards) */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#090e1a] via-blue-955/20 to-[#090e1a] border-b border-white/5">
-        <div className="absolute top-[20%] left-[20%] w-[380px] h-[380px] bg-gradient-to-tr from-cyan-600/10 via-blue-600/10 to-transparent rounded-full blur-[110px] pointer-events-none" />
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-blue-50/50 to-[#f8fafc] border-b border-slate-200/80">
+        <div className="absolute top-[20%] left-[20%] w-[380px] h-[380px] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[110px] pointer-events-none" />
         <div className="max-w-6xl mx-auto px-6 space-y-16 relative z-10">
           <div className="text-center space-y-3">
-            <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">Platform Match Telemetry</span>
-            <h2 className="text-4xl font-black text-white tracking-tight uppercase">SwipeX Match Metrics</h2>
-            <p className="text-slate-400 text-xs max-w-lg mx-auto font-semibold">Real-time stats tracking seeker applications and recruiter interviews scheduled.</p>
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Platform Match Telemetry</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">SwipeX Match Metrics</h2>
+            <p className="text-slate-500 text-xs max-w-lg mx-auto font-semibold">Real-time stats tracking seeker applications and recruiter interviews scheduled.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { val: "12,000+", label: "Verified Matches Made", desc: "Seekers connected directly to engineering recruiters", icon: Sparkles, color: "from-cyan-500/20 to-blue-500/10 border-cyan-500/30 text-cyan-400" },
-              { val: "98.2%", label: "AI Stack Fit Index", desc: "Automated candidate-job match success rate", icon: Cpu, color: "from-blue-500/20 to-indigo-500/10 border-blue-500/30 text-blue-400" },
-              { val: "15 mins", label: "Average Call Scheduled", desc: "Average duration to unlock calendars from matches", icon: Clock, color: "from-violet-500/20 to-cyan-500/10 border-violet-500/30 text-violet-400" }
+              { val: "12,000+", label: "Verified Matches Made", desc: "Seekers connected directly to engineering recruiters", icon: Sparkles },
+              { val: "98.2%", label: "AI Stack Fit Index", desc: "Automated candidate-job match success rate", icon: Cpu },
+              { val: "15 mins", label: "Average Call Scheduled", desc: "Average duration to unlock calendars from matches", icon: Clock }
             ].map((st, i) => {
               const Icon = st.icon;
               return (
-                <div key={i} className="p-[1px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent shadow-xl transform hover:-translate-y-1.5 transition-all duration-300">
-                  <div className="bg-[#0b0f1a]/95 backdrop-blur-2xl p-8 rounded-[23px] text-center space-y-4">
-                    <div className="w-12 h-12 mx-auto rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400">
+                <div key={i} className="p-[1px] rounded-3xl bg-slate-200/50 shadow-sm transform hover:-translate-y-1.5 transition-all duration-300">
+                  <div className="bg-white p-8 rounded-[23px] text-center space-y-4 border border-slate-200/80 shadow-md">
+                    <div className="w-12 h-12 mx-auto rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
                       <Icon size={20} />
                     </div>
                     <div className="space-y-1">
-                      <span className="text-4xl font-black text-white block">{st.val}</span>
-                      <span className="text-xs font-black text-slate-350 block uppercase tracking-wider">{st.label}</span>
+                      <span className="text-4xl font-black text-slate-850 block">{st.val}</span>
+                      <span className="text-xs font-black text-slate-700 block uppercase tracking-wider">{st.label}</span>
                     </div>
                     <p className="text-slate-500 text-xxs font-semibold leading-relaxed">{st.desc}</p>
                   </div>
@@ -322,34 +322,34 @@ export default function Home() {
       </section>
 
       {/* 4. FEATURES SECTION (Theme: Purple + Pink Gradient cards) */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#090e1a] via-violet-955/20 to-[#090e1a] border-b border-white/5">
-        <div className="absolute bottom-[10%] right-[10%] w-[380px] h-[380px] bg-gradient-to-tr from-violet-605/10 via-pink-500/10 to-transparent rounded-full blur-[110px] pointer-events-none" />
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-slate-100/50 to-[#f8fafc] border-b border-slate-200/80">
+        <div className="absolute bottom-[10%] right-[10%] w-[380px] h-[380px] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[110px] pointer-events-none" />
         <div className="max-w-6xl mx-auto px-6 space-y-16 relative z-10">
           <div className="text-left space-y-3">
-            <span className="text-[10px] font-black text-violet-400 uppercase tracking-widest">Enterprise Core Capabilities</span>
-            <h2 className="text-4xl font-black text-white tracking-tight uppercase">High-Performance Matching</h2>
-            <p className="text-slate-400 text-xs font-semibold">Engineered to bypass traditional ATS bottlenecks completely.</p>
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Enterprise Core Capabilities</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">High-Performance Matching</h2>
+            <p className="text-slate-500 text-xs font-semibold">Engineered to bypass traditional ATS bottlenecks completely.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: "Tinder-Style Swiper", desc: "Swipe right on matching roles. Skip long questionnaires and lock direct pipelines.", icon: Compass, grad: "from-violet-600/15 via-pink-600/10 to-transparent" },
-              { title: "Smart Resume Analysis", desc: "Upload PDFs to compile real-time ATS match audits and identify keyword stack gaps.", icon: FileText, grad: "from-pink-600/15 via-violet-600/10 to-transparent" },
-              { title: "WebRTC Conferences", desc: "Practice video calls or attend recruiter meetups directly inside matching channels.", icon: MessageSquare, grad: "from-violet-600/15 via-blue-600/10 to-transparent" }
+              { title: "Tinder-Style Swiper", desc: "Swipe right on matching roles. Skip long questionnaires and lock direct pipelines.", icon: Compass, grad: "from-blue-50/30 to-indigo-50/30" },
+              { title: "Smart Resume Analysis", desc: "Upload PDFs to compile real-time ATS match audits and identify keyword stack gaps.", icon: FileText, grad: "from-indigo-50/30 to-blue-50/30" },
+              { title: "WebRTC Conferences", desc: "Practice video calls or attend recruiter meetups directly inside matching channels.", icon: MessageSquare, grad: "from-blue-50/30 to-indigo-50/30" }
             ].map((feat, i) => {
               const Icon = feat.icon;
               return (
-                <div key={i} className="p-[1.2px] rounded-3xl bg-gradient-to-br from-white/10 hover:from-white/20 to-transparent shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                  <div className={`bg-gradient-to-b ${feat.grad} backdrop-blur-2xl p-8 rounded-[23px] h-full flex flex-col justify-between text-left relative overflow-hidden border border-white/5`}>
+                <div key={i} className="p-[1px] rounded-3xl bg-slate-200/50 shadow-sm transition-all duration-300 transform hover:-translate-y-1">
+                  <div className={`bg-white bg-gradient-to-b ${feat.grad} p-8 rounded-[23px] h-full flex flex-col justify-between text-left relative overflow-hidden border border-slate-200 shadow-md`}>
                     <div className="space-y-4">
-                      <div className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-violet-400">
+                      <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
                         <Icon size={18} />
                       </div>
-                      <h3 className="text-white font-black text-lg">{feat.title}</h3>
-                      <p className="text-slate-400 text-xs leading-relaxed font-semibold">{feat.desc}</p>
+                      <h3 className="text-slate-800 font-black text-lg">{feat.title}</h3>
+                      <p className="text-slate-600 text-xs leading-relaxed font-semibold">{feat.desc}</p>
                     </div>
-                    <div className="pt-6 mt-6 border-t border-white/5">
-                      <Link to="/register" className="text-xxs font-black text-violet-400 hover:underline uppercase tracking-wider flex items-center gap-1">
+                    <div className="pt-6 mt-6 border-t border-slate-100">
+                      <Link to="/register" className="text-xxs font-black text-blue-600 hover:underline uppercase tracking-wider flex items-center gap-1">
                         Learn More <ArrowRight size={10} />
                       </Link>
                     </div>
@@ -362,13 +362,13 @@ export default function Home() {
       </section>
 
       {/* 5. WHY SWIPEX SECTION (Theme: Emerald + Cyan Grid) */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#090e1a] via-emerald-950/20 to-[#090e1a] border-b border-white/5">
-        <div className="absolute top-[20%] right-[20%] w-[380px] h-[380px] bg-gradient-to-tr from-emerald-600/10 via-cyan-600/10 to-transparent rounded-full blur-[110px] pointer-events-none" />
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-emerald-50/20 to-[#f8fafc] border-b border-slate-200/80">
+        <div className="absolute top-[20%] right-[20%] w-[380px] h-[380px] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[110px] pointer-events-none" />
         <div className="max-w-6xl mx-auto px-6 space-y-16 relative z-10">
           <div className="text-center space-y-3">
-            <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">Why Choose Us</span>
-            <h2 className="text-4xl font-black text-white tracking-tight uppercase">Algorithmic Talent Sourcing</h2>
-            <p className="text-slate-400 text-xs max-w-lg mx-auto font-semibold">We connect stack proficiencies directly to recruiter calendars, eliminating intermediate forms.</p>
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Why Choose Us</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">Algorithmic Talent Sourcing</h2>
+            <p className="text-slate-500 text-xs max-w-lg mx-auto font-semibold">We connect stack proficiencies directly to recruiter calendars, eliminating intermediate forms.</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -382,12 +382,12 @@ export default function Home() {
             ].map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={i} className="p-6 rounded-3xl bg-[#0b0f1a]/80 border border-white/10 hover:border-emerald-500/25 transition-all text-left space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-450">
+                <div key={i} className="p-6 rounded-3xl bg-white border border-slate-200 hover:border-blue-500/30 transition-all text-left space-y-3 shadow-md">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
                     <Icon size={16} />
                   </div>
-                  <h4 className="text-white font-extrabold text-sm">{item.title}</h4>
-                  <p className="text-slate-400 text-xxs leading-relaxed font-semibold">{item.desc}</p>
+                  <h4 className="text-slate-800 font-extrabold text-sm">{item.title}</h4>
+                  <p className="text-slate-550 text-xxs leading-relaxed font-semibold">{item.desc}</p>
                 </div>
               );
             })}
@@ -396,16 +396,16 @@ export default function Home() {
       </section>
 
       {/* 6. HOW IT WORKS TIMELINE (Theme: Orange + Purple) */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#090e1a] via-orange-955/20 to-[#090e1a] border-b border-white/5">
-        <div className="absolute bottom-[20%] left-[20%] w-[380px] h-[380px] bg-gradient-to-tr from-orange-650/10 via-violet-600/10 to-transparent rounded-full blur-[110px] pointer-events-none" />
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-indigo-50/20 to-[#f8fafc] border-b border-slate-200/80">
+        <div className="absolute bottom-[20%] left-[20%] w-[380px] h-[380px] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[110px] pointer-events-none" />
         <div className="max-w-4xl mx-auto px-6 space-y-16 relative z-10">
           <div className="text-center space-y-3">
-            <span className="text-[10px] font-black text-orange-400 uppercase tracking-widest">How It Works</span>
-            <h2 className="text-4xl font-black text-white tracking-tight uppercase">Your Route to Landing Roles</h2>
-            <p className="text-slate-405 text-xs max-w-sm mx-auto font-semibold">Deploy profiles, check match indexes, swiping cards, and match directly.</p>
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">How It Works</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">Your Route to Landing Roles</h2>
+            <p className="text-slate-500 text-xs max-w-sm mx-auto font-semibold">Deploy profiles, check match indexes, swiping cards, and match directly.</p>
           </div>
 
-          <div className="relative border-l border-dashed border-white/10 pl-6 ml-2 space-y-12 text-left">
+          <div className="relative border-l border-dashed border-slate-200 pl-6 ml-2 space-y-12 text-left">
             {[
               { step: "Step 1", title: "Create Profile", desc: "Build your professional seeker account and list stack specializations.", icon: User },
               { step: "Step 2", title: "AI Analysis", desc: "Upload PDF resumes to run automated parser diagnostics.", icon: Cpu },
@@ -416,15 +416,15 @@ export default function Home() {
               const Icon = node.icon;
               return (
                 <div key={i} className="relative space-y-1">
-                  <span className="absolute -left-[33.5px] top-1 w-5 h-5 rounded-full bg-gradient-to-tr from-orange-500 to-violet-500 flex items-center justify-center ring-4 ring-[#090e1a] shadow-md text-white text-[9px] font-black">
+                  <span className="absolute -left-[33.5px] top-1 w-5 h-5 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center ring-4 ring-white shadow-md text-white text-[9px] font-black">
                     {i+1}
                   </span>
                   <div className="flex items-center space-x-2">
-                    <span className="text-[10px] font-black text-orange-400 uppercase tracking-wider">{node.step}</span>
-                    <Icon size={12} className="text-violet-400" />
+                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider">{node.step}</span>
+                    <Icon size={12} className="text-blue-600" />
                   </div>
-                  <h4 className="text-white font-extrabold text-sm">{node.title}</h4>
-                  <p className="text-slate-400 text-xxs font-semibold max-w-lg leading-relaxed">{node.desc}</p>
+                  <h4 className="text-slate-850 font-black text-sm">{node.title}</h4>
+                  <p className="text-slate-600 text-xxs font-semibold max-w-lg leading-relaxed">{node.desc}</p>
                 </div>
               );
             })}
@@ -433,35 +433,35 @@ export default function Home() {
       </section>
 
       {/* 7. TESTIMONIALS (Theme: Pink + Blue cards) */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#090e1a] via-pink-955/20 to-[#090e1a] border-b border-white/5">
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-blue-50/20 to-[#f8fafc] border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-6 space-y-16 relative z-10">
           <div className="text-center space-y-3">
-            <span className="text-[10px] font-black text-pink-400 uppercase tracking-widest">Seeker Reviews</span>
-            <h2 className="text-4xl font-black text-white tracking-tight uppercase">Matched and Deployed</h2>
-            <p className="text-slate-400 text-xs font-semibold max-w-xs mx-auto">Success reports sent directly from engineering team members.</p>
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Seeker Reviews</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">Matched and Deployed</h2>
+            <p className="text-slate-500 text-xs font-semibold max-w-xs mx-auto">Success reports sent directly from engineering team members.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { name: "Sarah Jenkins", role: "Software Engineer", company: "Google", text: "SwipeX bypassed the resume black hole completely. Swiped right, matched with Google recruiter, scheduled interview directly.", grad: "from-pink-500/10 via-blue-500/10 to-[#0b0f1a]/80" },
-              { name: "David Chen", role: "AI Tech Lead", company: "Microsoft", text: "Match score accuracy was extremely high. The built-in practice questions prepared me for the WebRTC panel session perfectly.", grad: "from-blue-500/10 via-pink-500/10 to-[#0b0f1a]/80" },
-              { name: "Elena Rostova", role: "Product Designer", company: "Amazon", text: "Redesign dashboard layout is very modern. Direct messaging unlocked calendar synchronization immediately.", grad: "from-pink-500/10 via-violet-500/10 to-[#0b0f1a]/80" }
+              { name: "Sarah Jenkins", role: "Software Engineer", company: "Google", text: "SwipeX bypassed the resume black hole completely. Swiped right, matched with Google recruiter, scheduled interview directly.", grad: "from-blue-50/20 to-white" },
+              { name: "David Chen", role: "AI Tech Lead", company: "Microsoft", text: "Match score accuracy was extremely high. The built-in practice questions prepared me for the WebRTC panel session perfectly.", grad: "from-indigo-50/20 to-white" },
+              { name: "Elena Rostova", role: "Product Designer", company: "Amazon", text: "Redesign dashboard layout is very modern. Direct messaging unlocked calendar synchronization immediately.", grad: "from-blue-50/20 to-white" }
             ].map((user, i) => (
-              <div key={i} className="p-[1px] rounded-3xl bg-gradient-to-br from-white/10 hover:from-white/20 to-transparent shadow-xl transition-all duration-300">
-                <div className={`bg-gradient-to-b ${user.grad} backdrop-blur-2xl p-8 rounded-[23px] h-full flex flex-col justify-between text-left border border-white/5`}>
+              <div key={i} className="p-[1px] rounded-3xl bg-slate-200/50 shadow-sm transition-all duration-300 transform hover:-translate-y-1">
+                <div className={`bg-white bg-gradient-to-b ${user.grad} p-8 rounded-[23px] h-full flex flex-col justify-between text-left border border-slate-200 shadow-md`}>
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-1.5 text-amber-400">
-                      {[...Array(5)].map((_, idx) => <Star key={idx} size={11} className="fill-amber-400 text-amber-400" />)}
+                    <div className="flex items-center space-x-1.5 text-amber-500">
+                      {[...Array(5)].map((_, idx) => <Star key={idx} size={11} className="fill-amber-500 text-amber-500" />)}
                     </div>
-                    <p className="text-slate-350 text-xxs leading-relaxed italic font-semibold">"{user.text}"</p>
+                    <p className="text-slate-650 text-xxs leading-relaxed italic font-semibold">"{user.text}"</p>
                   </div>
-                  <div className="pt-6 border-t border-white/5 mt-6 flex items-center space-x-3">
-                    <div className="w-9 h-9 rounded-full bg-slate-900 border border-white/10 flex items-center justify-center font-black text-xs text-pink-400 shadow-md">
+                  <div className="pt-6 border-t border-slate-100 mt-6 flex items-center space-x-3">
+                    <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center font-black text-xs text-blue-600 shadow-sm">
                       {user.name.charAt(0)}
                     </div>
                     <div>
-                      <h4 className="text-white font-black text-xs">{user.name}</h4>
-                      <p className="text-[10px] text-slate-500 font-extrabold uppercase">{user.role} @ <span className="text-slate-300">{user.company}</span></p>
+                      <h4 className="text-slate-800 font-black text-xs">{user.name}</h4>
+                      <p className="text-[10px] text-slate-400 font-extrabold uppercase">{user.role} @ <span className="text-slate-700">{user.company}</span></p>
                     </div>
                   </div>
                 </div>
@@ -472,12 +472,12 @@ export default function Home() {
       </section>
 
       {/* 8. FAQ CENTER SECTION (Theme: Indigo + Purple Glass Cards) */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#090e1a] via-indigo-955/20 to-[#090e1a] border-b border-white/5">
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-indigo-50/10 to-[#f8fafc] border-b border-slate-200/80">
         <div className="max-w-4xl mx-auto px-6 space-y-12 relative z-10">
           <div className="text-center space-y-3">
-            <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Support Portal</span>
-            <h2 className="text-4xl font-black text-white tracking-tight uppercase">FAQ Center</h2>
-            <p className="text-slate-400 text-xs font-semibold">Everything you need to know about SwipeX operations</p>
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Support Portal</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">FAQ Center</h2>
+            <p className="text-slate-500 text-xs font-semibold">Everything you need to know about SwipeX operations</p>
           </div>
 
           <div className="space-y-4 text-left">
@@ -486,15 +486,15 @@ export default function Home() {
               { q: "Is a resume file mandatory?", a: "Yes, you must upload at least one PDF resume in your Profile section before you can swipe right to apply for roles." },
               { q: "How is the Match score computed?", a: "Our AI match engine compares skills list keywords in your resume against job profile metadata, assigning a percentage score." }
             ].map((faq, i) => (
-              <div key={i} className="p-[1.2px] rounded-2xl bg-gradient-to-tr from-white/5 to-transparent">
-                <div className="bg-[#0b0f1a]/95 rounded-[15px] p-5">
+              <div key={i} className="p-[1px] rounded-2xl bg-slate-200/50 shadow-sm">
+                <div className="bg-white rounded-[15px] p-5 border border-slate-200">
                   <button
                     type="button"
                     onClick={() => toggleFaq(i)}
-                    className="w-full flex items-center justify-between text-left text-xs font-black text-white uppercase tracking-wider cursor-pointer"
+                    className="w-full flex items-center justify-between text-left text-xs font-black text-slate-800 uppercase tracking-wider cursor-pointer"
                   >
                     <span>{faq.q}</span>
-                    <ChevronDown size={14} className={`text-slate-400 transition-transform ${faqOpen === i ? 'rotate-180 text-violet-400' : ''}`} />
+                    <ChevronDown size={14} className={`text-slate-500 transition-transform ${faqOpen === i ? 'rotate-180 text-blue-600' : ''}`} />
                   </button>
                   <AnimatePresence>
                     {faqOpen === i && (
@@ -504,7 +504,7 @@ export default function Home() {
                         exit={{ height: 0, opacity: 0 }}
                         className="overflow-hidden"
                       >
-                        <p className="text-slate-400 text-xxs leading-relaxed pt-3 font-semibold border-t border-white/5 mt-3">
+                        <p className="text-slate-600 text-xxs leading-relaxed pt-3 font-semibold border-t border-slate-100 mt-3">
                           {faq.a}
                         </p>
                       </motion.div>
@@ -518,47 +518,47 @@ export default function Home() {
       </section>
 
       {/* 9. PREMIUM MULTI-COLOR FOOTER */}
-      <footer className="py-20 relative overflow-hidden bg-gradient-to-t from-violet-955/20 via-[#090e1a] to-[#090e1a]">
-        <div className="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-4 gap-12 border-t border-white/10 pt-16 text-left text-white">
+      <footer className="py-20 relative overflow-hidden bg-gradient-to-t from-blue-50/50 via-[#f8fafc] to-[#f8fafc]">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-4 gap-12 border-t border-slate-200 pt-16 text-left text-slate-800">
           <div className="space-y-4">
-            <h3 className="text-xl font-black text-white tracking-tight flex items-center gap-1.5">
-              <Sparkles size={16} className="text-violet-400" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400">SwipeX Inc.</span>
+            <h3 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-1.5">
+              <Sparkles size={16} className="text-blue-600" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-650">SwipeX Inc.</span>
             </h3>
-            <p className="text-slate-400 text-xxs leading-relaxed font-semibold">Bypass intermediary forms. Elevate technical matches directly to recruiting channels.</p>
+            <p className="text-slate-600 text-xxs leading-relaxed font-semibold">Bypass intermediary forms. Elevate technical matches directly to recruiting channels.</p>
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Seeker Channels</h4>
-            <div className="flex flex-col space-y-2 text-xxs font-extrabold text-slate-350">
-              <Link to="/swipe" className="hover:text-white transition-colors">Swipe Deck</Link>
-              <Link to="/jobs" className="hover:text-white transition-colors">Search Jobs</Link>
-              <Link to="/applications" className="hover:text-white transition-colors">Kanban Pipeline</Link>
+            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Seeker Channels</h4>
+            <div className="flex flex-col space-y-2 text-xxs font-extrabold text-slate-600">
+              <Link to="/swipe" className="hover:text-blue-600 transition-colors">Swipe Deck</Link>
+              <Link to="/jobs" className="hover:text-blue-600 transition-colors">Search Jobs</Link>
+              <Link to="/applications" className="hover:text-blue-600 transition-colors">Kanban Pipeline</Link>
             </div>
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Connect</h4>
-            <div className="flex flex-col space-y-2 text-xxs font-extrabold text-slate-350">
-              <Link to="/profile" className="hover:text-white transition-colors">Candidate Profile</Link>
-              <Link to="/messages" className="hover:text-white transition-colors">Match Channels</Link>
-              <Link to="/calendar" className="hover:text-white transition-colors">Interview Calendar</Link>
+            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Connect</h4>
+            <div className="flex flex-col space-y-2 text-xxs font-extrabold text-slate-600">
+              <Link to="/profile" className="hover:text-blue-600 transition-colors">Candidate Profile</Link>
+              <Link to="/messages" className="hover:text-blue-600 transition-colors">Match Channels</Link>
+              <Link to="/calendar" className="hover:text-blue-600 transition-colors">Interview Calendar</Link>
             </div>
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Newsletter</h4>
-            <p className="text-slate-400 text-xxs font-semibold">Stay updated with our latest AI recommendations.</p>
+            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Newsletter</h4>
+            <p className="text-slate-500 text-xxs font-semibold">Stay updated with our latest AI recommendations.</p>
             <div className="flex gap-2">
               <input
                 type="email"
                 placeholder="Email address..."
-                className="w-full bg-[#070913] border border-white/10 rounded-xl px-3 py-2 text-xxs text-white focus:border-violet-500/50 outline-none font-semibold"
+                className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xxs text-slate-800 focus:border-blue-500/50 outline-none font-semibold"
               />
               <button 
                 type="button"
                 onClick={() => alert('Subscribed successfully!')}
-                className="px-4 py-2 bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white font-black text-xxs uppercase tracking-wider rounded-xl cursor-pointer"
+                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xxs uppercase tracking-wider rounded-xl cursor-pointer"
               >
                 Join
               </button>
@@ -566,7 +566,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-white/5 text-center text-slate-600 text-xxs font-bold">
+        <div className="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-slate-200 text-center text-slate-400 text-xxs font-bold">
           &copy; {new Date().getFullYear()} SwipeX Corporation. All rights reserved. Bypassing ATS blocks globally.
         </div>
       </footer>
