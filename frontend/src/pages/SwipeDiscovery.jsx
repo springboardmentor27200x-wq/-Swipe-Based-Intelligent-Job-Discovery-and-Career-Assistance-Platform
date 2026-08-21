@@ -85,31 +85,31 @@ const SwipeCard = ({ job, isTop, relativeIndex, swipeDirection, handleDragEnd, s
         mass: 0.8,
         duration: 0.3
       }}
-      className={`absolute w-full h-full p-[1px] rounded-[28px] overflow-hidden shadow-2xl ${
+      className={`absolute w-full h-full p-[1px] rounded-[28px] overflow-hidden shadow-xl ${
         isTop 
-          ? 'bg-gradient-to-b from-purple-500/25 via-indigo-500/20 to-blue-500/25 shadow-violet-500/10' 
-          : 'bg-gradient-to-b from-white/5 to-transparent'
+          ? 'bg-gradient-to-b from-blue-500/10 via-indigo-500/5 to-purple-500/10 shadow-slate-200/50' 
+          : 'bg-gradient-to-b from-slate-100 to-transparent'
       }`}
     >
-      <div className="w-full h-full bg-slate-900/95 border border-white/10 rounded-[27px] p-5 flex flex-col justify-between cursor-grab active:cursor-grabbing relative overflow-hidden text-left select-none shadow-[0_20px_50px_rgba(139,92,246,0.12)]">
+      <div className="w-full h-full bg-white border border-slate-200/80 rounded-[27px] p-5 flex flex-col justify-between cursor-grab active:cursor-grabbing relative overflow-hidden text-left select-none shadow-[0_15px_30px_-5px_rgba(15,23,42,0.06),0_4px_12px_-2px_rgba(15,23,42,0.03)]">
         
         {/* Overlay tags for likes/nopes */}
         {isTop && (
           <>
-            <motion.div style={{ opacity: likeOpacity }} className="absolute top-6 left-6 border-4 border-emerald-500 text-emerald-500 text-lg font-black uppercase rounded-xl px-4 py-1.5 rotate-[-12deg] tracking-wider bg-slate-955/95 shadow-xl z-30">
+            <motion.div style={{ opacity: likeOpacity }} className="absolute top-6 left-6 border-4 border-emerald-500 text-emerald-500 text-lg font-black uppercase rounded-xl px-4 py-1.5 rotate-[-12deg] tracking-wider bg-white shadow-xl z-30">
               LIKE
             </motion.div>
-            <motion.div style={{ opacity: nopeOpacity }} className="absolute top-6 right-6 border-4 border-rose-500 text-rose-500 text-lg font-black uppercase rounded-xl px-4 py-1.5 rotate-[12deg] tracking-wider bg-slate-955/95 shadow-xl z-30">
+            <motion.div style={{ opacity: nopeOpacity }} className="absolute top-6 right-6 border-4 border-rose-500 text-rose-500 text-lg font-black uppercase rounded-xl px-4 py-1.5 rotate-[12deg] tracking-wider bg-white shadow-xl z-30">
               NOPE
             </motion.div>
-            <motion.div style={{ opacity: saveOpacity }} className="absolute bottom-24 left-1/2 -translate-x-1/2 border-4 border-cyan-500 text-cyan-500 text-lg font-black uppercase rounded-xl px-4 py-1.5 tracking-wider bg-slate-955/95 shadow-xl z-30">
+            <motion.div style={{ opacity: saveOpacity }} className="absolute bottom-24 left-1/2 -translate-x-1/2 border-4 border-blue-500 text-blue-500 text-lg font-black uppercase rounded-xl px-4 py-1.5 tracking-wider bg-white shadow-xl z-30">
               SAVE
             </motion.div>
           </>
         )}
 
         {!isTop && (
-          <div className="absolute inset-0 bg-[#0f172a]/55 rounded-[27px] z-30 pointer-events-none select-none" />
+          <div className="absolute inset-0 bg-slate-100/40 rounded-[27px] z-30 pointer-events-none select-none" />
         )}
 
         <div className="space-y-3 flex-1 flex flex-col justify-between h-full">
@@ -120,10 +120,10 @@ const SwipeCard = ({ job, isTop, relativeIndex, swipeDirection, handleDragEnd, s
                 <CompanyLogo company={job.company} className="w-16 h-16" />
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <h4 className="text-base font-black text-white truncate">{job.company?.name || job.company_name}</h4>
-                    <Shield size={15} className="text-blue-400 shrink-0" fill="currentColor" />
+                    <h4 className="text-base font-black text-slate-800 truncate">{job.company?.name || job.company_name}</h4>
+                    <Shield size={15} className="text-blue-500 shrink-0" fill="currentColor" />
                   </div>
-                  <span className="text-xxs text-slate-405 font-bold block mt-0.5">
+                  <span className="text-xxs text-slate-400 font-bold block mt-0.5">
                     Rating: {job.company?.rating || 4.2} ★ • {job.company?.industry || 'Technology'}
                   </span>
                 </div>
@@ -131,69 +131,69 @@ const SwipeCard = ({ job, isTop, relativeIndex, swipeDirection, handleDragEnd, s
 
               {/* Radial AI Match progress gauge */}
               <div className="relative w-14 h-14 flex items-center justify-center shrink-0">
-                <svg className="w-full h-full transform -rotate-90 filter drop-shadow-[0_0_8px_rgba(139,92,246,0.3)]" viewBox="0 0 36 36">
-                  <circle cx="18" cy="18" r="16" fill="none" stroke="#ffffff10" strokeWidth="2.5" />
+                <svg className="w-full h-full transform -rotate-90 filter drop-shadow-[0_2px_8px_rgba(59,130,246,0.15)]" viewBox="0 0 36 36">
+                  <circle cx="18" cy="18" r="16" fill="none" stroke="#f1f5f9" strokeWidth="2.5" />
                   <circle cx="18" cy="18" r="16" fill="none" stroke="url(#card-match-grad)" strokeWidth="3"
                     strokeDasharray={`${job.ai_match_score || 85}, 100`} strokeLinecap="round" />
                   <defs>
                     <linearGradient id="card-match-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#8b5cf6" />
-                      <stop offset="100%" stopColor="#3b82f6" />
+                      <stop offset="0%" stopColor="#3b82f6" />
+                      <stop offset="100%" stopColor="#1d4ed8" />
                     </linearGradient>
                   </defs>
                 </svg>
-                <span className="absolute text-[10px] font-black text-white">{job.ai_match_score || 85}%</span>
+                <span className="absolute text-[10px] font-black text-slate-700">{job.ai_match_score || 85}%</span>
               </div>
             </div>
 
             {/* Title, location and Core stats badges */}
             <div className="space-y-2">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="px-2.5 py-1 rounded bg-purple-500/20 border border-purple-500/30 text-[8.5px] font-black text-purple-300 uppercase tracking-wider">
+                <span className="px-2.5 py-1 rounded bg-blue-50 border border-blue-100 text-[8.5px] font-black text-blue-600 uppercase tracking-wider">
                   {job.experience_level || 'Mid Level'}
                 </span>
-                <span className="px-2.5 py-1 rounded bg-cyan-500/20 border border-cyan-500/30 text-[8.5px] font-black text-cyan-300 uppercase tracking-wider capitalize">
+                <span className="px-2.5 py-1 rounded bg-indigo-50 border border-indigo-100 text-[8.5px] font-black text-indigo-600 uppercase tracking-wider capitalize">
                   {job.job_type || 'Remote'}
                 </span>
-                <span className="px-2.5 py-1 rounded bg-emerald-500/20 border border-emerald-500/30 text-[8.5px] font-black text-emerald-300 uppercase tracking-wider">
+                <span className="px-2.5 py-1 rounded bg-emerald-50 border border-emerald-100 text-[8.5px] font-black text-emerald-600 uppercase tracking-wider">
                   Posted 2d ago
                 </span>
               </div>
-              <h2 className="text-xl font-black text-white leading-tight tracking-tight line-clamp-1">{job.title}</h2>
-              <span className="text-xxs text-slate-300 block font-semibold flex items-center gap-1 mt-1">
-                <MapPin size={12} className="text-cyan-400" /> {job.location}
+              <h2 className="text-xl font-black text-slate-800 leading-tight tracking-tight line-clamp-1">{job.title}</h2>
+              <span className="text-xxs text-slate-500 block font-semibold flex items-center gap-1 mt-1">
+                <MapPin size={12} className="text-blue-500" /> {job.location}
               </span>
             </div>
 
             {/* Job Specification Grid */}
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3 py-3 px-4 rounded-2xl bg-slate-955/40 border border-white/5 text-[10px] font-bold text-slate-300">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-3 py-3 px-4 rounded-2xl bg-slate-50 border border-slate-100 text-[10px] font-bold text-slate-600">
               <div>
-                <span className="text-slate-550 block uppercase text-[8px] tracking-wider mb-0.5">Company Size</span>
-                <span className="text-slate-200">{job.company?.size || '500-1,000 employees'}</span>
+                <span className="text-slate-400 block uppercase text-[8px] tracking-wider mb-0.5">Company Size</span>
+                <span className="text-slate-700">{job.company?.size || '500-1,000 employees'}</span>
               </div>
               <div>
-                <span className="text-slate-550 block uppercase text-[8px] tracking-wider mb-0.5">Industry</span>
-                <span className="text-slate-200 truncate block">{job.company?.industry || 'Technology'}</span>
+                <span className="text-slate-400 block uppercase text-[8px] tracking-wider mb-0.5">Industry</span>
+                <span className="text-slate-700 truncate block">{job.company?.industry || 'Technology'}</span>
               </div>
               <div>
-                <span className="text-slate-550 block uppercase text-[8px] tracking-wider mb-0.5">Resume Match</span>
-                <span className="text-violet-300">{Math.min(98, Math.max(65, (job.id % 20) + 75))}% Match</span>
+                <span className="text-slate-400 block uppercase text-[8px] tracking-wider mb-0.5">Resume Match</span>
+                <span className="text-blue-600">{Math.min(98, Math.max(65, (job.id % 20) + 75))}% Match</span>
               </div>
               <div>
-                <span className="text-slate-550 block uppercase text-[8px] tracking-wider mb-0.5">Interview Prob.</span>
-                <span className="text-emerald-400">{Math.min(95, Math.max(50, (job.id % 25) + 68))}% Prob.</span>
+                <span className="text-slate-400 block uppercase text-[8px] tracking-wider mb-0.5">Interview Prob.</span>
+                <span className="text-emerald-600">{Math.min(95, Math.max(50, (job.id % 25) + 68))}% Prob.</span>
               </div>
             </div>
 
             {/* Why matches details */}
             <div className="space-y-2">
-              <span className="text-[8px] font-black uppercase tracking-widest text-violet-400 block">Why this matched</span>
+              <span className="text-[8px] font-black uppercase tracking-widest text-blue-600 block">Why this matched</span>
               <div className="flex flex-wrap gap-1.5">
                 {(job.skills_required?.slice(0, 3) || ["React", "Python", "SQL"]).map((skill, idx) => {
                   const colors = [
-                    'bg-purple-500/10 border border-purple-500/25 text-purple-400',
-                    'bg-cyan-500/10 border border-cyan-500/25 text-cyan-400',
-                    'bg-emerald-500/10 border border-emerald-500/25 text-emerald-400'
+                    'bg-blue-50/50 border border-blue-100 text-blue-600',
+                    'bg-indigo-50/50 border border-indigo-100 text-indigo-600',
+                    'bg-emerald-50/50 border border-emerald-100 text-emerald-600'
                   ];
                   return (
                     <span key={skill} className={`px-2.5 py-0.5 rounded-lg border text-[8.5px] font-extrabold uppercase tracking-wide ${colors[idx % 3]}`}>
@@ -206,18 +206,18 @@ const SwipeCard = ({ job, isTop, relativeIndex, swipeDirection, handleDragEnd, s
           </div>
 
           {/* bottom card panel details */}
-          <div className="space-y-3 pt-3 border-t border-white/5 mt-auto">
+          <div className="space-y-3 pt-3 border-t border-slate-100 mt-auto">
             <div className="flex justify-between items-center text-xxs font-extrabold uppercase text-slate-400">
-              <span className="text-emerald-400 font-black text-sm">
+              <span className="text-blue-600 font-black text-sm">
                 ${(job.salary_min / 1000).toFixed(0)}k - ${(job.salary_max / 1000).toFixed(0)}k
               </span>
               <span>12 Applicants</span>
             </div>
             <button 
               onClick={() => setDrawerJob(job)}
-              className="w-full py-2.5 rounded-xl border border-violet-500/30 hover:border-violet-500/55 bg-gradient-to-r hover:from-violet-650 hover:to-indigo-650 text-slate-200 hover:text-white text-xxs font-black uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+              className="w-full py-2.5 rounded-xl border border-blue-200 hover:border-blue-300 bg-white hover:bg-slate-50 text-blue-605 hover:text-blue-700 text-xxs font-black uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
             >
-              <Sparkles size={12} className="text-violet-400 animate-pulse" />
+              <Sparkles size={12} className="text-blue-500 animate-pulse" />
               <span>Analyse Match & AI Insights</span>
             </button>
           </div>
@@ -837,27 +837,27 @@ export default function SwipeDiscovery() {
       <div className="absolute top-[30%] right-[10%] w-[450px] h-[450px] rounded-full bg-cyan-500/5 blur-[100px] pointer-events-none -z-10 animate-pulse duration-[8s]" />
 
       {/* MOBILE HEADER (lg:hidden) */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-slate-955/85 backdrop-blur-md border-b border-white/5 px-4 flex items-center justify-between z-40">
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-4 flex items-center justify-between z-40">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-violet-600 via-fuchsia-600 to-cyan-500 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center">
             <Sparkles size={14} className="text-white animate-pulse" />
           </div>
-          <span className="text-lg font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">SwipeX</span>
+          <span className="text-lg font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-650">SwipeX</span>
         </div>
         <div className="flex items-center space-x-2">
           <button 
             onClick={() => navigate('/notifications')}
-            className="relative p-2 text-slate-400 hover:text-white"
+            className="relative p-2 text-slate-500 hover:text-blue-600"
             title="Notifications"
           >
             <Bell size={20} />
             {notifications.filter(n => !n.is_read).length > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-violet-550 rounded-full border-2 border-slate-950 animate-pulse" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-600 rounded-full border-2 border-white animate-pulse" />
             )}
           </button>
           <button 
             onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-            className="p-2 text-slate-400 hover:text-white"
+            className="p-2 text-slate-500 hover:text-blue-600"
           >
             <Menu size={22} />
           </button>
@@ -868,19 +868,19 @@ export default function SwipeDiscovery() {
       {mobileSidebarOpen && (
         <div 
           onClick={() => setMobileSidebarOpen(false)}
-          className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-45"
+          className="lg:hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-45"
         />
       )}
-      <aside className={`fixed lg:static top-0 bottom-0 left-0 w-[280px] bg-slate-905/80 border-r border-white/5 backdrop-blur-2xl flex flex-col justify-between p-6 z-50 transition-transform duration-300 lg:translate-x-0 ${
+      <aside className={`fixed lg:static top-0 bottom-0 left-0 w-[280px] bg-white border-r border-slate-200/80 flex flex-col justify-between p-6 z-50 transition-transform duration-300 lg:translate-x-0 ${
         mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         <div className="space-y-6">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 via-fuchsia-600 to-cyan-505 flex items-center justify-center shadow-lg shadow-violet-500/20">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/10">
               <Sparkles size={16} className="text-white animate-pulse" />
             </div>
-            <span className="text-xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">SwipeX</span>
+            <span className="text-xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-650">SwipeX</span>
           </div>
 
           {/* Start Swiping Button */}
@@ -889,7 +889,7 @@ export default function SwipeDiscovery() {
               navigate('/discover');
               setMobileSidebarOpen(false);
             }}
-            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-extrabold text-xs uppercase tracking-wider hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all cursor-pointer shadow-md"
+            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold text-xs uppercase tracking-wider hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(59,130,246,0.15)] transition-all cursor-pointer shadow-md"
           >
             Start Swiping
           </button>
@@ -908,11 +908,11 @@ export default function SwipeDiscovery() {
                   }}
                   className={`w-full flex items-center space-x-3 px-4 py-3 rounded-[14px] text-xs font-bold transition-all relative group ${
                     isActive 
-                      ? 'bg-gradient-to-r from-violet-600/15 to-transparent text-white border-l-4 border-l-violet-500' 
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                      ? 'bg-gradient-to-r from-blue-600/5 to-transparent text-blue-600 border-l-4 border-l-blue-600' 
+                      : 'text-slate-500 hover:text-blue-600 hover:bg-slate-50'
                   }`}
                 >
-                  <Icon size={16} className={isActive ? 'text-violet-400' : 'text-slate-400 group-hover:text-slate-350'} />
+                  <Icon size={16} className={isActive ? 'text-blue-600' : 'text-slate-400 group-hover:text-blue-600'} />
                   <span>{item.label}</span>
                 </button>
               );
@@ -921,32 +921,32 @@ export default function SwipeDiscovery() {
         </div>
 
         {/* Bottom Profile Section */}
-        <div className="border-t border-white/5 pt-4 space-y-4">
+        <div className="border-t border-slate-100 pt-4 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center text-violet-400 font-black uppercase text-sm shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center text-blue-600 font-black uppercase text-sm shrink-0">
                 {profileData?.user?.first_name ? profileData.user.first_name.charAt(0) : 'U'}
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-black text-white truncate">{profileData?.user?.first_name ? `${profileData.user.first_name} ${profileData.user.last_name}` : 'Seeker User'}</p>
-                <p className="text-[10px] text-slate-500 font-bold truncate capitalize">{profileData?.role_display || 'Job Seeker'}</p>
+                <p className="text-xs font-black text-slate-800 truncate">{profileData?.user?.first_name ? `${profileData.user.first_name} ${profileData.user.last_name}` : 'Seeker User'}</p>
+                <p className="text-[10px] text-slate-400 font-bold truncate capitalize">{profileData?.role_display || 'Job Seeker'}</p>
               </div>
             </div>
             
             <button 
               onClick={() => navigate('/notifications')}
-              className="relative p-2 rounded-xl border border-white/5 hover:border-violet-500/30 text-slate-400 hover:text-white bg-slate-950 transition-all cursor-pointer shrink-0"
+              className="relative p-2 rounded-xl border border-slate-200/80 hover:border-blue-500/30 text-slate-500 hover:text-blue-600 bg-slate-50 transition-all cursor-pointer shrink-0"
               title="Notifications"
             >
               <Bell size={16} />
               {notifications.filter(n => !n.is_read).length > 0 && (
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-violet-550 rounded-full border border-slate-950 animate-pulse" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-blue-600 rounded-full border border-white animate-pulse" />
               )}
             </button>
           </div>
           <button 
             onClick={handleLogout}
-            className="w-full flex items-center justify-center space-x-2 py-2 px-3 rounded-lg border border-white/5 hover:border-red-500/25 bg-red-500/5 hover:bg-red-500/10 text-red-400 hover:text-red-300 text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer"
+            className="w-full flex items-center justify-center space-x-2 py-2 px-3 rounded-lg border border-slate-100 hover:border-red-200 bg-red-50 hover:bg-red-100/50 text-red-600 text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer"
           >
             <LogOut size={12} />
             <span>Sign Out</span>
@@ -971,21 +971,21 @@ export default function SwipeDiscovery() {
             {activeTab === 'swipe-feed' && (
               <div className="flex flex-col items-center justify-center min-h-[75vh]">
                 {deck.length === 0 && !showEmptyState ? (
-                  <div className="w-full max-w-md h-[580px] bg-slate-900/60 border border-white/10 rounded-[32px] p-6 flex flex-col justify-center items-center shadow-2xl relative overflow-hidden">
+                  <div className="w-full max-w-md h-[580px] bg-white border border-slate-200/80 rounded-[32px] p-6 flex flex-col justify-center items-center shadow-xl relative overflow-hidden">
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-40 h-40 rounded-full border border-violet-500/10 animate-ping absolute duration-[3s]" />
+                      <div className="w-40 h-40 rounded-full border border-blue-500/5 animate-ping absolute duration-[3s]" />
                     </div>
-                    <Loader2 className="animate-spin text-cyan-400 w-8 h-8 mb-4 relative z-10" />
-                    <h3 className="text-base font-black text-white relative z-10">AI Recommendations Syncing...</h3>
+                    <Loader2 className="animate-spin text-blue-500 w-8 h-8 mb-4 relative z-10" />
+                    <h3 className="text-base font-black text-slate-800 relative z-10">AI Recommendations Syncing...</h3>
                   </div>
                 ) : showEmptyState ? (
-                  <div className="w-full max-w-2xl p-8 bg-slate-900/80 border border-violet-500/20 rounded-[32px] shadow-2xl backdrop-blur-2xl text-left relative">
-                    <h3 className="text-xl font-black text-white tracking-tight">No more matching jobs today.</h3>
-                    <p className="text-xs text-slate-405 mt-2">Try updating your profile details, uploading a newer resume, or resetting your swipe history.</p>
+                  <div className="w-full max-w-2xl p-8 bg-white border border-slate-200/80 rounded-[32px] shadow-xl text-left relative">
+                    <h3 className="text-xl font-black text-slate-800 tracking-tight">No more matching jobs today.</h3>
+                    <p className="text-xs text-slate-500 mt-2">Try updating your profile details, uploading a newer resume, or resetting your swipe history.</p>
                     <button 
                       onClick={handleResetSwipes}
                       disabled={resetting}
-                      className="mt-6 px-5 py-2.5 bg-gradient-to-r from-violet-605 to-blue-600 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md disabled:opacity-50"
+                      className="mt-6 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md disabled:opacity-50 animate-pulse"
                     >
                       {resetting ? 'Resetting...' : 'Reset Swipe History'}
                     </button>
@@ -1016,10 +1016,10 @@ export default function SwipeDiscovery() {
                       <button 
                         onClick={handleUndo}
                         disabled={isSwiping || !lastSwipedJob}
-                        className="group relative w-12 h-12 rounded-full bg-slate-900 border border-white/10 hover:border-violet-500 flex items-center justify-center text-slate-400 hover:text-violet-400 hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="group relative w-12 h-12 rounded-full bg-white border border-slate-200 hover:border-blue-500 flex items-center justify-center text-slate-500 hover:text-blue-600 hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         <RotateCcw size={18} />
-                        <span className="absolute bottom-full mb-3 scale-0 group-hover:scale-100 rounded bg-slate-950 px-2 py-1 text-[8px] font-black uppercase tracking-wider text-violet-400 transition-all pointer-events-none whitespace-nowrap border border-violet-500/20">
+                        <span className="absolute bottom-full mb-3 scale-0 group-hover:scale-100 rounded bg-slate-800 px-2 py-1 text-[8px] font-black uppercase tracking-wider text-white transition-all pointer-events-none whitespace-nowrap shadow-md">
                           Undo Last Swipe
                         </span>
                       </button>
@@ -1030,10 +1030,10 @@ export default function SwipeDiscovery() {
                           if (activeCard) handleSwipe(activeCard.id, 'dislike');
                         }}
                         disabled={isSwiping || !activeCard}
-                        className="group relative w-16 h-16 rounded-full bg-rose-500/10 border border-rose-500/30 hover:border-rose-500 flex items-center justify-center text-rose-455 hover:text-rose-300 hover:scale-110 hover:shadow-[0_0_25px_rgba(244,63,94,0.35)] active:scale-90 transition-all cursor-pointer shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="group relative w-16 h-16 rounded-full bg-rose-50 border border-rose-100 hover:border-rose-450 hover:bg-rose-100/50 flex items-center justify-center text-rose-550 hover:text-rose-600 hover:scale-110 hover:shadow-[0_4px_20px_rgba(244,63,94,0.15)] active:scale-90 transition-all cursor-pointer shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         <X size={26} />
-                        <span className="absolute bottom-full mb-3 scale-0 group-hover:scale-100 rounded bg-slate-955 px-2 py-1 text-[8px] font-black uppercase tracking-wider text-rose-400 transition-all pointer-events-none whitespace-nowrap border border-rose-500/20">
+                        <span className="absolute bottom-full mb-3 scale-0 group-hover:scale-100 rounded bg-slate-800 px-2 py-1 text-[8px] font-black uppercase tracking-wider text-white transition-all pointer-events-none whitespace-nowrap shadow-md">
                           Pass & Skip (Left Arrow)
                         </span>
                       </button>
@@ -1044,10 +1044,10 @@ export default function SwipeDiscovery() {
                           if (activeCard) handleSwipe(activeCard.id, 'superlike');
                         }}
                         disabled={isSwiping || !activeCard}
-                        className="group relative w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/30 hover:border-cyan-555 flex items-center justify-center text-cyan-455 hover:text-cyan-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 transition-all cursor-pointer shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="group relative w-12 h-12 rounded-full bg-blue-50 border border-blue-100 hover:border-blue-450 hover:bg-blue-100/50 flex items-center justify-center text-blue-550 hover:text-blue-600 hover:scale-110 hover:shadow-[0_4px_15px_rgba(59,130,246,0.15)] active:scale-95 transition-all cursor-pointer shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         <Star size={18} />
-                        <span className="absolute bottom-full mb-3 scale-0 group-hover:scale-100 rounded bg-slate-955 px-2 py-1 text-[8px] font-black uppercase tracking-wider text-cyan-400 transition-all pointer-events-none whitespace-nowrap border border-cyan-555/20">
+                        <span className="absolute bottom-full mb-3 scale-0 group-hover:scale-100 rounded bg-slate-800 px-2 py-1 text-[8px] font-black uppercase tracking-wider text-white transition-all pointer-events-none whitespace-nowrap shadow-md">
                           Super Like (S Key)
                         </span>
                       </button>
@@ -1058,10 +1058,10 @@ export default function SwipeDiscovery() {
                           if (activeCard) handleSwipe(activeCard.id, 'like');
                         }}
                         disabled={isSwiping || !activeCard}
-                        className="group relative w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 hover:border-emerald-500 flex items-center justify-center text-emerald-455 hover:text-emerald-300 hover:scale-110 hover:shadow-[0_0_25px_rgba(16,185,129,0.35)] active:scale-90 transition-all cursor-pointer shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="group relative w-16 h-16 rounded-full bg-emerald-50 border border-emerald-100 hover:border-emerald-450 hover:bg-emerald-100/50 flex items-center justify-center text-emerald-550 hover:text-emerald-600 hover:scale-110 hover:shadow-[0_4px_20px_rgba(16,185,129,0.15)] active:scale-90 transition-all cursor-pointer shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         <Heart size={26} />
-                        <span className="absolute bottom-full mb-3 scale-0 group-hover:scale-100 rounded bg-slate-955 px-2 py-1 text-[8px] font-black uppercase tracking-wider text-emerald-400 transition-all pointer-events-none whitespace-nowrap border border-emerald-500/20">
+                        <span className="absolute bottom-full mb-3 scale-0 group-hover:scale-100 rounded bg-slate-800 px-2 py-1 text-[8px] font-black uppercase tracking-wider text-white transition-all pointer-events-none whitespace-nowrap shadow-md">
                           Like & Apply (Right Arrow)
                         </span>
                       </button>
@@ -1522,21 +1522,21 @@ export default function SwipeDiscovery() {
 
       {/* DETAILED OVERLAY DRAWER DIALOG MODAL */}
       {drawerJob && (
-        <div className="fixed inset-0 z-50 flex items-center justify-end bg-slate-955/70 backdrop-blur-sm">
-          <div className="w-full max-w-xl h-full bg-slate-900 border-l border-white/10 flex flex-col justify-between shadow-2xl relative overflow-hidden animate-slide-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-end bg-black/30 backdrop-blur-sm">
+          <div className="w-full max-w-xl h-full bg-white border-l border-slate-200/80 flex flex-col justify-between shadow-2xl relative overflow-hidden animate-slide-in">
             
             {/* Header Area */}
-            <div className="p-6 border-b border-white/5 flex justify-between items-center">
+            <div className="p-6 border-b border-slate-100 flex justify-between items-center">
               <div className="flex items-center gap-3">
                 <CompanyLogo company={drawerJob.company} className="w-12 h-12" />
                 <div className="text-left">
-                  <h3 className="text-base font-black text-white leading-tight">{drawerJob.title}</h3>
-                  <p className="text-xxs text-slate-405 font-bold mt-0.5">{drawerJob.company?.name || drawerJob.company_name} • {drawerJob.location}</p>
+                  <h3 className="text-base font-black text-slate-800 leading-tight">{drawerJob.title}</h3>
+                  <p className="text-xxs text-slate-400 font-bold mt-0.5">{drawerJob.company?.name || drawerJob.company_name} • {drawerJob.location}</p>
                 </div>
               </div>
               <button
                 onClick={() => { setDrawerJob(null); setCoverLetter(''); }}
-                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-all cursor-pointer"
+                className="p-2 text-slate-500 hover:text-blue-600 rounded-lg hover:bg-slate-100 transition-all cursor-pointer"
               >
                 <X size={20} />
               </button>
@@ -1546,16 +1546,16 @@ export default function SwipeDiscovery() {
             <div className="flex-1 overflow-y-auto p-6 space-y-6 text-left">
               
               {/* AI matching insights */}
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-violet-650/10 to-blue-600/10 border border-violet-500/25 space-y-3">
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50/50 border border-blue-100 space-y-3">
                 <div className="flex items-center gap-2">
-                  <Sparkles size={16} className="text-violet-404 animate-pulse" />
-                  <span className="text-xs font-black uppercase tracking-wider text-white">AI Match Audit Insights</span>
+                  <Sparkles size={16} className="text-blue-600 animate-pulse" />
+                  <span className="text-xs font-black uppercase tracking-wider text-blue-800">AI Match Audit Insights</span>
                 </div>
-                <div className="text-xxs text-slate-350 leading-relaxed">
+                <div className="text-xxs text-slate-600 leading-relaxed">
                   {loadingAts ? (
                     <div className="flex items-center gap-2 py-1">
-                      <Loader2 className="animate-spin text-violet-400 w-3.5 h-3.5" />
-                      <span className="text-xxs text-slate-400">Syncing AI match insights...</span>
+                      <Loader2 className="animate-spin text-blue-600 w-3.5 h-3.5" />
+                      <span className="text-xxs text-slate-500">Syncing AI match insights...</span>
                     </div>
                   ) : atsResult ? (
                     <p>
@@ -1574,19 +1574,19 @@ export default function SwipeDiscovery() {
 
               {/* Job description detail cards */}
               <div className="space-y-2">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block border-b border-white/5 pb-2">Job Description</span>
-                <p className="text-xxs text-slate-400 leading-relaxed font-medium">
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block border-b border-slate-100 pb-2">Job Description</span>
+                <p className="text-xxs text-slate-600 leading-relaxed font-medium">
                   {drawerJob.description || "Looking for a high-performance engineer to implement clean, state-of-the-art interactive workspace views. You will leverage modern animation configurations, build dynamic hooks, and collaborate with backend DRF teams to ensure zero layout shifts and sub-millisecond database queries."}
                 </p>
               </div>
 
               {/* Skills checklist */}
               <div className="space-y-3">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block border-b border-white/5 pb-2">Skills Match checklist</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block border-b border-slate-100 pb-2">Skills Match checklist</span>
                 <div className="grid grid-cols-2 gap-3">
                   {(drawerJob.skills_required || ["React", "Python", "SQL", "Git"]).map((skill) => (
-                    <div key={skill} className="flex items-center gap-2 text-xxs font-bold text-slate-305">
-                      <span className="w-1.5 h-1.5 rounded-full bg-violet-400 shrink-0" />
+                    <div key={skill} className="flex items-center gap-2 text-xxs font-bold text-slate-600">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
                       <span>{skill}</span>
                     </div>
                   ))}
@@ -1594,16 +1594,16 @@ export default function SwipeDiscovery() {
               </div>
 
               {/* Cover Letter generation panel inside insights drawer */}
-              <div className="p-4 rounded-2xl bg-slate-950/40 border border-white/5 space-y-4">
-                <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 block border-b border-white/5 pb-2">AI Cover Letter Builder</span>
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-4">
+                <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 block border-b border-slate-150 pb-2">AI Cover Letter Builder</span>
                 {coverLetter ? (
                   <div className="space-y-3">
-                    <pre className="p-3 bg-slate-900 border border-white/5 rounded-xl font-mono text-[9px] text-slate-300 whitespace-pre-wrap leading-relaxed max-h-44 overflow-y-auto">
+                    <pre className="p-3 bg-white border border-slate-200 rounded-xl font-mono text-[9px] text-slate-700 whitespace-pre-wrap leading-relaxed max-h-44 overflow-y-auto">
                       {coverLetter}
                     </pre>
                     <button
                       onClick={handleCopyCoverLetter}
-                      className="px-4 py-2 bg-slate-900 border border-white/10 hover:border-violet-500/20 text-slate-200 hover:text-white text-xxs font-black uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center gap-1.5"
+                      className="px-4 py-2 bg-white border border-slate-200 hover:border-blue-300 text-slate-600 hover:text-blue-600 text-xxs font-black uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-sm"
                     >
                       <Copy size={12} />
                       <span>Copy Cover Letter</span>
@@ -1613,7 +1613,7 @@ export default function SwipeDiscovery() {
                   <button
                     onClick={handleGenerateCoverLetter}
                     disabled={generatingCoverLetter}
-                    className="w-full py-2.5 bg-gradient-to-r from-violet-605 to-blue-600 hover:scale-102 text-white rounded-xl text-xxs font-black uppercase tracking-wider transition-all disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                    className="w-full py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:scale-[1.02] text-white rounded-xl text-xxs font-black uppercase tracking-wider transition-all disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
                   >
                     {generatingCoverLetter ? (
                       <Loader2 size={12} className="animate-spin" />
@@ -1628,10 +1628,10 @@ export default function SwipeDiscovery() {
             </div>
 
             {/* CTA action footer */}
-            <div className="p-6 border-t border-white/5 bg-slate-955/40 flex justify-end gap-3 shrink-0">
+            <div className="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3 shrink-0">
               <button
                 onClick={() => { setDrawerJob(null); setCoverLetter(''); }}
-                className="px-4 py-2.5 rounded-xl border border-white/10 hover:bg-slate-850 text-slate-305 hover:text-white text-xxs font-black uppercase tracking-wider cursor-pointer"
+                className="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-600 hover:text-slate-800 text-xxs font-black uppercase tracking-wider cursor-pointer"
               >
                 Close Insights
               </button>
@@ -1643,12 +1643,11 @@ export default function SwipeDiscovery() {
                   setCoverLetter('');
                   handleSwipe(id, 'like');
                 }}
-                className="px-5 py-2.5 bg-gradient-to-r from-violet-605 via-fuchsia-605 to-blue-600 text-white rounded-xl text-xxs font-black uppercase tracking-wider cursor-pointer shadow-md"
+                className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-650 text-white rounded-xl text-xxs font-black uppercase tracking-wider cursor-pointer shadow-md"
               >
                 Apply & Shortlist
               </button>
             </div>
-
           </div>
         </div>
       )}

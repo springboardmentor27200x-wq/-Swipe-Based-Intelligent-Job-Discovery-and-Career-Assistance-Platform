@@ -147,17 +147,17 @@ export default function CalendarDashboard() {
       <div className="grid lg:grid-cols-3 gap-8">
         
         {/* Left Column: List of scheduled interviews */}
-        <div className="lg:col-span-2 p-[1.5px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent shadow-xl">
-          <div className="bg-slate-950/80 backdrop-blur-2xl p-6 rounded-[23px] space-y-6 text-left border border-white/5">
-            <h2 className="text-base font-black text-white tracking-tight border-b border-white/5 pb-4">Meeting Agenda Feed</h2>
+        <div className="lg:col-span-2 p-[1px] rounded-3xl bg-slate-200/50 shadow-sm">
+          <div className="bg-white p-6 rounded-[23px] space-y-6 text-left border border-slate-200/80 shadow-md">
+            <h2 className="text-base font-black text-slate-800 tracking-tight border-b border-slate-100 pb-4">Meeting Agenda Feed</h2>
             
             {loading ? (
               <div className="flex justify-center py-20">
-                <Loader2 size={24} className="animate-spin text-orange-400" />
+                <Loader2 size={24} className="animate-spin text-blue-600" />
               </div>
             ) : interviews.length === 0 ? (
-              <div className="text-center py-16 space-y-4 bg-slate-900/40 border border-white/5 border-dashed rounded-2xl">
-                <CalendarIcon size={32} className="text-slate-650 mx-auto" />
+              <div className="text-center py-16 space-y-4 bg-slate-50 border border-slate-200 border-dashed rounded-2xl">
+                <CalendarIcon size={32} className="text-slate-400 mx-auto" />
                 <p className="text-slate-500 text-xs font-bold">No interviews scheduled yet.</p>
               </div>
             ) : (
@@ -180,43 +180,43 @@ export default function CalendarDashboard() {
                       key={meeting.id}
                       className={`p-5 rounded-2xl transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 border ${
                         isAccepted 
-                          ? 'glass-card-orange-gold text-white border-orange-500/30 shadow-md animate-pulse' 
+                          ? 'bg-gradient-to-br from-blue-50 to-indigo-50/50 text-slate-800 border-blue-200/80 shadow-md' 
                           : isDeclined 
-                            ? 'bg-rose-955/10 border-rose-900/30 opacity-60 text-slate-400' 
-                            : 'bg-slate-900/40 border-white/5 border-dashed'
+                            ? 'bg-rose-50/40 border-rose-200 opacity-60 text-slate-500' 
+                            : 'bg-slate-50 border-slate-250 border-dashed'
                       }`}
                     >
                       <div className="space-y-2.5">
                         <div className="flex items-center space-x-2.5">
                           <span className={`px-2.5 py-0.5 rounded text-[8px] font-black uppercase tracking-widest border ${
                             isAccepted 
-                              ? 'bg-emerald-600/20 border-emerald-500/30 text-emerald-400' 
+                              ? 'bg-emerald-50 border-emerald-200 text-emerald-700' 
                               : isDeclined 
-                                ? 'bg-rose-600/20 border-rose-500/30 text-rose-400' 
-                                : 'bg-amber-600/20 border-amber-500/30 text-amber-400'
+                                ? 'bg-rose-50 border-rose-200 text-rose-700' 
+                                : 'bg-amber-50 border-amber-250 text-amber-700'
                           }`}>
                             {meeting.status}
                           </span>
                         </div>
 
                         <div>
-                          <h4 className="text-sm font-black text-white">{meeting.title}</h4>
-                          <p className="text-xxs text-slate-400 font-semibold">{companyDetails}</p>
+                          <h4 className="text-sm font-black text-slate-800">{meeting.title}</h4>
+                          <p className="text-xxs text-slate-500 font-semibold">{companyDetails}</p>
                         </div>
 
-                        <div className="space-y-1 text-xxs text-slate-400 font-semibold">
+                        <div className="space-y-1 text-xxs text-slate-500 font-semibold">
                           <div className="flex items-center space-x-1.5">
-                            <CalendarIcon size={12} className="text-slate-500" />
+                            <CalendarIcon size={12} className="text-slate-400" />
                             <span>{formattedDate}</span>
                           </div>
                           <div className="flex items-center space-x-1.5">
-                            <Clock size={12} className="text-slate-500" />
+                            <Clock size={12} className="text-slate-400" />
                             <span>{formattedTime}</span>
                           </div>
                         </div>
 
                         {meeting.description && (
-                          <p className="text-[10px] text-slate-405 leading-relaxed bg-slate-950/40 p-2.5 rounded-lg border border-white/5 font-semibold">
+                          <p className="text-[10px] text-slate-650 leading-relaxed bg-slate-50/50 p-2.5 rounded-lg border border-slate-200 font-semibold">
                             {meeting.description}
                           </p>
                         )}
@@ -227,13 +227,13 @@ export default function CalendarDashboard() {
                           <>
                             <button
                               onClick={() => handleResponse(meeting.id, 'accepted')}
-                              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xxs font-black uppercase tracking-wider cursor-pointer"
+                              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xxs font-black uppercase tracking-wider cursor-pointer shadow-md shadow-emerald-500/10"
                             >
                               Accept
                             </button>
                             <button
                               onClick={() => handleResponse(meeting.id, 'declined')}
-                              className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xxs font-black uppercase tracking-wider cursor-pointer"
+                              className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xxs font-black uppercase tracking-wider cursor-pointer shadow-md shadow-rose-500/10"
                             >
                               Decline
                             </button>
@@ -243,7 +243,7 @@ export default function CalendarDashboard() {
                         {isAccepted && (
                           <button
                             onClick={() => navigate(`/call/${meeting.id}`)}
-                            className="px-4.5 py-2.5 bg-gradient-to-r from-orange-600 to-violet-650 hover:from-orange-500 hover:to-violet-550 text-white rounded-xl text-xxs font-black uppercase tracking-widest flex items-center space-x-1.5 shadow border border-orange-500"
+                            className="px-4.5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xxs font-black uppercase tracking-widest flex items-center space-x-1.5 shadow border border-transparent"
                           >
                             <Video size={12} />
                             <span>Launch Room</span>
@@ -262,17 +262,17 @@ export default function CalendarDashboard() {
         {/* Right Column: Schedule / Radar info */}
         <div>
           {user.role === 'recruiter' ? (
-            <div className="p-[1px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent shadow-xl">
-              <div className="bg-slate-955 backdrop-blur-2xl p-6 rounded-[23px] space-y-6 text-left border border-white/5">
+            <div className="p-[1px] rounded-3xl bg-slate-200/50 shadow-sm">
+              <div className="bg-white p-6 rounded-[23px] space-y-6 text-left border border-slate-200/80 shadow-md">
                 
-                <h3 className="text-base font-black text-white tracking-tight border-b border-white/5 pb-4 flex items-center gap-2">
-                  <CalendarPlus className="text-orange-400" />
+                <h3 className="text-base font-black text-slate-800 tracking-tight border-b border-slate-100 pb-4 flex items-center gap-2">
+                  <CalendarPlus className="text-blue-600" />
                   <span>Propose Call Slot</span>
                 </h3>
 
                 {loadingApps ? (
                   <div className="flex justify-center py-6">
-                    <Loader2 size={16} className="animate-spin text-orange-400" />
+                    <Loader2 size={16} className="animate-spin text-blue-600" />
                   </div>
                 ) : applications.length === 0 ? (
                   <p className="text-slate-500 text-xxs font-bold">No active candidates eligible for interviews.</p>
@@ -284,7 +284,7 @@ export default function CalendarDashboard() {
                       <select
                         value={selectedAppId}
                         onChange={(e) => setSelectedAppId(e.target.value)}
-                        className="w-full bg-slate-900 border border-white/10 focus:border-orange-500 rounded-xl py-3 px-4 text-white text-xs outline-none cursor-pointer font-semibold"
+                        className="w-full bg-slate-50 border border-slate-205 focus:border-blue-500 focus:bg-white rounded-xl py-3 px-4 text-slate-800 text-xs outline-none cursor-pointer font-semibold"
                       >
                         {applications.map((app) => (
                           <option key={app.id} value={app.id}>
@@ -302,7 +302,7 @@ export default function CalendarDashboard() {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="e.g. Technical Round 1"
-                        className="w-full bg-slate-900 border border-white/10 focus:border-orange-500 rounded-xl py-3 px-4 text-white text-xs outline-none transition-all placeholder-slate-550 font-semibold"
+                        className="w-full bg-slate-50 border border-slate-200 focus:border-blue-505 focus:bg-white rounded-xl py-3 px-4 text-slate-800 text-xs outline-none transition-all placeholder-slate-400 font-semibold"
                       />
                     </div>
 
@@ -313,7 +313,7 @@ export default function CalendarDashboard() {
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Meeting notes or links..."
                         rows={3}
-                        className="w-full bg-slate-900 border border-white/10 focus:border-orange-500 rounded-xl py-3 px-4 text-white text-xs outline-none resize-none transition-all placeholder-slate-550 font-semibold"
+                        className="w-full bg-slate-50 border border-slate-200 focus:border-blue-505 focus:bg-white rounded-xl py-3 px-4 text-slate-800 text-xs outline-none resize-none transition-all placeholder-slate-400 font-semibold"
                       />
                     </div>
 
@@ -325,7 +325,7 @@ export default function CalendarDashboard() {
                           required
                           value={startDate}
                           onChange={(e) => setStartDate(e.target.value)}
-                          className="w-full bg-slate-900 border border-white/10 focus:border-orange-500 rounded-xl py-3 px-4 text-white text-xs outline-none transition-all cursor-pointer font-semibold"
+                          className="w-full bg-slate-50 border border-slate-205 focus:border-blue-500 focus:bg-white rounded-xl py-3 px-4 text-slate-800 text-xs outline-none transition-all cursor-pointer font-semibold"
                         />
                       </div>
                       <div className="space-y-1.5">
@@ -335,7 +335,7 @@ export default function CalendarDashboard() {
                           required
                           value={startTime}
                           onChange={(e) => setStartTime(e.target.value)}
-                          className="w-full bg-slate-900 border border-white/10 focus:border-orange-500 rounded-xl py-3 px-4 text-white text-xs outline-none transition-all cursor-pointer font-semibold"
+                          className="w-full bg-slate-50 border border-slate-205 focus:border-blue-500 focus:bg-white rounded-xl py-3 px-4 text-slate-800 text-xs outline-none transition-all cursor-pointer font-semibold"
                         />
                       </div>
                     </div>
@@ -345,7 +345,7 @@ export default function CalendarDashboard() {
                       <select
                         value={duration}
                         onChange={(e) => setDuration(e.target.value)}
-                        className="w-full bg-slate-900 border border-white/10 focus:border-orange-500 rounded-xl py-3 px-4 text-white text-xs outline-none cursor-pointer font-semibold"
+                        className="w-full bg-slate-50 border border-slate-205 focus:border-blue-500 focus:bg-white rounded-xl py-3 px-4 text-slate-800 text-xs outline-none cursor-pointer font-semibold"
                       >
                         <option value="30">30 Minutes</option>
                         <option value="45">45 Minutes</option>
@@ -354,12 +354,12 @@ export default function CalendarDashboard() {
                       </select>
                     </div>
 
-                    <label className="flex items-center space-x-3 cursor-pointer py-1 text-slate-300 text-xxs font-extrabold select-none">
+                    <label className="flex items-center space-x-3 cursor-pointer py-1 text-slate-600 text-xxs font-extrabold select-none">
                       <input
                         type="checkbox"
                         checked={syncCalendar}
                         onChange={(e) => setSyncCalendar(e.target.checked)}
-                        className="rounded border-white/10 bg-slate-900 text-orange-505 focus:ring-orange-500/5 w-4 h-4 cursor-pointer"
+                        className="rounded border-slate-300 bg-white text-blue-600 focus:ring-blue-500/20 w-4 h-4 cursor-pointer"
                       />
                       <span className="uppercase tracking-wider">Sync Google Calendar</span>
                     </label>
@@ -367,7 +367,7 @@ export default function CalendarDashboard() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="w-full py-3.5 bg-gradient-to-r from-orange-600 via-amber-600 to-violet-650 hover:from-orange-500 hover:to-violet-550 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all disabled:opacity-30 shadow-md cursor-pointer border border-orange-550"
+                      className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-650 hover:from-blue-500 hover:to-indigo-600 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all disabled:opacity-30 shadow-md shadow-blue-500/10 cursor-pointer border border-transparent"
                     >
                       {submitting ? (
                         <Loader2 size={14} className="animate-spin mx-auto" />
@@ -385,13 +385,13 @@ export default function CalendarDashboard() {
               </div>
             </div>
           ) : (
-            <div className="bg-slate-950/80 backdrop-blur-2xl p-6 rounded-[23px] space-y-4 text-left border border-white/5 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400">
+            <div className="bg-white p-6 rounded-[23px] space-y-4 text-left border border-slate-205 shadow-md">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-105 flex items-center justify-center text-blue-600">
                 <Sparkles size={16} />
               </div>
               <div>
-                <h3 className="text-white font-black text-xs tracking-tight uppercase tracking-wider">Schedules Radar</h3>
-                <p className="text-slate-400 text-xxs mt-2.5 leading-relaxed font-semibold">
+                <h3 className="text-slate-800 font-black text-xs tracking-tight uppercase tracking-wider">Schedules Radar</h3>
+                <p className="text-slate-500 text-xxs mt-2.5 leading-relaxed font-semibold">
                   Scheduled interview slots proposed by recruiters will automatically sync here. Accept invites to lock schedules and enable WebRTC communication rooms.
                 </p>
               </div>

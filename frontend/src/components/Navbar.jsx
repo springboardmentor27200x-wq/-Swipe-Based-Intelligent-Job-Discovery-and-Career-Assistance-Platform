@@ -112,13 +112,13 @@ export default function Navbar() {
 
   return (
     <div className="w-full sticky top-4 z-50 px-4 sm:px-6">
-      <nav className="max-w-6xl mx-auto rounded-full border border-white/10 bg-slate-950/75 backdrop-blur-2xl px-6 py-3.5 shadow-2xl shadow-violet-950/20 flex items-center justify-between transition-all duration-300">
+      <nav className="max-w-6xl mx-auto rounded-full border border-slate-200/80 bg-white/70 backdrop-blur-2xl px-6 py-3.5 shadow-xl shadow-slate-100/50 flex items-center justify-between transition-all duration-300">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2.5 group">
-          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 via-fuchsia-600 to-cyan-500 shadow-md shadow-violet-500/20 group-hover:scale-105 transition-transform duration-300">
+          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 shadow-md shadow-blue-500/10 group-hover:scale-105 transition-transform duration-300">
             <Sparkles size={16} className="text-white animate-pulse" />
           </div>
-          <span className="text-xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400">
+          <span className="text-xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-650">
             SwipeX
           </span>
         </Link>
@@ -135,8 +135,8 @@ export default function Navbar() {
                       to="/discover" 
                       className={`flex items-center space-x-2 px-4.5 py-2.5 rounded-full text-base font-black transition-all border ${
                         isActive('/discover') 
-                          ? 'bg-gradient-to-r from-violet-650 via-fuchsia-600 to-indigo-650 border-violet-500/30 text-white shadow-lg shadow-violet-500/10' 
-                          : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5'
+                          ? 'bg-gradient-to-r from-blue-605 to-indigo-600 border-blue-500/10 text-white shadow-md shadow-blue-500/10' 
+                          : 'text-slate-500 border-transparent hover:text-blue-600 hover:bg-slate-50'
                       }`}
                     >
                       <Compass size={16} />
@@ -146,8 +146,8 @@ export default function Navbar() {
                       to="/search" 
                       className={`flex items-center space-x-2 px-4.5 py-2.5 rounded-full text-base font-black transition-all border ${
                         isActive('/search') 
-                          ? 'bg-gradient-to-r from-violet-650 via-fuchsia-600 to-indigo-650 border-violet-500/30 text-white shadow-lg shadow-violet-500/10' 
-                          : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5'
+                          ? 'bg-gradient-to-r from-blue-605 to-indigo-600 border-blue-500/10 text-white shadow-md shadow-blue-500/10' 
+                          : 'text-slate-500 border-transparent hover:text-blue-600 hover:bg-slate-50'
                       }`}
                     >
                       <Search size={16} />
@@ -157,8 +157,8 @@ export default function Navbar() {
                       to="/applications" 
                       className={`flex items-center space-x-2 px-4.5 py-2.5 rounded-full text-base font-black transition-all border ${
                         isActive('/applications') 
-                          ? 'bg-gradient-to-r from-violet-650 via-fuchsia-600 to-indigo-650 border-violet-500/30 text-white shadow-lg shadow-violet-500/10' 
-                          : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5'
+                          ? 'bg-gradient-to-r from-blue-605 to-indigo-600 border-blue-500/10 text-white shadow-md shadow-blue-500/10' 
+                          : 'text-slate-500 border-transparent hover:text-blue-600 hover:bg-slate-50'
                       }`}
                     >
                       <Briefcase size={16} />
@@ -172,8 +172,8 @@ export default function Navbar() {
                     to="/recruiter" 
                     className={`flex items-center space-x-2 px-5 py-3 rounded-full text-base font-black transition-all border ${
                       isActive('/recruiter') 
-                        ? 'bg-gradient-to-r from-violet-655 via-fuchsia-600 to-indigo-655 border-violet-500/30 text-white shadow-lg' 
-                        : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5'
+                        ? 'bg-gradient-to-r from-blue-605 to-indigo-600 border-blue-500/10 text-white shadow-md shadow-blue-500/10' 
+                        : 'text-slate-500 border-transparent hover:text-blue-600 hover:bg-slate-50'
                     }`}
                   >
                     <BarChart2 size={16} />
@@ -186,8 +186,8 @@ export default function Navbar() {
                     to="/admin" 
                     className={`flex items-center space-x-2 px-5 py-3 rounded-full text-base font-black transition-all border ${
                       isActive('/admin') 
-                        ? 'bg-gradient-to-r from-violet-655 via-fuchsia-600 to-indigo-655 border-violet-500/30 text-white shadow-lg' 
-                        : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5'
+                        ? 'bg-gradient-to-r from-blue-605 to-indigo-600 border-blue-500/10 text-white shadow-md shadow-blue-500/10' 
+                        : 'text-slate-500 border-transparent hover:text-blue-600 hover:bg-slate-50'
                     }`}
                   >
                     <Shield size={16} />
@@ -199,8 +199,8 @@ export default function Navbar() {
                   to="/calendar" 
                   className={`flex items-center space-x-2 px-4.5 py-2.5 rounded-full text-base font-black transition-all border ${
                     isActive('/calendar') 
-                      ? 'bg-gradient-to-r from-violet-650 via-fuchsia-600 to-indigo-650 border-violet-500/30 text-white shadow-lg shadow-violet-500/10' 
-                      : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5'
+                      ? 'bg-gradient-to-r from-blue-605 to-indigo-600 border-blue-500/10 text-white shadow-md shadow-blue-500/10' 
+                      : 'text-slate-500 border-transparent hover:text-blue-600 hover:bg-slate-50'
                   }`}
                 >
                   <Calendar size={16} />
@@ -211,8 +211,8 @@ export default function Navbar() {
                   to="/messages" 
                   className={`flex items-center space-x-2 px-4.5 py-2.5 rounded-full text-base font-black transition-all border ${
                     isActive('/messages') 
-                      ? 'bg-gradient-to-r from-violet-655 via-fuchsia-600 to-indigo-655 border-violet-500/30 text-white shadow-lg shadow-violet-500/10' 
-                      : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5'
+                      ? 'bg-gradient-to-r from-blue-605 to-indigo-600 border-blue-500/10 text-white shadow-md shadow-blue-500/10' 
+                      : 'text-slate-500 border-transparent hover:text-blue-600 hover:bg-slate-50'
                   }`}
                 >
                   <MessageSquare size={16} />
@@ -223,8 +223,8 @@ export default function Navbar() {
                   to="/profile" 
                   className={`flex items-center space-x-2 px-4.5 py-2.5 rounded-full text-base font-black transition-all border ${
                     isActive('/profile') 
-                      ? 'bg-gradient-to-r from-violet-655 via-fuchsia-600 to-indigo-655 border-violet-500/30 text-white shadow-lg shadow-violet-500/10' 
-                      : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5'
+                      ? 'bg-gradient-to-r from-blue-605 to-indigo-600 border-blue-500/10 text-white shadow-md shadow-blue-500/10' 
+                      : 'text-slate-500 border-transparent hover:text-blue-600 hover:bg-slate-50'
                   }`}
                 >
                   <User size={16} />
@@ -235,8 +235,8 @@ export default function Navbar() {
                   to="/settings" 
                   className={`flex items-center space-x-2 px-4.5 py-2.5 rounded-full text-base font-black transition-all border ${
                     isActive('/settings') 
-                      ? 'bg-gradient-to-r from-violet-655 via-fuchsia-600 to-indigo-655 border-violet-500/30 text-white shadow-lg shadow-violet-500/10' 
-                      : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5'
+                      ? 'bg-gradient-to-r from-blue-605 to-indigo-600 border-blue-500/10 text-white shadow-md shadow-blue-500/10' 
+                      : 'text-slate-500 border-transparent hover:text-blue-600 hover:bg-slate-50'
                   }`}
                 >
                   <Settings size={16} />
@@ -248,30 +248,30 @@ export default function Navbar() {
               <div className="flex lg:hidden items-center space-x-1">
                 {user?.role === 'job_seeker' && (
                   <>
-                    <Link to="/discover" className={`p-2.5 rounded-full text-slate-400 hover:text-violet-400 hover:bg-white/5 ${isActive('/discover') && 'text-violet-400 bg-violet-500/5'}`} title="Discover"><Compass size={18} /></Link>
-                    <Link to="/search" className={`p-2.5 rounded-full text-slate-400 hover:text-violet-400 hover:bg-white/5 ${isActive('/search') && 'text-violet-400 bg-violet-500/5'}`} title="Search"><Search size={18} /></Link>
-                    <Link to="/applications" className={`p-2.5 rounded-full text-slate-400 hover:text-violet-400 hover:bg-white/5 ${isActive('/applications') && 'text-violet-400 bg-violet-500/5'}`} title="Applications"><Briefcase size={18} /></Link>
+                    <Link to="/discover" className={`p-2.5 rounded-full text-slate-500 hover:text-blue-600 hover:bg-slate-100/50 ${isActive('/discover') && 'text-blue-600 bg-blue-500/5'}`} title="Discover"><Compass size={18} /></Link>
+                    <Link to="/search" className={`p-2.5 rounded-full text-slate-500 hover:text-blue-600 hover:bg-slate-100/50 ${isActive('/search') && 'text-blue-600 bg-blue-500/5'}`} title="Search"><Search size={18} /></Link>
+                    <Link to="/applications" className={`p-2.5 rounded-full text-slate-500 hover:text-blue-600 hover:bg-slate-100/50 ${isActive('/applications') && 'text-blue-600 bg-blue-500/5'}`} title="Applications"><Briefcase size={18} /></Link>
                   </>
                 )}
                 {user?.role === 'recruiter' && (
-                  <Link to="/recruiter" className={`p-2.5 rounded-full text-slate-400 hover:text-violet-400 hover:bg-white/5 ${isActive('/recruiter') && 'text-violet-400 bg-violet-500/5'}`} title="Recruiter Hub"><BarChart2 size={18} /></Link>
+                  <Link to="/recruiter" className={`p-2.5 rounded-full text-slate-500 hover:text-blue-600 hover:bg-slate-100/50 ${isActive('/recruiter') && 'text-blue-600 bg-blue-500/5'}`} title="Recruiter Hub"><BarChart2 size={18} /></Link>
                 )}
-                <Link to="/calendar" className={`p-2.5 rounded-full text-slate-400 hover:text-violet-400 hover:bg-white/5 ${isActive('/calendar') && 'text-violet-400 bg-violet-500/5'}`} title="Calendar"><Calendar size={18} /></Link>
-                <Link to="/messages" className={`p-2.5 rounded-full text-slate-400 hover:text-violet-400 hover:bg-white/5 ${isActive('/messages') && 'text-violet-400 bg-violet-500/5'}`} title="Messages"><MessageSquare size={18} /></Link>
-                <Link to="/profile" className={`p-2.5 rounded-full text-slate-400 hover:text-violet-400 hover:bg-white/5 ${isActive('/profile') && 'text-violet-400 bg-violet-500/5'}`} title="Profile"><User size={18} /></Link>
-                <Link to="/settings" className={`p-2.5 rounded-full text-slate-400 hover:text-violet-400 hover:bg-white/5 ${isActive('/settings') && 'text-violet-400 bg-violet-500/5'}`} title="Settings"><Settings size={18} /></Link>
+                <Link to="/calendar" className={`p-2.5 rounded-full text-slate-500 hover:text-blue-600 hover:bg-slate-100/50 ${isActive('/calendar') && 'text-blue-600 bg-blue-500/5'}`} title="Calendar"><Calendar size={18} /></Link>
+                <Link to="/messages" className={`p-2.5 rounded-full text-slate-500 hover:text-blue-600 hover:bg-slate-100/50 ${isActive('/messages') && 'text-blue-600 bg-blue-500/5'}`} title="Messages"><MessageSquare size={18} /></Link>
+                <Link to="/profile" className={`p-2.5 rounded-full text-slate-500 hover:text-blue-600 hover:bg-slate-100/50 ${isActive('/profile') && 'text-blue-600 bg-blue-500/5'}`} title="Profile"><User size={18} /></Link>
+                <Link to="/settings" className={`p-2.5 rounded-full text-slate-500 hover:text-blue-600 hover:bg-slate-100/50 ${isActive('/settings') && 'text-blue-600 bg-blue-500/5'}`} title="Settings"><Settings size={18} /></Link>
               </div>
 
               {/* Notifications Toggle */}
               <div className="relative">
                 <button 
                   onClick={() => setShowNotifDropdown(!showNotifDropdown)}
-                  className="relative p-2.5 rounded-full text-slate-400 hover:text-violet-400 hover:bg-white/5 transition-all cursor-pointer"
+                  className="relative p-2.5 rounded-full text-slate-500 hover:text-blue-600 hover:bg-slate-100/50 transition-all cursor-pointer"
                   title="Notifications"
                 >
                   <Bell size={18} />
                   {unreadCount > 0 && (
-                    <span className="absolute top-2 right-2 w-2 h-2 bg-violet-550 rounded-full border-2 border-slate-950 animate-pulse" />
+                    <span className="absolute top-2 right-2 w-2 h-2 bg-blue-600 rounded-full border-2 border-white animate-pulse" />
                   )}
                 </button>
 

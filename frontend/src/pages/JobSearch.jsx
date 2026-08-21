@@ -245,124 +245,124 @@ export default function JobSearch() {
     const norm = (name || '').toLowerCase();
     if (norm.includes('google') || norm.includes('alphabet')) {
       return {
-        bg: "from-blue-500/10 via-cyan-500/10 to-[#0c1224]/95",
+        bg: "from-blue-500/5 via-cyan-500/5 to-white",
         border: "border-blue-500/20 hover:border-cyan-500/40",
-        text: "text-cyan-405",
+        text: "text-blue-600",
         scoreRing: ["#3b82f6", "#06b6d4"]
       };
     }
     if (norm.includes('microsoft')) {
       return {
-        bg: "from-violet-500/10 via-blue-500/10 to-[#0c1224]/95",
+        bg: "from-violet-500/5 via-blue-500/5 to-white",
         border: "border-violet-500/20 hover:border-blue-500/40",
-        text: "text-violet-400",
+        text: "text-indigo-600",
         scoreRing: ["#8b5cf6", "#3b82f6"]
       };
     }
     if (norm.includes('amazon') || norm.includes('aws')) {
       return {
-        bg: "from-orange-500/10 via-amber-500/10 to-[#0c1224]/95",
+        bg: "from-orange-500/5 via-amber-500/5 to-white",
         border: "border-orange-500/20 hover:border-amber-500/40",
-        text: "text-orange-400",
+        text: "text-orange-600",
         scoreRing: ["#f97316", "#fbbf24"]
       };
     }
     if (norm.includes('netflix')) {
       return {
-        bg: "from-red-500/10 via-pink-500/10 to-[#0c1224]/95",
+        bg: "from-red-500/5 via-pink-500/5 to-white",
         border: "border-red-500/20 hover:border-pink-500/40",
-        text: "text-rose-400",
+        text: "text-rose-600",
         scoreRing: ["#ef4444", "#ec4899"]
       };
     }
     if (norm.includes('spotify')) {
       return {
-        bg: "from-emerald-500/10 via-teal-500/10 to-[#0c1224]/95",
+        bg: "from-emerald-500/5 via-teal-500/5 to-white",
         border: "border-emerald-500/20 hover:border-teal-500/40",
-        text: "text-emerald-405",
+        text: "text-emerald-600",
         scoreRing: ["#10b981", "#14b8a6"]
       };
     }
     return {
-      bg: "from-slate-500/10 via-blue-550/10 to-[#0c1224]/95",
-      border: "border-slate-500/20 hover:border-blue-500/40",
-      text: "text-blue-400",
+      bg: "from-slate-500/5 via-blue-500/5 to-white",
+      border: "border-slate-200 hover:border-blue-500/20",
+      text: "text-blue-605",
       scoreRing: ["#64748b", "#3b82f6"]
     };
   };
 
   return (
-    <PageTransition className="max-w-7xl mx-auto px-6 py-12 space-y-10 relative z-10 text-white">
+    <PageTransition className="max-w-7xl mx-auto px-6 py-12 space-y-10 relative z-10 text-slate-800">
       
       {/* Background spotlights */}
-      <div className="absolute top-[10%] left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-blue-600/15 via-cyan-500/10 to-transparent rounded-full blur-[130px] -z-10 pointer-events-none" />
-      <div className="absolute bottom-[20%] right-1/4 w-[450px] h-[450px] bg-gradient-to-br from-cyan-600/15 via-blue-500/10 to-transparent rounded-full blur-[130px] -z-10 pointer-events-none" />
+      <div className="absolute top-[10%] left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[130px] -z-10 pointer-events-none" />
+      <div className="absolute bottom-[20%] right-1/4 w-[450px] h-[450px] bg-gradient-to-br from-indigo-500/5 via-blue-500/5 to-transparent rounded-full blur-[130px] -z-10 pointer-events-none" />
 
       {/* Header section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/10 pb-8 text-left">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-200/80 pb-8 text-left">
         <div>
           <h1 className="text-3xl font-black tracking-tight flex items-center gap-2">
-            <Cpu className="text-cyan-400" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-violet-400">Search console</span>
+            <Cpu className="text-blue-600" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Search console</span>
           </h1>
-          <p className="text-slate-400 text-xs mt-1.5 font-semibold">Filter database roles, scan competitive rates, and deploy applications instantly.</p>
+          <p className="text-slate-550 text-xs mt-1.5 font-semibold">Filter database roles, scan competitive rates, and deploy applications instantly.</p>
         </div>
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-200/20 text-rose-400 text-xs font-bold text-left">
+        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 text-xs font-bold text-left">
           <span>{error}</span>
         </div>
       )}
 
       {/* Main Search Panel Form */}
-      <form onSubmit={handleSearchSubmit} className="p-[1.5px] rounded-[32px] bg-gradient-to-r from-blue-500/30 via-cyan-500/30 to-transparent shadow-2xl relative">
-        <div className="bg-slate-950/90 backdrop-blur-2xl p-4 sm:p-5 rounded-[30px] flex flex-col md:flex-row gap-4 items-center border border-white/5">
+      <div className="p-[1px] rounded-[32px] bg-slate-200/60 shadow-lg relative">
+        <form onSubmit={handleSearchSubmit} className="bg-white p-4 sm:p-5 rounded-[30px] flex flex-col md:flex-row gap-4 items-center border border-slate-100">
           <div className="w-full md:flex-grow relative group text-left">
-            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none group-focus-within:text-cyan-400 transition-colors" />
+            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-focus-within:text-blue-600 transition-colors" />
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Keywords, skills, company name..."
-              className="w-full bg-[#090d1a]/60 border border-white/10 focus:border-cyan-500/50 focus:bg-slate-900/90 focus:ring-4 focus:ring-cyan-500/10 rounded-2xl py-4 pl-11 pr-12 text-white text-xs outline-none transition-all placeholder-slate-500 font-semibold"
+              className="w-full bg-slate-50 border border-slate-200 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 rounded-2xl py-4 pl-11 pr-12 text-slate-800 text-xs outline-none transition-all placeholder-slate-400 font-semibold"
             />
             <button
               type="button"
               onClick={() => showToast('Voice search activates device microphone...', 'info')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all cursor-pointer border border-white/5"
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-blue-600 transition-all cursor-pointer border border-slate-200 shadow-sm"
             >
               <Mic size={13} />
             </button>
           </div>
           <div className="w-full md:w-64 relative group text-left">
-            <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none group-focus-within:text-cyan-400 transition-colors" />
+            <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-focus-within:text-blue-600 transition-colors" />
             <input
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="Location, country, remote..."
-              className="w-full bg-[#090d1a]/60 border border-white/10 focus:border-cyan-500/50 focus:bg-slate-900/90 focus:ring-4 focus:ring-cyan-500/10 rounded-2xl py-4 pl-11 pr-4 text-white text-xs outline-none transition-all placeholder-slate-550 font-semibold"
+              className="w-full bg-slate-50 border border-slate-200 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 rounded-2xl py-4 pl-11 pr-4 text-slate-800 text-xs outline-none transition-all placeholder-slate-400 font-semibold"
             />
           </div>
           <button
             type="submit"
-            className="w-full md:w-auto px-8 py-4.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-lg active:scale-95 shrink-0 flex items-center justify-center space-x-2 cursor-pointer"
+            className="w-full md:w-auto px-8 py-4.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-blue-500/10 active:scale-95 shrink-0 flex items-center justify-center space-x-2 cursor-pointer"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <span>Search</span>}
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
 
       {/* Animated suggestions row */}
-      <div className="flex flex-wrap gap-2 items-center text-xs text-slate-400 text-left font-bold px-2">
-        <span className="text-[10px] text-slate-500 uppercase tracking-wider flex items-center gap-1"><Sparkles size={12} className="text-cyan-400" /> Suggestions:</span>
+      <div className="flex flex-wrap gap-2 items-center text-xs text-slate-500 text-left font-bold px-2">
+        <span className="text-[10px] text-slate-400 uppercase tracking-wider flex items-center gap-1"><Sparkles size={12} className="text-blue-600" /> Suggestions:</span>
         {suggestions.map((sug, i) => (
           <button
             key={i}
             type="button"
             onClick={() => handleSuggestionClick(sug)}
-            className="px-3.5 py-1.5 rounded-full bg-slate-900/60 border border-white/5 hover:border-cyan-500/30 text-slate-350 hover:text-white transition-all cursor-pointer text-xxs font-extrabold uppercase tracking-wide"
+            className="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 hover:border-blue-500/35 text-slate-600 hover:text-blue-600 transition-all cursor-pointer text-xxs font-extrabold uppercase tracking-wide shadow-sm"
           >
             {sug}
           </button>
@@ -373,16 +373,16 @@ export default function JobSearch() {
       <div className="grid lg:grid-cols-4 gap-8">
         
         {/* Sidebar Filters */}
-        <div className="lg:col-span-1 p-[1.5px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent shadow-xl self-start">
-          <div className="bg-slate-955 backdrop-blur-2xl p-6 rounded-[23px] space-y-6 text-left border border-white/5">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                <Filter size={12} className="text-cyan-400" /> Filter Console
+        <div className="lg:col-span-1 p-[1px] rounded-3xl bg-slate-200/60 shadow-md self-start">
+          <div className="bg-white p-6 rounded-[23px] space-y-6 text-left border border-slate-100">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+              <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                <Filter size={12} className="text-blue-600" /> Filter Console
               </span>
               <button 
                 type="button" 
                 onClick={clearFilters}
-                className="text-[10px] text-cyan-405 hover:underline font-extrabold uppercase tracking-wide cursor-pointer"
+                className="text-[10px] text-blue-600 hover:underline font-extrabold uppercase tracking-wide cursor-pointer"
               >
                 Reset
               </button>
@@ -405,8 +405,8 @@ export default function JobSearch() {
                       onClick={() => handleToggleJobType(val)}
                       className={`px-3.5 py-2 rounded-xl text-xxs font-extrabold uppercase tracking-wider transition-all border cursor-pointer ${
                         isActive 
-                          ? 'bg-blue-600/20 border-blue-500/50 text-blue-400' 
-                          : 'bg-slate-900 border-white/5 hover:border-white/15 text-slate-400'
+                          ? 'bg-blue-50 border-blue-200 text-blue-600 font-black shadow-sm' 
+                          : 'bg-white border-slate-200 hover:border-slate-300 text-slate-600 shadow-sm'
                       }`}
                     >
                       {label}
@@ -434,8 +434,8 @@ export default function JobSearch() {
                       onClick={() => handleToggleEmpType(val)}
                       className={`px-3.5 py-2 rounded-xl text-xxs font-extrabold uppercase tracking-wider transition-all border cursor-pointer ${
                         isActive 
-                          ? 'bg-cyan-600/20 border-cyan-500/50 text-cyan-400' 
-                          : 'bg-slate-900 border-white/5 hover:border-white/15 text-slate-400'
+                          ? 'bg-blue-50 border-blue-200 text-blue-600 font-black shadow-sm' 
+                          : 'bg-white border-slate-200 hover:border-slate-300 text-slate-600 shadow-sm'
                       }`}
                     >
                       {label}
@@ -449,7 +449,7 @@ export default function JobSearch() {
             <div className="space-y-3">
               <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-wider text-slate-500">
                 <span>Minimum Salary</span>
-                <span className="text-white font-black">${(parseInt(salaryMin)/1000)}k+</span>
+                <span className="text-slate-700 font-black">${(parseInt(salaryMin)/1000)}k+</span>
               </div>
               <input
                 type="range"
@@ -461,7 +461,7 @@ export default function JobSearch() {
                   setSalaryMin(e.target.value);
                   syncParamsToUrl({ salaryMin: e.target.value });
                 }}
-                className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
               />
             </div>
 
@@ -469,7 +469,7 @@ export default function JobSearch() {
             <div className="space-y-3">
               <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-wider text-slate-500">
                 <span>Experience Limit</span>
-                <span className="text-white font-black">{experienceMax} years</span>
+                <span className="text-slate-700 font-black">{experienceMax} years</span>
               </div>
               <input
                 type="range"
@@ -478,15 +478,15 @@ export default function JobSearch() {
                 step="1"
                 value={experienceMax}
                 onChange={(e) => setExperienceMax(e.target.value)}
-                className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
               />
             </div>
 
             {/* Parameters */}
-            <div className="space-y-3 border-t border-white/10 pt-4">
+            <div className="space-y-3 border-t border-slate-100 pt-4">
               <h4 className="text-[9px] font-black text-slate-500 uppercase tracking-wider">Parameters</h4>
-              <div className="space-y-3 font-semibold text-xs text-slate-400">
-                <label className="flex items-center space-x-3 cursor-pointer hover:text-white transition-colors">
+              <div className="space-y-3 font-semibold text-xs text-slate-600">
+                <label className="flex items-center space-x-3 cursor-pointer hover:text-blue-600 transition-colors">
                   <input
                     type="checkbox"
                     checked={recentlyPosted}
@@ -494,12 +494,12 @@ export default function JobSearch() {
                       setRecentlyPosted(e.target.checked);
                       syncParamsToUrl({ recentlyPosted: e.target.checked });
                     }}
-                    className="rounded border-white/10 bg-slate-900 text-cyan-500 focus:ring-cyan-500/40 w-4 h-4 cursor-pointer"
+                    className="rounded border-slate-300 bg-white text-blue-600 focus:ring-blue-500/20 w-4 h-4 cursor-pointer"
                   />
                   <span>Recent Postings (7d)</span>
                 </label>
 
-                <label className="flex items-center space-x-3 cursor-pointer hover:text-white transition-colors">
+                <label className="flex items-center space-x-3 cursor-pointer hover:text-blue-600 transition-colors">
                   <input
                     type="checkbox"
                     checked={lowCompetition}
@@ -507,7 +507,7 @@ export default function JobSearch() {
                       setLowCompetition(e.target.checked);
                       syncParamsToUrl({ lowCompetition: e.target.checked });
                     }}
-                    className="rounded border-white/10 bg-slate-900 text-cyan-500 focus:ring-cyan-500/40 w-4 h-4 cursor-pointer"
+                    className="rounded border-slate-300 bg-white text-blue-600 focus:ring-blue-500/20 w-4 h-4 cursor-pointer"
                   />
                   <span>Low Competition (&lt;5 apps)</span>
                 </label>
@@ -522,24 +522,24 @@ export default function JobSearch() {
           {loading ? (
             <div className="grid md:grid-cols-2 gap-6">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="bg-slate-900/60 border border-white/10 p-6 rounded-3xl space-y-4 animate-pulse">
+                <div key={i} className="bg-white border border-slate-200 p-6 rounded-3xl space-y-4 animate-pulse">
                   <div className="flex justify-between items-start">
                     <div className="space-y-2 w-3/4">
-                      <div className="h-4 rounded bg-slate-800 w-1/3" />
-                      <div className="h-6 rounded bg-slate-800 w-3/4" />
+                      <div className="h-4 rounded bg-slate-200 w-1/3" />
+                      <div className="h-6 rounded bg-slate-200 w-3/4" />
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           ) : jobs.length === 0 ? (
-            <div className="text-center py-20 bg-slate-900/40 border border-white/10 rounded-[28px] flex flex-col items-center justify-center p-8 space-y-6 shadow-xl backdrop-blur-md">
-              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-500 shadow-inner">
-                <Search size={28} className="animate-pulse text-cyan-400" />
+            <div className="text-center py-20 bg-white border border-slate-200/80 rounded-[28px] flex flex-col items-center justify-center p-8 space-y-6 shadow-md">
+              <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 shadow-inner">
+                <Search size={28} className="animate-pulse text-blue-500" />
               </div>
               <div className="space-y-2">
-                <p className="text-white font-black text-sm">No Matches found</p>
-                <p className="text-slate-405 text-xs max-w-xs leading-relaxed font-semibold">
+                <p className="text-slate-800 font-black text-sm">No Matches found</p>
+                <p className="text-slate-500 text-xs max-w-xs leading-relaxed font-semibold">
                   We couldn't find any job listings matching your current filter parameters. Try expanding search query.
                 </p>
               </div>
@@ -554,10 +554,10 @@ export default function JobSearch() {
                 return (
                   <div 
                     key={job.id} 
-                    className="p-[1px] rounded-[28px] bg-gradient-to-br from-white/10 to-transparent hover:from-white/20 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                    className="p-[1px] rounded-[28px] bg-gradient-to-br from-slate-200/60 to-transparent hover:from-slate-300 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
                   >
                     <div 
-                      className={`bg-gradient-to-b ${theme.bg} backdrop-blur-2xl p-6 rounded-[27px] h-full flex flex-col justify-between cursor-pointer relative group border border-white/5`}
+                      className={`bg-gradient-to-b ${theme.bg} p-6 rounded-[27px] h-full flex flex-col justify-between cursor-pointer relative group border border-slate-200/80`}
                       onClick={() => setDrawerJob(job)}
                     >
                       
@@ -565,14 +565,14 @@ export default function JobSearch() {
                         <div className="flex justify-between items-start gap-4">
                           <div className="min-w-0">
                             <div className="flex items-center gap-1.5 flex-wrap">
-                              <span className="inline-flex px-2.5 py-0.5 bg-white/5 border border-white/10 rounded-md text-[8px] font-black uppercase text-slate-400 tracking-wider">
+                              <span className="inline-flex px-2.5 py-0.5 bg-slate-50 border border-slate-100 rounded-md text-[8px] font-black uppercase text-slate-500 tracking-wider">
                                 {job.job_type}
                               </span>
-                              <span className="inline-flex px-2.5 py-0.5 bg-white/5 border border-white/10 rounded-md text-[8px] font-black uppercase text-slate-400 tracking-wider">
+                              <span className="inline-flex px-2.5 py-0.5 bg-slate-50 border border-slate-100 rounded-md text-[8px] font-black uppercase text-slate-500 tracking-wider">
                                 {job.experience_level.replace('_', ' ')}
                               </span>
                             </div>
-                            <h3 className="text-xl font-black text-white group-hover:text-cyan-400 transition-colors mt-3.5 leading-snug truncate">
+                            <h3 className="text-xl font-black text-slate-800 group-hover:text-blue-600 transition-colors mt-3.5 leading-snug truncate">
                               {job.title}
                             </h3>
                             <p className="text-slate-400 text-xxs font-bold mt-0.5 truncate">{job.company.name}</p>
@@ -584,7 +584,7 @@ export default function JobSearch() {
                                 cx="24"
                                 cy="24"
                                 r="19"
-                                stroke="rgba(255,255,255,0.03)"
+                                stroke="#f1f5f9"
                                 strokeWidth="3"
                                 fill="transparent"
                               />
@@ -600,18 +600,18 @@ export default function JobSearch() {
                                 strokeLinecap="round"
                               />
                             </svg>
-                            <span className="absolute text-[8px] font-black text-white">96%</span>
+                            <span className="absolute text-[8px] font-black text-slate-700">96%</span>
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3 mt-6 border-t border-white/5 pt-4 text-slate-400 font-semibold">
+                        <div className="grid grid-cols-2 gap-3 mt-6 border-t border-slate-100 pt-4 text-slate-500 font-semibold">
                           <div className="flex items-center space-x-1.5 text-xxs">
-                            <MapPin size={12} className="text-slate-500" />
+                            <MapPin size={12} className="text-slate-400" />
                             <span className="truncate">{job.location}</span>
                           </div>
                           <div className="flex items-center space-x-1.5 text-xxs">
-                            <DollarSign size={12} className="text-slate-500" />
-                            <span className="truncate text-white font-black">
+                            <DollarSign size={12} className="text-slate-400" />
+                            <span className="truncate text-slate-700 font-black">
                               {job.salary_min ? `$${(job.salary_min/1000)}k` : 'Neg'}
                               {job.salary_max ? `-$${(job.salary_max/1000)}k` : ''}
                             </span>
@@ -620,14 +620,14 @@ export default function JobSearch() {
 
                         <div className="flex flex-wrap gap-1 mt-4">
                           {job.skills_required.slice(0, 3).map(skill => (
-                            <span key={skill} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold text-slate-305">
+                            <span key={skill} className="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-150 text-[10px] font-bold text-slate-500">
                               {skill}
                             </span>
                           ))}
                         </div>
                       </div>
 
-                      <div className="mt-6 flex justify-between items-center text-slate-400 text-[9px] border-t border-white/5 pt-4 font-black uppercase tracking-widest">
+                      <div className="mt-6 flex justify-between items-center text-slate-400 text-[9px] border-t border-slate-100 pt-4 font-black uppercase tracking-widest">
                         {isAlreadyApplied ? (
                           <span className="text-emerald-500 flex items-center gap-0.5">
                             <Check size={10} /> Match Applied
@@ -638,7 +638,7 @@ export default function JobSearch() {
                               e.stopPropagation();
                               handleApplyJob(job.id);
                             }}
-                            className="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-black text-[9px] uppercase tracking-wider rounded-xl hover:scale-105 active:scale-95 transition-all shadow-md cursor-pointer border border-cyan-550"
+                            className="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-[9px] uppercase tracking-wider rounded-xl hover:scale-105 active:scale-95 transition-all shadow-md shadow-blue-500/10 cursor-pointer border border-transparent"
                           >
                             Apply Now
                           </button>
@@ -647,7 +647,7 @@ export default function JobSearch() {
                         <div className="flex items-center space-x-2">
                           <button
                             onClick={(e) => handleToggleSaveJob(e, job.id)}
-                            className="p-2 rounded-xl bg-slate-900 border border-white/10 hover:border-white/20 text-slate-500 hover:text-rose-500 transition-colors cursor-pointer"
+                            className="p-2 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-350 text-slate-500 hover:text-rose-500 transition-colors cursor-pointer shadow-sm"
                           >
                             <Heart size={12} className={isSaved ? "fill-rose-500 text-rose-500" : ""} />
                           </button>
@@ -669,7 +669,7 @@ export default function JobSearch() {
       {/* Details drawer Overlay */}
       <AnimatePresence>
         {drawerJob && (
-          <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-40 flex justify-end items-end">
+          <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 flex justify-end items-end">
             <div className="absolute inset-0" onClick={() => setDrawerJob(null)} />
             
             <motion.div
@@ -677,28 +677,28 @@ export default function JobSearch() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="relative w-full max-w-lg bg-slate-950 border-t border-white/10 rounded-t-3xl p-6 sm:p-8 z-50 max-h-[85vh] overflow-y-auto space-y-6 shadow-2xl text-left text-white"
+              className="relative w-full max-w-lg bg-white border-t border-slate-200/80 rounded-t-3xl p-6 sm:p-8 z-50 max-h-[85vh] overflow-y-auto space-y-6 shadow-2xl text-left text-slate-800"
             >
               <div className="flex justify-between items-start gap-4">
                 <div className="min-w-0">
-                  <h3 className="text-2xl font-black text-white leading-tight truncate">{drawerJob.title}</h3>
-                  <p className="text-cyan-400 font-extrabold text-sm mt-1 truncate">{drawerJob.company.name}</p>
+                  <h3 className="text-2xl font-black text-slate-800 leading-tight truncate">{drawerJob.title}</h3>
+                  <p className="text-blue-600 font-extrabold text-sm mt-1 truncate">{drawerJob.company.name}</p>
                 </div>
                 <button
                   onClick={() => setDrawerJob(null)}
-                  className="p-2 rounded-xl border border-white/10 hover:bg-white/5 text-slate-400 hover:text-white shrink-0 cursor-pointer"
+                  className="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-500 hover:text-blue-600 shrink-0 cursor-pointer"
                 >
                   <X size={16} />
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 text-xs text-slate-400 border-y border-white/10 py-5 font-semibold">
+              <div className="grid grid-cols-2 gap-4 text-xs text-slate-500 border-y border-slate-100 py-5 font-semibold">
                 <div className="flex items-center space-x-1.5">
-                  <MapPin size={14} className="text-slate-500" />
+                  <MapPin size={14} className="text-slate-400" />
                   <span>{drawerJob.location}</span>
                 </div>
-                <div className="flex items-center space-x-1.5 text-white font-black">
-                  <DollarSign size={14} className="text-slate-500" />
+                <div className="flex items-center space-x-1.5 text-slate-700 font-black">
+                  <DollarSign size={14} className="text-slate-400" />
                   <span>
                     {drawerJob.salary_min ? `$${drawerJob.salary_min.toLocaleString()}` : 'Negotiable'}
                     {drawerJob.salary_max ? ` - $${drawerJob.salary_max.toLocaleString()}` : ''}
@@ -707,23 +707,23 @@ export default function JobSearch() {
               </div>
 
               <div className="space-y-2">
-                <h4 className="text-xs font-extrabold uppercase tracking-widest text-slate-500">About the Role</h4>
-                <p className="text-slate-300 text-xs leading-relaxed whitespace-pre-line bg-slate-900/40 p-4 rounded-2xl border border-white/5 font-semibold">{drawerJob.description}</p>
+                <h4 className="text-xs font-extrabold uppercase tracking-widest text-slate-400">About the Role</h4>
+                <p className="text-slate-600 text-xs leading-relaxed whitespace-pre-line bg-slate-50 p-4 rounded-2xl border border-slate-200/80 font-semibold">{drawerJob.description}</p>
               </div>
 
               {/* Similar jobs matches preview panel - Redesign item */}
               <div className="space-y-3 pt-2">
-                <h4 className="text-xs font-extrabold uppercase tracking-widest text-slate-500 flex items-center gap-1">
-                  <Sparkles size={12} className="text-cyan-450" /> Similar Jobs Matching
+                <h4 className="text-xs font-extrabold uppercase tracking-widest text-slate-400 flex items-center gap-1">
+                  <Sparkles size={12} className="text-blue-600" /> Similar Jobs Matching
                 </h4>
-                <div className="p-4 rounded-2xl bg-slate-900 border border-white/5 space-y-2.5 font-bold text-xxs text-slate-400">
-                  <div className="flex justify-between items-center hover:text-white transition-colors cursor-pointer">
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5 font-bold text-xxs text-slate-600">
+                  <div className="flex justify-between items-center hover:text-blue-600 transition-colors cursor-pointer">
                     <span>Senior AI Architect @ Anthropic</span>
-                    <span className="text-cyan-405 font-black uppercase">View &rarr;</span>
+                    <span className="text-blue-600 font-black uppercase">View &rarr;</span>
                   </div>
-                  <div className="flex justify-between items-center hover:text-white transition-colors cursor-pointer">
+                  <div className="flex justify-between items-center hover:text-blue-600 transition-colors cursor-pointer">
                     <span>LLM Backend Optimizer @ OpenAI</span>
-                    <span className="text-cyan-405 font-black uppercase">View &rarr;</span>
+                    <span className="text-blue-600 font-black uppercase">View &rarr;</span>
                   </div>
                 </div>
               </div>
@@ -731,12 +731,12 @@ export default function JobSearch() {
               <AiSkillGapWidget jobId={drawerJob.id} />
 
               {/* AI Tools Bar */}
-              <div className="p-5 rounded-2xl bg-slate-900/40 border border-white/5 space-y-4">
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-4">
                 <div className="flex flex-col sm:flex-row gap-3 justify-between items-center">
                   <button
                     onClick={handleGenerateCoverLetter}
                     disabled={generatingCoverLetter}
-                    className="w-full sm:w-auto px-5 py-3 bg-white/5 border border-white/10 text-cyan-400 text-xs font-extrabold rounded-xl transition-all flex items-center justify-center space-x-2 active:scale-95 disabled:opacity-50 cursor-pointer uppercase tracking-wider"
+                    className="w-full sm:w-auto px-5 py-3 bg-white border border-slate-200 text-blue-600 hover:bg-slate-50 text-xs font-extrabold rounded-xl transition-all flex items-center justify-center space-x-2 active:scale-95 disabled:opacity-50 cursor-pointer uppercase tracking-wider shadow-sm"
                   >
                     {generatingCoverLetter ? (
                       <>
@@ -753,7 +753,7 @@ export default function JobSearch() {
 
                   <button
                     onClick={() => setShowInterviewModal(true)}
-                    className="w-full sm:w-auto px-5 py-3 bg-white/5 border border-white/10 text-cyan-400 text-xs font-extrabold rounded-xl transition-all flex items-center justify-center space-x-2 active:scale-95 cursor-pointer uppercase tracking-wider"
+                    className="w-full sm:w-auto px-5 py-3 bg-white border border-slate-200 text-blue-600 hover:bg-slate-50 text-xs font-extrabold rounded-xl transition-all flex items-center justify-center space-x-2 active:scale-95 cursor-pointer uppercase tracking-wider shadow-sm"
                   >
                     <Sparkles size={12} />
                     <span>Practice Questions</span>

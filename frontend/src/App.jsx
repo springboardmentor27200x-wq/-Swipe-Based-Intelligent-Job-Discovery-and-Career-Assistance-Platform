@@ -47,7 +47,7 @@ const PageLoader = () => (
 export default function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-slate-955 text-slate-100 selection:bg-violet-500/30 selection:text-violet-200 relative">
+      <div className="flex flex-col min-h-screen bg-slate-50 text-slate-800 selection:bg-blue-500/10 selection:text-blue-600 relative">
         {/* Premium Aurora floating gradient background */}
         <div className="aurora-bg-container">
           <div className="aurora-shape aurora-purple" />

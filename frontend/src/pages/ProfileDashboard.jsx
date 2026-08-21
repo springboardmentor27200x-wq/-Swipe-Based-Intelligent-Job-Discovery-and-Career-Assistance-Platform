@@ -510,18 +510,18 @@ export default function ProfileDashboard() {
   }
 
   return (
-    <PageTransition className="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid lg:grid-cols-4 gap-8 relative z-10 text-left">
+    <PageTransition className="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid lg:grid-cols-4 gap-8 relative z-10 text-left text-slate-800">
       
-      {/* Ambient background spotlights for Profile page (Purple + Gold Theme) */}
-      <div className="absolute top-[10%] left-[10%] w-[380px] h-[380px] bg-gradient-to-tr from-violet-650/10 via-amber-500/10 to-transparent rounded-full blur-[110px] -z-10 pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[10%] w-[350px] h-[350px] bg-gradient-to-tr from-amber-600/10 via-violet-550/10 to-transparent rounded-full blur-[110px] -z-10 pointer-events-none" />
+      {/* Ambient background spotlights for Profile page (Indigo + Blue Theme) */}
+      <div className="absolute top-[10%] left-[10%] w-[380px] h-[380px] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[110px] -z-10 pointer-events-none" />
+      <div className="absolute bottom-[20%] right-[10%] w-[350px] h-[350px] bg-gradient-to-tr from-indigo-500/5 via-blue-500/5 to-transparent rounded-full blur-[110px] -z-10 pointer-events-none" />
 
       {/* LEFT COLUMN: Circular Avatar Cover and Tab lists (1 col span) */}
       <div className="lg:col-span-1 space-y-6">
         
         {/* Avatar Cover Card */}
-        <div className="p-[1.5px] rounded-3xl bg-gradient-to-b from-violet-500/30 via-amber-500/30 to-yellow-500/10 shadow-2xl">
-          <div className="bg-slate-950 rounded-[23px] p-6 border border-white/10 text-center relative group">
+        <div className="p-[1px] rounded-3xl bg-slate-200 shadow-sm">
+          <div className="bg-white rounded-[23px] p-6 border border-slate-100 text-center relative group">
             
             {/* Click avatar uploader */}
             <div className="relative w-20 h-20 mx-auto group">
@@ -529,15 +529,15 @@ export default function ProfileDashboard() {
                 <img 
                   src={profile.profile_picture} 
                   alt="Avatar" 
-                  className="w-20 h-20 rounded-full object-cover mx-auto border-2 border-violet-500/25 shadow-lg group-hover:border-violet-455 transition-colors" 
+                  className="w-20 h-20 rounded-full object-cover mx-auto border-2 border-slate-200 shadow-md group-hover:border-blue-500 transition-colors" 
                 />
               ) : (
-                <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-violet-600 to-fuchsia-600 flex items-center justify-center text-2xl font-black text-white mx-auto shadow-md">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-2xl font-black text-white mx-auto shadow-md">
                   {fullName ? fullName.charAt(0).toUpperCase() : profile.email.charAt(0).toUpperCase()}
                 </div>
               )}
               
-              <label className="absolute inset-0 rounded-full bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center cursor-pointer transition-opacity">
+              <label className="absolute inset-0 rounded-full bg-black/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center cursor-pointer transition-opacity">
                 {uploadingAvatar ? (
                   <Loader2 size={16} className="animate-spin text-white" />
                 ) : (
@@ -555,15 +555,15 @@ export default function ProfileDashboard() {
               </label>
             </div>
 
-            <h2 className="text-base font-black text-white mt-4">{fullName || 'Add your name'}</h2>
-            <p className="text-slate-400 text-[10px] mt-1 uppercase tracking-wider font-extrabold">{profile.role.replace('_', ' ')}</p>
-            <p className="text-slate-500 text-xxs mt-2 break-all">{profile.email}</p>
+            <h2 className="text-base font-black text-slate-800 mt-4">{fullName || 'Add your name'}</h2>
+            <p className="text-slate-500 text-[10px] mt-1 uppercase tracking-wider font-extrabold">{profile.role.replace('_', ' ')}</p>
+            <p className="text-slate-400 text-xxs mt-2 break-all">{profile.email}</p>
           </div>
         </div>
 
         {/* Tab Selectors Panel */}
-        <div className="p-[1.5px] rounded-3xl bg-gradient-to-b from-violet-500/10 via-amber-500/10 to-yellow-500/10 shadow-xl">
-          <div className="bg-slate-950 rounded-[23px] p-3 border border-white/10 flex flex-col space-y-1">
+        <div className="p-[1px] rounded-3xl bg-slate-200/50 shadow-sm">
+          <div className="bg-white rounded-[23px] p-3 border border-slate-100 flex flex-col space-y-1">
             {[
               { id: 'overview', label: 'Overview Hub', icon: BarChart2 },
               { id: 'personal', label: 'Personal Info', icon: User },
@@ -580,8 +580,8 @@ export default function ProfileDashboard() {
                   onClick={() => { setActiveTab(tab.id); setError(''); setMessage(''); }}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md'
-                      : 'text-slate-400 hover:text-slate-850 hover:glass-card-indigo-violet'
+                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/10'
+                      : 'text-slate-650 hover:text-blue-650 hover:bg-slate-50'
                   }`}
                 >
                   <Icon size={15} />
@@ -596,36 +596,36 @@ export default function ProfileDashboard() {
       {/* RIGHT COLUMN: Tab Panel content consoles (3 col span) */}
       <div className="lg:col-span-3 space-y-6 text-left">
         {error && (
-          <div className="mb-6 p-4 rounded-2xl bg-rose-950/30 border border-rose-500/20 text-rose-455 text-xs font-bold">
+          <div className="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 text-xs font-bold">
             {error}
           </div>
         )}
 
         {message && (
-          <div className="mb-6 p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/20 text-emerald-450 text-xs font-bold flex items-center space-x-2">
+          <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-bold flex items-center space-x-2">
             <CheckCircle size={14} />
             <span>{message}</span>
           </div>
         )}
 
-        <div className="p-[1.5px] rounded-3xl bg-gradient-to-tr from-violet-500/20 via-amber-500/20 to-yellow-500/25 shadow-2xl">
-          <div className="bg-slate-950/80 rounded-[23px] p-6 sm:p-8 shadow-xl min-h-[50vh] border border-white/10 backdrop-blur-2xl">
+        <div className="p-[1px] rounded-3xl bg-slate-200/50 shadow-sm">
+          <div className="bg-white rounded-[23px] p-6 sm:p-8 shadow-md min-h-[50vh] border border-slate-100">
             
             {/* TAB 0: Overview Hub */}
             {activeTab === 'overview' && (
               <div className="space-y-8 animate-fade-in">
                 
                 {/* Covers banner details: Frosted Glass Profile Card */}
-                <div className="p-6 rounded-3xl glass-card-indigo-violet relative overflow-hidden flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 shadow-xl">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400" />
+                <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 relative overflow-hidden flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 shadow-sm">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-indigo-600" />
                   <div>
-                    <h4 className="text-2xl font-black text-white tracking-tight">{fullName || 'User Profile'}</h4>
-                    <p className="text-xs text-violet-400 font-black mt-1 uppercase tracking-wider">{profile?.role?.replace('_', ' ')}</p>
-                    <p className="text-slate-350 text-xs mt-3.5 leading-relaxed max-w-xl font-semibold">{bio || 'No professional summary set. Update personal details tab to describe your stack focus.'}</p>
+                    <h4 className="text-2xl font-black text-slate-800 tracking-tight">{fullName || 'User Profile'}</h4>
+                    <p className="text-xs text-blue-600 font-black mt-1 uppercase tracking-wider">{profile?.role?.replace('_', ' ')}</p>
+                    <p className="text-slate-600 text-xs mt-3.5 leading-relaxed max-w-xl font-semibold">{bio || 'No professional summary set. Update personal details tab to describe your stack focus.'}</p>
                   </div>
                   <button 
                     onClick={() => setActiveTab('personal')}
-                    className="px-5 py-3 border border-white/10 hover:border-violet-500/30 hover:glass-card-indigo-violet text-slate-300 hover:text-white rounded-2xl text-xs font-extrabold transition-all flex items-center gap-1.5 cursor-pointer shrink-0 uppercase tracking-wider"
+                    className="px-5 py-3 border border-slate-200 hover:bg-slate-100 text-slate-600 hover:text-blue-600 rounded-2xl text-xs font-extrabold transition-all flex items-center gap-1.5 cursor-pointer shrink-0 uppercase tracking-wider shadow-sm"
                   >
                     <Pencil size={12} />
                     <span>Edit Profile</span>
@@ -636,9 +636,9 @@ export default function ProfileDashboard() {
                   {/* Left stats/handles (5 cols) */}
                   <div className="md:col-span-5 space-y-6">
                     {/* Handles */}
-                    <div className="p-6 rounded-3xl glass-card-indigo-violet space-y-5">
-                      <h5 className="text-[9px] font-black text-slate-500 uppercase tracking-widest border-b border-white/5 pb-2">Connect Links</h5>
-                      <div className="space-y-3.5 text-xs text-slate-350 font-bold">
+                    <div className="p-6 rounded-3xl bg-slate-50 border border-slate-200/80 space-y-5">
+                      <h5 className="text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-150 pb-2">Connect Links</h5>
+                      <div className="space-y-3.5 text-xs text-slate-600 font-bold">
                         {profile?.phone && (
                           <div className="flex items-center gap-2.5">
                             <Phone size={13} className="text-slate-400" />
