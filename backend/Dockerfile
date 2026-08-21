@@ -1,34 +1,21 @@
-# =====================================================
-# SwipeX / JobMatch-AI — Backend Dockerfile
-# =====================================================
-
 FROM python:3.11-slim
 
-# System dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-# Install Python dependencies
-COPY requirements.txt .
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt /app/
 
-# Copy application
-COPY app ./app
-COPY frontend ./frontend
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Resume directory will be created by the FastAPI application
-RUN mkdir -p /app/resumes
-
-# Render provides PORT
-ENV PORT=8000
+COPY . /app/
 
 EXPOSE 8000
 
-# Start FastAPI
-CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT}
+CMD ["gunicorn", "swipex.wsgi:application", "--bind", "0.0.0.0:8000"]

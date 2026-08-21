@@ -1,49 +1,59 @@
-# =====================================================
-# Local development / demo stack
-# =====================================================
-# One command brings up the API + a Postgres database together:
-#
-#   docker compose up --build
-#
-# The API will be at http://localhost:8000
-# Postgres will be at localhost:5432 (user: postgres / pass: postgres)
-
-version: "3.9"
+version: '3.8'
 
 services:
-
   db:
-    image: postgres:16-alpine
-    restart: unless-stopped
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: jobmatch_ai
+      - POSTGRES_DB=swipex
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=swipexpassword
     ports:
       - "5432:5432"
-    volumes:
-      - jobmatch_pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
 
   backend:
-    build: .
-    restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
+    build: ./backend
+    command: gunicorn swipex.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/jobmatch_ai
-      SECRET_KEY: jobmatch_secret_key
-      ALLOWED_ORIGINS: "*"
-      PORT: 8000
+      - SECRET_KEY=django-insecure-swipex-platform-secret-key-1234567890
+      - DEBUG=True
+      - ALLOWED_HOSTS=backend,localhost,127.0.0.1
+      - DATABASE_URL=postgres://postgres:swipexpassword@db:5432/swipex
+      - FRONTEND_URL=http://localhost
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+  celery:
+    build: ./backend
+    command: celery -A swipex worker -l info
     volumes:
-      - ./resumes:/app/resumes
+      - ./backend:/app
+    environment:
+      - SECRET_KEY=django-insecure-swipex-platform-secret-key-1234567890
+      - DEBUG=True
+      - DATABASE_URL=postgres://postgres:swipexpassword@db:5432/swipex
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+      - db
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
 
 volumes:
-  jobmatch_pgdata:
+  postgres_data:
