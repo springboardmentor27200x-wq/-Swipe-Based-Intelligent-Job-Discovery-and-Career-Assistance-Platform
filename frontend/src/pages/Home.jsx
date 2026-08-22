@@ -1,703 +1,576 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { buildApiUrl } from '../config/api';
-import { useAuth } from '../context/AuthContext';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { 
+  Compass, Briefcase, FileText, CheckCircle2, ChevronRight, 
+  Star, Sparkles, ShieldCheck, Flame, Heart, X, MessageSquare, Award, Orbit, Cpu, Zap, ChevronDown, Check, Users, Terminal, Play, Bell,
+  User, CheckCircle, Database, Phone, Mail, Globe, ArrowRight, Shield, ZapOff, CheckSquare, Clock
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-function Home() {
-  const navigate = useNavigate();
-  const { user } = useAuth();
-  const fileInputRef = useRef(null);
+export default function Home() {
+  const [demoState, setDemoState] = useState('swipe');
+  const [swipeDirection, setSwipeDirection] = useState(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [faqOpen, setFaqOpen] = useState(null);
 
-  const [recommendedJobs, setRecommendedJobs] = useState([]);
-  const [latestJobs, setLatestJobs] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [jobAlertsEnabled, setJobAlertsEnabled] = useState(true);
-  const [profileAvatar, setProfileAvatar] = useState(localStorage.getItem('user_avatar') || null);
-  const [showResumeModal, setShowResumeModal] = useState(false);
-  
-  const [realActivities, setRealActivities] = useState([]);
-  const [profileStrength, setProfileStrength] = useState(80);
-  const [resumeScore, setResumeScore] = useState(85);
-  const [resumeScoreLabel, setResumeScoreLabel] = useState('Excellent');
-
-  const [stats, setStats] = useState({
-    jobsViewed: 0,
-    swipes: 0,
-    savedJobs: 0,
-    applications: 0,
-    recommendedJobsCount: 0
-  });
-  const [loading, setLoading] = useState(true);
-
-  const [unreadCount, setUnreadCount] = useState(0);
+  // AI assistant preview mock states
+  const [aiMessageIndex, setAiMessageIndex] = useState(0);
+  const aiMessages = [
+    { sender: 'assistant', text: "Analyzing your profile... I found a 98% match for 'Lead AI Platform Engineer' at NVIDIA." },
+    { sender: 'user', text: "Wow, that's high! Does my resume highlight enough CUDA experience?" },
+    { sender: 'assistant', text: "Yes! Your resume has 3 years of CUDA and PyTorch optimization work. Swiping right now..." },
+    { sender: 'assistant', text: "Match confirmed! NVIDIA's recruiter just sent you a calendar link. Let's schedule the call." }
+  ];
 
   useEffect(() => {
-    fetchHomeData();
-    fetchUnreadCount();
+    const timer = setInterval(() => {
+      setAiMessageIndex(prev => (prev + 1) % aiMessages.length);
+    }, 4500);
+    return () => clearInterval(timer);
   }, []);
 
-  const fetchUnreadCount = async () => {
-    try {
-      const token = localStorage.getItem('accessToken');
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      const res = await axios.get(buildApiUrl('/api/notifications/unread-count'), { headers }).catch(() => null);
-      if (res && res.data && res.data.unread_count !== undefined) {
-        setUnreadCount(res.data.unread_count);
-      }
-    } catch (err) {
-      console.error('Error fetching unread count:', err);
-    }
-  };
-
-  const fetchHomeData = async () => {
-    try {
-      setLoading(true);
-      const token = localStorage.getItem('accessToken');
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
-      const jobsRes = await axios.get(buildApiUrl('/api/jobs'), { headers }).catch(() => ({ data: [] }));
-      const allJobs = Array.isArray(jobsRes.data) ? jobsRes.data : [];
-
-      const recRes = await axios.get(buildApiUrl('/api/recommendations'), { headers }).catch(() => ({ data: [] }));
-      const recList = Array.isArray(recRes.data) && recRes.data.length > 0 ? recRes.data : allJobs;
-      setRecommendedJobs(recList);
-
-      setLatestJobs(allJobs.slice(0, 4));
-
-      // Fetch user's real applications & saved jobs to build dynamic activity feed
-      const [appsRes, savedRes, statsRes, profRes, perfRes] = await Promise.all([
-        axios.get(buildApiUrl('/api/applications/my-applications'), { headers }).catch(() => ({ data: [] })),
-        axios.get(buildApiUrl('/api/saved-jobs'), { headers }).catch(() => ({ data: [] })),
-        axios.get(buildApiUrl('/api/analytics/jobseeker'), { headers }).catch(() => null),
-        axios.get(buildApiUrl('/api/profile/jobseeker'), { headers }).catch(() => null),
-        axios.get(buildApiUrl('/api/resume/performance'), { headers }).catch(() => null)
-      ]);
-
-      const appsList = Array.isArray(appsRes?.data) ? appsRes.data : [];
-      const savedList = Array.isArray(savedRes?.data) ? savedRes.data : [];
-
-      // Build real activity timeline from PostgreSQL
-      const activities = [];
-      appsList.forEach((app) => {
-        activities.push({
-          id: `app-${app.id}`,
-          type: 'applied',
-          icon: '✓',
-          bg: '#dcfce7',
-          color: '#16a34a',
-          title: `Applied to ${app.job_title || 'Software Role'}`,
-          company: app.company_name || 'SwipeX Partner',
-          time: app.applied_at ? new Date(app.applied_at).toLocaleDateString() : 'Recently',
-          timestamp: app.applied_at ? new Date(app.applied_at).getTime() : 0
-        });
+  // Mouse Parallax coordinates tracker
+  useEffect(() => {
+    const handleMove = (e) => {
+      setMousePos({
+        x: (e.clientX - window.innerWidth / 2) / 35,
+        y: (e.clientY - window.innerHeight / 2) / 35
       });
+    };
+    window.addEventListener('mousemove', handleMove);
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
 
-      savedList.forEach((sj) => {
-        activities.push({
-          id: `saved-${sj.id}`,
-          type: 'saved',
-          icon: '💙',
-          bg: '#f5f3ff',
-          color: '#7c3aed',
-          title: `Saved ${sj.title || 'Job Position'}`,
-          company: sj.company_name || 'SwipeX Partner',
-          time: sj.saved_at ? new Date(sj.saved_at).toLocaleDateString() : 'Recently',
-          timestamp: sj.saved_at ? new Date(sj.saved_at).getTime() : 0
-        });
-      });
-
-      activities.sort((a, b) => b.timestamp - a.timestamp);
-      setRealActivities(activities);
-
-      // Compute Profile Strength dynamically from PostgreSQL
-      if (profRes && profRes.data) {
-        const p = profRes.data;
-        let pScore = 20;
-        if (p.full_name || user?.full_name) pScore += 20;
-        if (p.email || user?.email) pScore += 20;
-        if (p.skills || user?.skills) pScore += 20;
-        if (p.experience || p.education || p.preferred_location) pScore += 20;
-        setProfileStrength(Math.min(pScore, 100));
-      }
-
-      // Compute Resume Score dynamically from PostgreSQL performance
-      if (perfRes && perfRes.data) {
-        const score = perfRes.data.avg_job_match_pct || perfRes.data.skill_coverage_pct || 85;
-        setResumeScore(score);
-        if (score >= 80) setResumeScoreLabel('Excellent');
-        else if (score >= 60) setResumeScoreLabel('Good');
-        else setResumeScoreLabel('Needs Focus');
-      }
-
-      if (statsRes && statsRes.data) {
-        setStats({
-          jobsViewed: statsRes.data.discovered_today ?? (allJobs.length ? Math.min(allJobs.length, 5) : 0),
-          swipes: (statsRes.data.swipe_left_count || 0) + (statsRes.data.swipe_right_count || 0),
-          savedJobs: statsRes.data.saved_jobs ?? savedList.length,
-          applications: statsRes.data.applications_submitted ?? appsList.length,
-          recommendedJobsCount: recList.length
-        });
-      } else {
-        setStats({
-          jobsViewed: allJobs.length ? Math.min(allJobs.length, 5) : 0,
-          swipes: 0,
-          savedJobs: savedList.length,
-          applications: appsList.length,
-          recommendedJobsCount: recList.length
-        });
-      }
-    } catch (err) {
-      console.error('Error fetching home data:', err);
-    } finally {
-      setLoading(false);
+  const handleDemoAction = (action) => {
+    if (action === 'like') {
+      setSwipeDirection('right');
+      setTimeout(() => {
+        setDemoState('match');
+      }, 250);
+    } else {
+      setSwipeDirection('left');
+      setTimeout(() => {
+        setDemoState('disliked');
+      }, 250);
     }
   };
 
-  const handleAvatarUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64Image = reader.result;
-        setProfileAvatar(base64Image);
-        localStorage.setItem('user_avatar', base64Image);
-        alert('Profile picture updated successfully!');
-      };
-      reader.readAsDataURL(file);
-    }
+  const resetDemo = () => {
+    setSwipeDirection(null);
+    setDemoState('swipe');
   };
 
-  const handleApply = async (jobId) => {
-    try {
-      const token = localStorage.getItem('accessToken');
-      await axios.post(buildApiUrl('/api/applications/apply'), { job_id: jobId }, { headers: { Authorization: `Bearer ${token}` } });
-      alert('Application submitted successfully!');
-      fetchHomeData();
-    } catch (err) {
-      alert(err?.response?.data?.detail || 'Failed to submit application.');
-    }
+  const toggleFaq = (index) => {
+    setFaqOpen(faqOpen === index ? null : index);
   };
-
-  const handleSave = async (jobId) => {
-    try {
-      const token = localStorage.getItem('accessToken');
-      await axios.post(buildApiUrl('/api/saved/save'), { job_id: jobId }, { headers: { Authorization: `Bearer ${token}` } });
-      alert('Job saved to your list!');
-      fetchHomeData();
-    } catch (err) {
-      alert(err?.response?.data?.detail || 'Failed to save job.');
-    }
-  };
-
-  const filteredRecommended = recommendedJobs.filter(j => 
-    !searchQuery || 
-    j.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    (j.company_name || j.company?.name)?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    j.skills_required?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const filteredLatest = latestJobs.filter(j => 
-    !searchQuery || 
-    j.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    (j.company_name || j.company?.name)?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const userName = user?.full_name || localStorage.getItem('user_name') || 'Hema Perumal';
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%', maxWidth: '1600px', margin: '0 auto', fontFamily: 'Inter, sans-serif' }}>
+    <div className="relative min-h-screen overflow-hidden text-left bg-[#f8fafc] text-slate-800">
       
-      {/* Top Header Bar with Profile Controls & Notifications */}
-      <div style={{
-        background: '#ffffff',
-        borderRadius: '20px',
-        padding: '16px 28px',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
-        border: '1px solid #e2e8f0',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: '16px'
-      }}>
-        {/* Search Input Bar */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-          background: '#f8fafc',
-          borderRadius: '12px',
-          padding: '10px 16px',
-          border: '1px solid #e2e8f0',
-          flex: '1',
-          maxWidth: '520px'
-        }}>
-          <span style={{ fontSize: '18px', color: '#94a3b8' }}>🔍</span>
-          <input
-            type="text"
-            placeholder="Search jobs by title, skills, or company..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ border: 'none', background: 'none', outline: 'none', fontSize: '14px', width: '100%', color: '#0f172a' }}
-          />
-          {searchQuery && (
-            <button onClick={() => setSearchQuery('')} style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#94a3b8' }}>✕</button>
-          )}
-        </div>
-
-        {/* Right Top Header Actions & Profile */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          {/* Notification Bell Icon */}
-          <div
-            onClick={() => navigate('/jobseeker/notifications')}
-            style={{ position: 'relative', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          >
-            <span style={{ fontSize: '22px' }}>🔔</span>
-            {unreadCount > 0 && (
-              <span style={{
-                position: 'absolute',
-                top: '-4px',
-                right: '-4px',
-                background: '#dc2626',
-                color: '#ffffff',
-                fontSize: '10px',
-                fontWeight: 800,
-                width: '18px',
-                height: '18px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>{unreadCount}</span>
-            )}
-          </div>
-
-          {/* Messages Chat Icon */}
-          <div
-            onClick={() => navigate('/jobseeker/notifications')}
-            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', color: '#475569' }}
-          >
-            💬
-          </div>
-
-          {/* Profile Section with Photo Upload */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              onChange={handleAvatarUpload}
-              style={{ display: 'none' }}
-            />
-            <div
-              onClick={() => fileInputRef.current?.click()}
-              title="Click to upload profile picture"
-              style={{
-                width: '46px',
-                height: '46px',
-                borderRadius: '50%',
-                background: '#eff6ff',
-                border: '2px solid #2563eb',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                overflow: 'hidden',
-                position: 'relative'
-              }}
-            >
-              {profileAvatar ? (
-                <img src={profileAvatar} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              ) : (
-                <span style={{ fontSize: '22px' }}>👤</span>
-              )}
-            </div>
-
-            <div style={{ cursor: 'pointer' }} onClick={() => navigate('/jobseeker/profile')}>
-              <div style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                {userName} <span style={{ fontSize: '12px', color: '#64748b' }}>∨</span>
-              </div>
-              <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 600 }}>Job Seeker</div>
-            </div>
-          </div>
-        </div>
+      {/* Background aurora lighting */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+        <div className="absolute top-[5%] left-[-10%] w-[60vw] h-[60vh] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[130px]" />
+        <div className="absolute bottom-[20%] right-[-10%] w-[50vw] h-[50vh] bg-gradient-to-br from-indigo-500/5 via-blue-500/5 to-transparent rounded-full blur-[130px]" />
       </div>
 
-      {/* Main Grid: Content (Left) + Right Sidebar (Right) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 340px', gap: '24px' }}>
-        
-        {/* Left Main Content */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      {/* 1. HERO SECTION (Theme: Light Navy + Blue + Indigo) */}
+      <section className="relative pt-36 pb-28 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-16 items-center relative z-10">
           
-          {/* Welcome Banner */}
-          <div style={{
-            background: 'linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%)',
-            color: '#ffffff',
-            borderRadius: '20px',
-            padding: '28px 32px',
-            boxShadow: '0 10px 25px rgba(29,78,216,0.2)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}>
-            <div>
-              <h1 style={{ fontSize: '26px', fontWeight: 800, margin: 0, color: '#ffffff' }}>
-                Welcome back, {userName}! 👋
-              </h1>
-              <p style={{ color: '#dbeafe', fontSize: '14px', marginTop: '6px', margin: 0 }}>
-                Discover personalized AI job matches and track your applications in real-time.
-              </p>
-            </div>
-            <button
-              onClick={() => navigate('/jobseeker/discover')}
-              style={{
-                padding: '12px 20px',
-                borderRadius: '12px',
-                background: '#ffffff',
-                color: '#1d4ed8',
-                border: 'none',
-                fontWeight: 800,
-                fontSize: '14px',
-                cursor: 'pointer'
-              }}
+          {/* Headline details */}
+          <div className="lg:col-span-7 space-y-10 text-left">
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-black uppercase tracking-widest shadow-sm"
             >
-              Discover Jobs →
-            </button>
-          </div>
+              <Sparkles size={13} className="text-blue-500 mr-1.5 animate-pulse" />
+              <span>The Future of AI Job Discovery</span>
+            </motion.div>
 
-          {/* Quick Stats Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px' }}>
-            <StatCard title="Jobs Viewed" value={stats.jobsViewed} icon="👀" color="#2563eb" bg="#eff6ff" />
-            <StatCard title="Total Swipes" value={stats.swipes} icon="🔥" color="#7c3aed" bg="#f5f3ff" />
-            <StatCard title="Saved Jobs" value={stats.savedJobs} icon="💙" color="#059669" bg="#ecfdf5" />
-            <StatCard title="Applications" value={stats.applications} icon="📄" color="#d97706" bg="#fffbeb" />
-          </div>
+            <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-black leading-[0.9] tracking-tight text-slate-800">
+              Find Your Perfect Job.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 drop-shadow-[0_0_35px_rgba(37,99,235,0.08)]">
+                Powered by AI.
+              </span>
+            </h1>
 
-          {/* Recommended Jobs */}
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-              <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#0f172a', margin: 0 }}>Recommended Jobs for You</h2>
-              <span onClick={() => navigate('/jobseeker/recommended')} style={{ fontSize: '14px', color: '#2563eb', fontWeight: 700, cursor: 'pointer' }}>View All →</span>
+            <p className="text-slate-500 text-base sm:text-lg max-w-xl leading-relaxed font-semibold">
+              Bypass intermediate questionnaires. Swipe through roles, check match scores, and schedule virtual calls directly in recruiter calendars.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-4">
+              <Link
+                to="/register"
+                className="flex items-center space-x-2.5 px-10 py-5.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs rounded-full transition-all shadow-xl shadow-blue-500/10 hover:scale-[1.03] active:scale-95 group uppercase tracking-widest border border-transparent"
+              >
+                <span>🚀 Start Swiping</span>
+                <ChevronRight size={15} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <button
+                onClick={() => setDemoState('swipe')}
+                className="flex items-center space-x-2 px-10 py-5.5 border border-slate-200 hover:bg-slate-100 bg-white text-slate-600 font-black text-xs rounded-full transition-all hover:scale-[1.03] active:scale-95 uppercase tracking-widest shadow-sm cursor-pointer"
+              >
+                <Play size={14} className="fill-slate-500 text-slate-500 mr-1.5 animate-pulse" />
+                <span>Watch Live Demo</span>
+              </button>
             </div>
-            
-            {loading ? (
-              <div style={{ padding: '24px', textAlign: 'center', color: '#64748b' }}>Loading job recommendations...</div>
-            ) : filteredRecommended.length === 0 ? (
-              <div style={{ background: '#fff', padding: '32px', borderRadius: '16px', textAlign: 'center', color: '#64748b' }}>
-                No recommended jobs found matching your query.
-              </div>
-            ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
-                {filteredRecommended.slice(0, 4).map((job) => (
-                  <JobCard key={job.id} job={job} onApply={handleApply} onSave={handleSave} />
-                ))}
-              </div>
-            )}
           </div>
 
-          {/* Latest Jobs */}
-          <div>
-            <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#0f172a', marginBottom: '14px' }}>Latest Job Openings</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {filteredLatest.map((job) => (
-                <div key={job.id} style={{ background: '#fff', borderRadius: '14px', padding: '16px', boxShadow: '0 4px 12px rgba(0,0,0,0.03)', border: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontWeight: 700, color: '#1e293b', fontSize: '16px' }}>{job.title}</div>
-                    <div style={{ color: '#64748b', fontSize: '13px', marginTop: '4px' }}>{job.company_name || job.company?.name || 'Tech Company'} • {job.location || 'Remote'}</div>
-                    <div style={{ color: '#059669', fontSize: '13px', fontWeight: 600, marginTop: '4px' }}>{job.salary || '$80,000 - $120,000'}</div>
-                  </div>
-                  <button onClick={() => handleApply(job.id)} style={primaryBtnSmall}>Apply</button>
+          {/* Interactive Demo swiper card */}
+          <div className="lg:col-span-5 flex justify-center items-center">
+            <div style={{ perspective: 1200 }} className="w-full max-w-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="w-full relative p-[1px] rounded-[38px] bg-slate-200/50 shadow-md select-none"
+              >
+                <div className="w-full h-[460px] bg-white rounded-[37px] p-8 flex flex-col justify-between overflow-hidden relative border border-slate-100">
+                  <div className="absolute top-0 left-0 right-0 h-44 bg-gradient-to-b from-blue-50 to-transparent -z-10" />
+
+                  <AnimatePresence mode="wait">
+                    {demoState === 'swipe' && (
+                      <motion.div
+                        key="demo-deck"
+                        initial={{ opacity: 0 }}
+                        animate={{ 
+                          opacity: 1, 
+                          x: swipeDirection === 'right' ? 320 : swipeDirection === 'left' ? -320 : 0,
+                          rotate: swipeDirection === 'right' ? 14 : swipeDirection === 'left' ? -14 : 0
+                        }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="h-full flex flex-col justify-between text-left"
+                      >
+                        <div className="space-y-4">
+                          <div className="flex justify-between items-start">
+                            <span className="px-3 py-1 rounded bg-blue-50 border border-blue-100 text-blue-600 text-[9px] font-black uppercase tracking-widest">
+                              Full-Time
+                            </span>
+                            <span className="px-3 py-1 rounded bg-indigo-50 border border-indigo-100 text-indigo-600 text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5">
+                              <Cpu size={10} className="animate-spin" />
+                              <span>98% Match</span>
+                            </span>
+                          </div>
+
+                          <div>
+                            <h3 className="text-2xl font-black text-slate-800 leading-tight">Lead AI Platform Engineer</h3>
+                            <p className="text-blue-600 text-xs font-extrabold mt-0.5">NVIDIA Corporation</p>
+                          </div>
+
+                          <div className="flex items-center space-x-2 text-slate-400 text-xxs font-black uppercase tracking-wider">
+                            <span className="text-slate-700 font-extrabold">$230k - $280k</span>
+                            <span>•</span>
+                            <span>Santa Clara, CA</span>
+                          </div>
+
+                          <p className="text-slate-600 text-xs leading-relaxed font-semibold">
+                            Orchestrate generative agent hardware layers. Run CUDA optimizations on GPU stream clusters.
+                          </p>
+                        </div>
+
+                        {/* Recruiter Activity preview */}
+                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-[10px] text-slate-600 font-bold flex items-center gap-2">
+                          <span className="relative flex h-2 w-2 shrink-0">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+                          </span>
+                          <span>Active Recruiter reviewing stack...</span>
+                        </div>
+
+                        {/* Swiper deck buttons */}
+                        <div className="flex justify-center items-center space-x-6 pt-4 border-t border-slate-100">
+                          <button 
+                            onClick={() => handleDemoAction('dislike')}
+                            className="w-12 h-12 rounded-full bg-white border border-rose-200 hover:bg-rose-50 flex items-center justify-center text-rose-500 shadow-md hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                          >
+                            <X size={18} />
+                          </button>
+                          <button 
+                            onClick={() => handleDemoAction('like')}
+                            className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 flex items-center justify-center text-white shadow-xl shadow-blue-500/20 hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                          >
+                            <Heart size={22} className="fill-white animate-pulse" />
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {demoState === 'match' && (
+                      <motion.div
+                        key="demo-match"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="h-full flex flex-col justify-between items-center text-center py-6"
+                      >
+                        <div className="space-y-4">
+                          <div className="inline-flex p-4.5 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-600 animate-bounce shadow-sm">
+                            <Sparkles size={32} />
+                          </div>
+                          <h4 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-650 tracking-tight">It's a Match!</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed max-w-[280px] mx-auto font-semibold">
+                            Hiring squad approved your qualifications. Messaging and calendar slots are unlocked.
+                          </p>
+                        </div>
+
+                        <div className="flex items-center justify-center -space-x-3 my-4">
+                          <div className="w-12 h-12 rounded-full border-2 border-white bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-black text-xs text-white shadow-lg">
+                            YOU
+                          </div>
+                          <div className="w-12 h-12 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center font-black text-[9px] text-blue-600 shadow-lg">
+                            NVDA
+                          </div>
+                        </div>
+
+                        <button 
+                          onClick={resetDemo}
+                          className="w-full py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-650 font-extrabold text-xs transition-all border border-slate-250 uppercase tracking-widest cursor-pointer"
+                        >
+                          Reswipe Deck
+                        </button>
+                      </motion.div>
+                    )}
+
+                    {demoState === 'disliked' && (
+                      <motion.div
+                        key="demo-dislike"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="h-full flex flex-col justify-between items-center text-center py-8"
+                      >
+                        <div className="space-y-3">
+                          <div className="inline-flex p-4 rounded-full bg-slate-50 border border-slate-200 text-slate-400">
+                            <Compass size={32} />
+                          </div>
+                          <h4 className="text-xl font-black text-slate-800">Listing Passed</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed max-w-[240px] mx-auto font-semibold">
+                            Skip records committed successfully. Loading next matching card...
+                          </p>
+                        </div>
+
+                        <button 
+                          onClick={resetDemo}
+                          className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-605 text-white font-extrabold text-xs transition-all uppercase tracking-widest cursor-pointer"
+                        >
+                          Reswipe Deck
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 2. FLOATING LOGOS SCROLLING PANEL (Theme: White Glass Cards) */}
+      <section className="py-14 bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 border-y border-slate-200/80 relative z-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 text-center mb-8">Trusted by talent matching squads worldwide</p>
+          <div className="w-full overflow-hidden relative">
+            <div className="flex space-x-8 animate-scroll-left whitespace-nowrap">
+              {[
+                'Google', 'Microsoft', 'Apple', 'Amazon', 'Netflix', 'Figma', 'Stripe', 'Nvidia', 'Meta', 'Airbnb',
+                'Google', 'Microsoft', 'Apple', 'Amazon', 'Netflix', 'Figma', 'Stripe', 'Nvidia', 'Meta', 'Airbnb'
+              ].map((logo, i) => (
+                <div key={i} className="inline-block px-8 py-4.5 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-all text-xs font-black tracking-widest text-slate-650 uppercase shadow-sm select-none cursor-default">
+                  {logo}
                 </div>
               ))}
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Right Sidebar Panel */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          
-          {/* Card 1: Real Profile Strength Card */}
-          <div style={sidebarCardStyle}>
-            <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#1d4ed8', margin: 0 }}>Profile Strength</h3>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '16px' }}>
-              <div style={{ position: 'relative', width: '72px', height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
-                  <path stroke="#e2e8f0" strokeWidth="3.5" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  <path stroke="#2563eb" strokeWidth="3.5" strokeDasharray={`${profileStrength}, 100`} strokeLinecap="round" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                </svg>
-                <span style={{ position: 'absolute', fontSize: '15px', fontWeight: 800, color: '#0f172a' }}>{profileStrength}%</span>
-              </div>
+      {/* 3. STATISTICS METRICS (Theme: Cyan + Blue cards) */}
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-blue-50/50 to-[#f8fafc] border-b border-slate-200/80">
+        <div className="absolute top-[20%] left-[20%] w-[380px] h-[380px] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[110px] pointer-events-none" />
+        <div className="max-w-6xl mx-auto px-6 space-y-16 relative z-10">
+          <div className="text-center space-y-3">
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Platform Match Telemetry</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">SwipeX Match Metrics</h2>
+            <p className="text-slate-500 text-xs max-w-lg mx-auto font-semibold">Real-time stats tracking seeker applications and recruiter interviews scheduled.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { val: "12,000+", label: "Verified Matches Made", desc: "Seekers connected directly to engineering recruiters", icon: Sparkles },
+              { val: "98.2%", label: "AI Stack Fit Index", desc: "Automated candidate-job match success rate", icon: Cpu },
+              { val: "15 mins", label: "Average Call Scheduled", desc: "Average duration to unlock calendars from matches", icon: Clock }
+            ].map((st, i) => {
+              const Icon = st.icon;
+              return (
+                <div key={i} className="p-[1px] rounded-3xl bg-slate-200/50 shadow-sm transform hover:-translate-y-1.5 transition-all duration-300">
+                  <div className="bg-white p-8 rounded-[23px] text-center space-y-4 border border-slate-200/80 shadow-md">
+                    <div className="w-12 h-12 mx-auto rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                      <Icon size={20} />
+                    </div>
+                    <div className="space-y-1">
+                      <span className="text-4xl font-black text-slate-850 block">{st.val}</span>
+                      <span className="text-xs font-black text-slate-700 block uppercase tracking-wider">{st.label}</span>
+                    </div>
+                    <p className="text-slate-500 text-xxs font-semibold leading-relaxed">{st.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-              <p style={{ margin: 0, fontSize: '13px', color: '#475569', lineHeight: '1.4', fontWeight: 500 }}>
-                {profileStrength >= 90 ? 'Your profile is fully complete!' : 'Complete your profile to get better recommendations.'}
-              </p>
-            </div>
-
-            <button
-              onClick={() => navigate('/jobseeker/profile')}
-              style={{
-                marginTop: '16px',
-                width: '100%',
-                padding: '10px',
-                borderRadius: '12px',
-                border: '1px solid #bfdbfe',
-                background: '#ffffff',
-                color: '#2563eb',
-                fontWeight: 700,
-                fontSize: '14px',
-                cursor: 'pointer'
-              }}
-            >
-              Complete Profile →
-            </button>
+      {/* 4. FEATURES SECTION (Theme: Purple + Pink Gradient cards) */}
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-slate-100/50 to-[#f8fafc] border-b border-slate-200/80">
+        <div className="absolute bottom-[10%] right-[10%] w-[380px] h-[380px] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[110px] pointer-events-none" />
+        <div className="max-w-6xl mx-auto px-6 space-y-16 relative z-10">
+          <div className="text-left space-y-3">
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Enterprise Core Capabilities</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">High-Performance Matching</h2>
+            <p className="text-slate-500 text-xs font-semibold">Engineered to bypass traditional ATS bottlenecks completely.</p>
           </div>
 
-          {/* Card 2: Real Resume Score Card with "Improve your resume" Modal Trigger */}
-          <div style={sidebarCardStyle}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#f5f3ff', color: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>📄</div>
-              <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', margin: 0 }}>Resume Score</h3>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px' }}>
-              <span style={{ fontSize: '20px', fontWeight: 800, color: resumeScore >= 80 ? '#059669' : '#0284c7' }}>{resumeScoreLabel}</span>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>{resumeScore}<span style={{ color: '#94a3b8', fontSize: '12px' }}>/100</span></span>
-            </div>
-
-            <div style={{ width: '100%', height: '8px', background: '#f1f5f9', borderRadius: '4px', marginTop: '8px', overflow: 'hidden' }}>
-              <div style={{ width: `${resumeScore}%`, height: '100%', background: resumeScore >= 80 ? '#059669' : '#0284c7', borderRadius: '4px' }} />
-            </div>
-
-            <button
-              onClick={() => setShowResumeModal(true)}
-              style={{
-                marginTop: '14px',
-                width: '100%',
-                background: 'none',
-                border: 'none',
-                color: '#2563eb',
-                fontWeight: 700,
-                fontSize: '14px',
-                cursor: 'pointer'
-              }}
-            >
-              Improve your resume →
-            </button>
-          </div>
-
-          {/* Card 3: Recent Activity Card (100% Real PostgreSQL Data) */}
-          <div style={sidebarCardStyle}>
-            <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', margin: 0, marginBottom: '16px' }}>Recent Activity</h3>
-
-            {realActivities.length === 0 ? (
-              <div style={{ color: '#64748b', fontSize: '13px', textAlign: 'center', padding: '16px 8px', background: '#f8fafc', borderRadius: '12px' }}>
-                No recent activity yet. Discover jobs or apply to start building your activity feed!
-              </div>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {realActivities.slice(0, 4).map((act) => (
-                  <div key={act.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                    <span style={{ width: '24px', height: '24px', borderRadius: '50%', background: act.bg, color: act.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', flexShrink: 0 }}>
-                      {act.icon}
-                    </span>
-                    <div>
-                      <div style={{ fontSize: '13px', color: '#334155', fontWeight: 600, lineHeight: '1.3' }}>
-                        {act.title} {act.company ? <span>at <strong>{act.company}</strong></span> : ''}
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { title: "Tinder-Style Swiper", desc: "Swipe right on matching roles. Skip long questionnaires and lock direct pipelines.", icon: Compass, grad: "from-blue-50/30 to-indigo-50/30" },
+              { title: "Smart Resume Analysis", desc: "Upload PDFs to compile real-time ATS match audits and identify keyword stack gaps.", icon: FileText, grad: "from-indigo-50/30 to-blue-50/30" },
+              { title: "WebRTC Conferences", desc: "Practice video calls or attend recruiter meetups directly inside matching channels.", icon: MessageSquare, grad: "from-blue-50/30 to-indigo-50/30" }
+            ].map((feat, i) => {
+              const Icon = feat.icon;
+              return (
+                <div key={i} className="p-[1px] rounded-3xl bg-slate-200/50 shadow-sm transition-all duration-300 transform hover:-translate-y-1">
+                  <div className={`bg-white bg-gradient-to-b ${feat.grad} p-8 rounded-[23px] h-full flex flex-col justify-between text-left relative overflow-hidden border border-slate-200 shadow-md`}>
+                    <div className="space-y-4">
+                      <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                        <Icon size={18} />
                       </div>
-                      <span style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px', display: 'block' }}>{act.time}</span>
+                      <h3 className="text-slate-800 font-black text-lg">{feat.title}</h3>
+                      <p className="text-slate-600 text-xs leading-relaxed font-semibold">{feat.desc}</p>
+                    </div>
+                    <div className="pt-6 mt-6 border-t border-slate-100">
+                      <Link to="/register" className="text-xxs font-black text-blue-600 hover:underline uppercase tracking-wider flex items-center gap-1">
+                        Learn More <ArrowRight size={10} />
+                      </Link>
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
-
-            <button
-              onClick={() => navigate('/jobseeker/applied')}
-              style={{
-                marginTop: '16px',
-                width: '100%',
-                background: 'none',
-                border: 'none',
-                color: '#2563eb',
-                fontWeight: 700,
-                fontSize: '14px',
-                cursor: 'pointer',
-                textAlign: 'center'
-              }}
-            >
-              View all activity →
-            </button>
+                </div>
+              );
+            })}
           </div>
-
-          {/* Card 4: Job Alerts Toggle Card */}
-          <div style={sidebarCardStyle}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>🔔</div>
-                <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', margin: 0 }}>Job Alerts</h3>
-              </div>
-
-              <div
-                onClick={() => setJobAlertsEnabled(!jobAlertsEnabled)}
-                style={{
-                  width: '44px',
-                  height: '24px',
-                  borderRadius: '12px',
-                  background: jobAlertsEnabled ? '#2563eb' : '#cbd5e1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '2px',
-                  cursor: 'pointer',
-                  transition: 'background 0.2s ease'
-                }}
-              >
-                <div style={{
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '50%',
-                  background: '#ffffff',
-                  transform: jobAlertsEnabled ? 'translateX(20px)' : 'translateX(0px)',
-                  transition: 'transform 0.2s ease'
-                }} />
-              </div>
-            </div>
-
-            <p style={{ margin: '12px 0 0 0', fontSize: '13px', color: '#64748b', lineHeight: '1.4' }}>
-              Get notified about new jobs that match your preferences.
-            </p>
-
-            <button
-              onClick={() => alert(`Job alerts are now ${jobAlertsEnabled ? 'enabled' : 'disabled'}.`)}
-              style={{
-                marginTop: '14px',
-                width: '100%',
-                background: 'none',
-                border: 'none',
-                color: '#2563eb',
-                fontWeight: 700,
-                fontSize: '14px',
-                cursor: 'pointer'
-              }}
-            >
-              Manage Alerts →
-            </button>
-          </div>
-
         </div>
-      </div>
+      </section>
 
-      {/* Resume Improvement Suggestions Modal */}
-      {showResumeModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(15,23,42,0.6)',
-          backdropFilter: 'blur(4px)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000,
-          padding: '20px'
-        }}>
-          <div style={{
-            background: '#ffffff',
-            borderRadius: '24px',
-            padding: '32px',
-            maxWidth: '560px',
-            width: '100%',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px'
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#f5f3ff', color: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px' }}>💡</div>
-                <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Resume Optimization Tips</h3>
+      {/* 5. WHY SWIPEX SECTION (Theme: Emerald + Cyan Grid) */}
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-emerald-50/20 to-[#f8fafc] border-b border-slate-200/80">
+        <div className="absolute top-[20%] right-[20%] w-[380px] h-[380px] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[110px] pointer-events-none" />
+        <div className="max-w-6xl mx-auto px-6 space-y-16 relative z-10">
+          <div className="text-center space-y-3">
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Why Choose Us</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">Algorithmic Talent Sourcing</h2>
+            <p className="text-slate-500 text-xs max-w-lg mx-auto font-semibold">We connect stack proficiencies directly to recruiter calendars, eliminating intermediate forms.</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: "AI Matching", desc: "Automated analysis comparing job skills lists with candidate profiles.", icon: Sparkles },
+              { title: "Smart Resume Analysis", desc: "Upload resumes in CV dashboard to verify ATS score metrics.", icon: FileText },
+              { title: "Swipe Interface", desc: "Tinder deck swiper to skip filters and directly apply to teams.", icon: Compass },
+              { title: "Instant Recruiter Connect", desc: "Chat matching rooms unlock immediately after mutual likes.", icon: Users },
+              { title: "AI Cover Letters", desc: "Generates professional introduction statements matching role description requirements.", icon: Cpu },
+              { title: "Career Analytics", desc: "Detailed seeker dashboard timelines summarizing match applications pipelines.", icon: Award }
+            ].map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div key={i} className="p-6 rounded-3xl bg-white border border-slate-200 hover:border-blue-500/30 transition-all text-left space-y-3 shadow-md">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                    <Icon size={16} />
+                  </div>
+                  <h4 className="text-slate-800 font-extrabold text-sm">{item.title}</h4>
+                  <p className="text-slate-550 text-xxs leading-relaxed font-semibold">{item.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. HOW IT WORKS TIMELINE (Theme: Orange + Purple) */}
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-indigo-50/20 to-[#f8fafc] border-b border-slate-200/80">
+        <div className="absolute bottom-[20%] left-[20%] w-[380px] h-[380px] bg-gradient-to-tr from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[110px] pointer-events-none" />
+        <div className="max-w-4xl mx-auto px-6 space-y-16 relative z-10">
+          <div className="text-center space-y-3">
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">How It Works</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">Your Route to Landing Roles</h2>
+            <p className="text-slate-500 text-xs max-w-sm mx-auto font-semibold">Deploy profiles, check match indexes, swiping cards, and match directly.</p>
+          </div>
+
+          <div className="relative border-l border-dashed border-slate-200 pl-6 ml-2 space-y-12 text-left">
+            {[
+              { step: "Step 1", title: "Create Profile", desc: "Build your professional seeker account and list stack specializations.", icon: User },
+              { step: "Step 2", title: "AI Analysis", desc: "Upload PDF resumes to run automated parser diagnostics.", icon: Cpu },
+              { step: "Step 3", title: "Swipe Jobs", desc: "Explore matching roles. Swipe right to like, swipe left to pass.", icon: Compass },
+              { step: "Step 4", title: "Get Matched", desc: "Recruiter mutual likes unlock instant chat threads.", icon: Sparkles },
+              { step: "Step 5", title: "Get Hired", desc: "Schedule calls directly inside channel calendars.", icon: Award }
+            ].map((node, i) => {
+              const Icon = node.icon;
+              return (
+                <div key={i} className="relative space-y-1">
+                  <span className="absolute -left-[33.5px] top-1 w-5 h-5 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center ring-4 ring-white shadow-md text-white text-[9px] font-black">
+                    {i+1}
+                  </span>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider">{node.step}</span>
+                    <Icon size={12} className="text-blue-600" />
+                  </div>
+                  <h4 className="text-slate-850 font-black text-sm">{node.title}</h4>
+                  <p className="text-slate-600 text-xxs font-semibold max-w-lg leading-relaxed">{node.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. TESTIMONIALS (Theme: Pink + Blue cards) */}
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-blue-50/20 to-[#f8fafc] border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-6 space-y-16 relative z-10">
+          <div className="text-center space-y-3">
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Seeker Reviews</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">Matched and Deployed</h2>
+            <p className="text-slate-500 text-xs font-semibold max-w-xs mx-auto">Success reports sent directly from engineering team members.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { name: "Sarah Jenkins", role: "Software Engineer", company: "Google", text: "SwipeX bypassed the resume black hole completely. Swiped right, matched with Google recruiter, scheduled interview directly.", grad: "from-blue-50/20 to-white" },
+              { name: "David Chen", role: "AI Tech Lead", company: "Microsoft", text: "Match score accuracy was extremely high. The built-in practice questions prepared me for the WebRTC panel session perfectly.", grad: "from-indigo-50/20 to-white" },
+              { name: "Elena Rostova", role: "Product Designer", company: "Amazon", text: "Redesign dashboard layout is very modern. Direct messaging unlocked calendar synchronization immediately.", grad: "from-blue-50/20 to-white" }
+            ].map((user, i) => (
+              <div key={i} className="p-[1px] rounded-3xl bg-slate-200/50 shadow-sm transition-all duration-300 transform hover:-translate-y-1">
+                <div className={`bg-white bg-gradient-to-b ${user.grad} p-8 rounded-[23px] h-full flex flex-col justify-between text-left border border-slate-200 shadow-md`}>
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-1.5 text-amber-500">
+                      {[...Array(5)].map((_, idx) => <Star key={idx} size={11} className="fill-amber-500 text-amber-500" />)}
+                    </div>
+                    <p className="text-slate-650 text-xxs leading-relaxed italic font-semibold">"{user.text}"</p>
+                  </div>
+                  <div className="pt-6 border-t border-slate-100 mt-6 flex items-center space-x-3">
+                    <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center font-black text-xs text-blue-600 shadow-sm">
+                      {user.name.charAt(0)}
+                    </div>
+                    <div>
+                      <h4 className="text-slate-800 font-black text-xs">{user.name}</h4>
+                      <p className="text-[10px] text-slate-400 font-extrabold uppercase">{user.role} @ <span className="text-slate-700">{user.company}</span></p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <button onClick={() => setShowResumeModal(false)} style={{ background: 'none', border: 'none', fontSize: '20px', cursor: 'pointer', color: '#64748b' }}>✕</button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. FAQ CENTER SECTION (Theme: Indigo + Purple Glass Cards) */}
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-indigo-50/10 to-[#f8fafc] border-b border-slate-200/80">
+        <div className="max-w-4xl mx-auto px-6 space-y-12 relative z-10">
+          <div className="text-center space-y-3">
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Support Portal</span>
+            <h2 className="text-4xl font-black text-slate-800 tracking-tight uppercase">FAQ Center</h2>
+            <p className="text-slate-500 text-xs font-semibold">Everything you need to know about SwipeX operations</p>
+          </div>
+
+          <div className="space-y-4 text-left">
+            {[
+              { q: "How does Swipe matching work?", a: "When you swipe right (like) on a job, it registers as an application. If the recruiter likes your profile back, a Match is immediately declared, unlocking chat messaging and video call rounds." },
+              { q: "Is a resume file mandatory?", a: "Yes, you must upload at least one PDF resume in your Profile section before you can swipe right to apply for roles." },
+              { q: "How is the Match score computed?", a: "Our AI match engine compares skills list keywords in your resume against job profile metadata, assigning a percentage score." }
+            ].map((faq, i) => (
+              <div key={i} className="p-[1px] rounded-2xl bg-slate-200/50 shadow-sm">
+                <div className="bg-white rounded-[15px] p-5 border border-slate-200">
+                  <button
+                    type="button"
+                    onClick={() => toggleFaq(i)}
+                    className="w-full flex items-center justify-between text-left text-xs font-black text-slate-800 uppercase tracking-wider cursor-pointer"
+                  >
+                    <span>{faq.q}</span>
+                    <ChevronDown size={14} className={`text-slate-500 transition-transform ${faqOpen === i ? 'rotate-180 text-blue-600' : ''}`} />
+                  </button>
+                  <AnimatePresence>
+                    {faqOpen === i && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <p className="text-slate-600 text-xxs leading-relaxed pt-3 font-semibold border-t border-slate-100 mt-3">
+                          {faq.a}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. PREMIUM MULTI-COLOR FOOTER */}
+      <footer className="py-20 relative overflow-hidden bg-gradient-to-t from-blue-50/50 via-[#f8fafc] to-[#f8fafc]">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 grid md:grid-cols-4 gap-12 border-t border-slate-200 pt-16 text-left text-slate-800">
+          <div className="space-y-4">
+            <h3 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-1.5">
+              <Sparkles size={16} className="text-blue-600" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-650">SwipeX Inc.</span>
+            </h3>
+            <p className="text-slate-600 text-xxs leading-relaxed font-semibold">Bypass intermediary forms. Elevate technical matches directly to recruiting channels.</p>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Seeker Channels</h4>
+            <div className="flex flex-col space-y-2 text-xxs font-extrabold text-slate-600">
+              <Link to="/swipe" className="hover:text-blue-600 transition-colors">Swipe Deck</Link>
+              <Link to="/jobs" className="hover:text-blue-600 transition-colors">Search Jobs</Link>
+              <Link to="/applications" className="hover:text-blue-600 transition-colors">Kanban Pipeline</Link>
             </div>
+          </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div style={modalTipStyle}>
-                <strong>1. Highlight High-Demand Market Skills:</strong> Add core technical keywords (React, Python, SQL, FastAPI) explicitly in your skills section.
-              </div>
-              <div style={modalTipStyle}>
-                <strong>2. Quantify Achievement Metrics:</strong> Include quantifiable metrics (e.g. "Improved system performance by 35% using React").
-              </div>
-              <div style={modalTipStyle}>
-                <strong>3. Align Job Titles:</strong> Tailor your headline to match target role titles like Senior Software Engineer or Data Engineer.
-              </div>
-              <div style={modalTipStyle}>
-                <strong>4. Use ATS Compatible Formats:</strong> Upload standard PDF or Word doc formats with clear section headers.
-              </div>
+          <div className="space-y-4">
+            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Connect</h4>
+            <div className="flex flex-col space-y-2 text-xxs font-extrabold text-slate-600">
+              <Link to="/profile" className="hover:text-blue-600 transition-colors">Candidate Profile</Link>
+              <Link to="/messages" className="hover:text-blue-600 transition-colors">Match Channels</Link>
+              <Link to="/calendar" className="hover:text-blue-600 transition-colors">Interview Calendar</Link>
             </div>
+          </div>
 
-            <div style={{ display: 'flex', gap: '12px', marginTop: '10px' }}>
-              <button
-                onClick={() => { setShowResumeModal(false); navigate('/jobseeker/resume-ats'); }}
-                style={{ flex: 1, padding: '12px', borderRadius: '12px', background: '#2563eb', color: '#ffffff', border: 'none', fontWeight: 700, fontSize: '14px', cursor: 'pointer' }}
+          <div className="space-y-4">
+            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Newsletter</h4>
+            <p className="text-slate-500 text-xxs font-semibold">Stay updated with our latest AI recommendations.</p>
+            <div className="flex gap-2">
+              <input
+                type="email"
+                placeholder="Email address..."
+                className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xxs text-slate-800 focus:border-blue-500/50 outline-none font-semibold"
+              />
+              <button 
+                type="button"
+                onClick={() => alert('Subscribed successfully!')}
+                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xxs uppercase tracking-wider rounded-xl cursor-pointer"
               >
-                Run AI ATS Scanner ⚡
+                Join
               </button>
-              <button
-                onClick={() => setShowResumeModal(false)}
-                style={{ padding: '12px 20px', borderRadius: '12px', background: '#f1f5f9', color: '#475569', border: 'none', fontWeight: 700, fontSize: '14px', cursor: 'pointer' }}
-              >
-                Close
-              </button>
             </div>
           </div>
         </div>
-      )}
-    </div>
-  );
-}
 
-function StatCard({ title, value, icon, color, bg }) {
-  return (
-    <div style={{ background: '#fff', borderRadius: '16px', padding: '20px', boxShadow: '0 4px 16px rgba(0,0,0,0.03)', border: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '16px' }}>
-      <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: bg, color: color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px' }}>{icon}</div>
-      <div>
-        <div style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a' }}>{value}</div>
-        <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 600 }}>{title}</div>
-      </div>
-    </div>
-  );
-}
-
-function JobCard({ job, onApply, onSave }) {
-  const companyName = job.company_name || job.company?.name || 'Tech Company';
-  const cType = (job.company_type || 'Startup').toLowerCase();
-  const isMnc = cType.includes('not a startup') || cType.includes('mnc');
-
-  return (
-    <div style={{ background: '#fff', borderRadius: '16px', padding: '20px', boxShadow: '0 4px 16px rgba(0,0,0,0.03)', border: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '14px' }}>
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', margin: 0 }}>{job.title}</h3>
-          <span style={{ background: isMnc ? '#eff6ff' : '#f5f3ff', color: isMnc ? '#2563eb' : '#7c3aed', fontSize: '11px', padding: '3px 8px', borderRadius: '6px', fontWeight: 800 }}>
-            {isMnc ? '🏢 Not a Startup' : '🚀 Startup'}
-          </span>
+        <div className="max-w-7xl mx-auto px-6 pt-12 mt-12 border-t border-slate-200 text-center text-slate-400 text-xxs font-bold">
+          &copy; {new Date().getFullYear()} SwipeX Corporation. All rights reserved. Bypassing ATS blocks globally.
         </div>
-        <div style={{ color: '#64748b', fontSize: '13px', marginTop: '6px', fontWeight: 500 }}>🏢 {companyName} • 📍 {job.location || 'Remote'}</div>
-        <div style={{ color: '#059669', fontSize: '13px', fontWeight: 600, marginTop: '6px' }}>💰 {job.salary || '$80,000 - $120,000'}</div>
-      </div>
-      <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
-        <button onClick={() => onApply(job.id)} style={{ flex: 1, padding: '8px 12px', borderRadius: '8px', background: '#2563eb', color: '#fff', border: 'none', fontWeight: 700, fontSize: '13px', cursor: 'pointer' }}>Apply Now</button>
-        <button onClick={() => onSave(job.id)} style={{ padding: '8px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', background: '#fff', color: '#2563eb', fontWeight: 700, fontSize: '13px', cursor: 'pointer' }}>♥</button>
-      </div>
+      </footer>
+
     </div>
   );
 }
-
-const sidebarCardStyle = { background: '#ffffff', borderRadius: '20px', padding: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.04)', border: '1px solid #e2e8f0' };
-const primaryBtnSmall = { padding: '8px 16px', borderRadius: '8px', background: '#2563eb', color: '#ffffff', border: 'none', fontWeight: 700, fontSize: '13px', cursor: 'pointer' };
-const modalTipStyle = { background: '#f8fafc', padding: '14px 18px', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#334155', fontSize: '14px', lineHeight: '1.5' };
-
-export default Home;

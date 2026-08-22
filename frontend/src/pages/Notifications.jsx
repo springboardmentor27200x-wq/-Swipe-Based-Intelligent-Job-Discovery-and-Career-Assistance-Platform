@@ -1,313 +1,194 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { buildApiUrl } from '../config/api';
+import React, { useEffect, useState } from 'react';
+import { Bell, Trash2, CheckCircle2, Clock, Inbox, Check } from 'lucide-react';
+import api from '../utils/api';
+import PageTransition from '../components/PageTransition';
+import { useToast } from '../context/ToastContext';
 
-const Notifications = () => {
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('All');
-  const [notifications, setNotifications] = useState([]);
+const formatRelativeTime = (dateString) => {
+  try {
+    const now = new Date();
+    const date = new Date(dateString);
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMins < 1) return 'Just now';
+    if (diffMins < 60) return `${diffMins}m ago`;
+    if (diffHours < 24) return `${diffHours}h ago`;
+    if (diffDays === 1) return 'Yesterday';
+    return `${diffDays}d ago`;
+  } catch (e) {
+    return 'Recently';
+  }
+};
+
+export default function Notifications() {
   const [loading, setLoading] = useState(true);
-  const [selectedNotification, setSelectedNotification] = useState(null);
-
-  useEffect(() => {
-    fetchNotifications();
-  }, []);
+  const [notifications, setNotifications] = useState([]);
+  const { showToast } = useToast();
 
   const fetchNotifications = async () => {
     try {
-      setLoading(true);
-      const token = localStorage.getItem('accessToken');
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      const res = await axios.get(buildApiUrl('/api/notifications'), { headers }).catch(() => null);
-      
-      if (res && Array.isArray(res.data)) {
-        const mapped = res.data.map((n, i) => {
-          const typeStr = n.notification_type || n.type || 'info';
-          let category = 'System';
-          let icon = '🔔';
-          let color = '#2563eb';
-          let bg = '#eff6ff';
-
-          if (typeStr.includes('job_alert') || n.title?.includes('Job')) {
-            category = 'Jobs';
-            icon = '💼';
-            color = '#2563eb';
-            bg = '#eff6ff';
-          } else if (typeStr.includes('hiring_alert') || n.title?.includes('Hiring')) {
-            category = 'Alerts';
-            icon = '🚀';
-            color = '#7c3aed';
-            bg = '#f5f3ff';
-          } else if (typeStr.includes('high_match') || n.title?.includes('High Match')) {
-            category = 'Alerts';
-            icon = '🔥';
-            color = '#ea580c';
-            bg = '#fff7ed';
-          } else if (typeStr.includes('low_competition') || n.title?.includes('Low Competition')) {
-            category = 'Alerts';
-            icon = '⭐';
-            color = '#d97706';
-            bg = '#fffbeb';
-          } else if (n.title?.includes('Shortlisted')) {
-            category = 'Applications';
-            icon = '🎉';
-            color = '#059669';
-            bg = '#ecfdf5';
-          } else if (n.title?.includes('Rejected')) {
-            category = 'Applications';
-            icon = '⚠️';
-            color = '#dc2626';
-            bg = '#fef2f2';
-          } else if (n.title?.includes('Application')) {
-            category = 'Applications';
-            icon = '📋';
-            color = '#0284c7';
-            bg = '#f0f9ff';
-          }
-
-          return {
-            id: n.id || i + 1,
-            title: n.title || 'System Notification',
-            message: n.message || 'Activity notification update.',
-            category,
-            time_ago: n.created_at ? new Date(n.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Recently',
-            icon,
-            color,
-            bg,
-            is_read: n.is_read || false,
-            related_job_id: n.related_job_id,
-            related_application_id: n.related_application_id
-          };
-        });
-        setNotifications(mapped);
-      }
+      const response = await api.get('/notifications/');
+      setNotifications(response.data.results || response.data);
     } catch (err) {
-      console.error('Error fetching notifications:', err);
+      console.error("Failed to load notifications:", err);
+      showToast("Could not retrieve notifications.", "error");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleNotificationClick = async (notif) => {
-    setSelectedNotification(notif);
-    if (!notif.is_read) {
-      setNotifications((prev) => prev.map((n) => (n.id === notif.id ? { ...n, is_read: true } : n)));
-      try {
-        const token = localStorage.getItem('accessToken');
-        await axios.put(buildApiUrl(`/api/notifications/${notif.id}/read`), {}, { headers: { Authorization: `Bearer ${token}` } });
-      } catch (err) {
-        console.error('Error marking notification read:', err);
-      }
-    }
-  };
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
 
-  const handleMarkAllRead = async () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
+  const markAsRead = async (id) => {
     try {
-      const token = localStorage.getItem('accessToken');
-      await axios.put(buildApiUrl('/api/notifications/mark-all-read'), {}, { headers: { Authorization: `Bearer ${token}` } });
+      await api.post(`/notifications/${id}/read/`);
+      setNotifications(prev => prev.map(n => n.id === id ? { ...n, is_read: true } : n));
+      showToast("Notification marked as read.", "success");
     } catch (err) {
-      console.error('Error marking all notifications read:', err);
+      console.error(err);
+      showToast("Failed to mark notification as read.", "error");
     }
   };
 
-  const filtered = notifications.filter((n) => activeTab === 'All' || n.category === activeTab);
+  const markAllAsRead = async () => {
+    if (notifications.filter(n => !n.is_read).length === 0) return;
+    try {
+      await api.post('/notifications/read-all/');
+      setNotifications(prev => prev.map(n => ({ ...n, is_read: true })));
+      showToast("All notifications marked as read.", "success");
+    } catch (err) {
+      console.error(err);
+      showToast("Failed to mark all as read.", "error");
+    }
+  };
+
+  const deleteNotification = async (id) => {
+    try {
+      await api.delete(`/notifications/${id}/delete/`);
+      setNotifications(prev => prev.filter(n => n.id !== id));
+      showToast("Notification deleted.", "info");
+    } catch (err) {
+      console.error(err);
+      showToast("Failed to delete notification.", "error");
+    }
+  };
+
+  if (loading) {
+    return (
+      <PageTransition className="max-w-4xl mx-auto px-6 py-12 flex flex-col items-center justify-center space-y-4">
+        <div className="relative w-12 h-12">
+          <div className="absolute inset-0 rounded-full border-4 border-slate-900" />
+          <div className="absolute inset-0 rounded-full border-4 border-t-transparent border-l-violet-500 animate-spin" />
+        </div>
+        <span className="text-slate-450 text-xs font-bold uppercase tracking-wider animate-pulse">Loading notifications...</span>
+      </PageTransition>
+    );
+  }
+
+  const unreadCount = notifications.filter(n => !n.is_read).length;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%', maxWidth: '1200px', margin: '0 auto', fontFamily: 'Inter, sans-serif' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-        <div>
-          <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Notifications & Smart Alerts 🔔</h1>
-          <p style={{ color: '#64748b', fontSize: '15px', marginTop: '6px', margin: 0 }}>
-            Real-time PostgreSQL notifications for new jobs, hiring alerts, application updates, high-match opportunities, and low-competition jobs.
+    <PageTransition className="max-w-4xl mx-auto px-6 py-12 space-y-8 relative z-10 text-white text-left">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-6">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2.5">
+            <h1 className="text-2xl font-black tracking-tight">Notifications</h1>
+            {unreadCount > 0 && (
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-violet-600/20 text-violet-400 border border-violet-500/20">
+                {unreadCount} Unread
+              </span>
+            )}
+          </div>
+          <p className="text-xs text-slate-400 font-semibold">
+            Manage alerts and notifications about your applications, messages, and matches.
           </p>
         </div>
 
-        <button
-          onClick={handleMarkAllRead}
-          style={{
-            padding: '10px 20px',
-            borderRadius: '12px',
-            border: '1px solid #cbd5e1',
-            background: '#ffffff',
-            color: '#334155',
-            fontWeight: 700,
-            fontSize: '14px',
-            cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-          }}
-        >
-          ✓ Mark All as Read
-        </button>
-      </div>
-
-      {/* Filter Tabs */}
-      <div style={{ display: 'flex', gap: '10px', borderBottom: '2px solid #e2e8f0', paddingBottom: '12px' }}>
-        {['All', 'Jobs', 'Alerts', 'Applications', 'System'].map((tab) => (
+        {unreadCount > 0 && (
           <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            style={{
-              padding: '8px 20px',
-              borderRadius: '20px',
-              border: 'none',
-              background: activeTab === tab ? '#2563eb' : '#f1f5f9',
-              color: activeTab === tab ? '#ffffff' : '#475569',
-              fontWeight: 700,
-              fontSize: '14px',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease'
-            }}
+            onClick={markAllAsRead}
+            className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 border border-white/10 hover:border-violet-500/30 text-slate-200 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-md self-start sm:self-auto"
           >
-            {tab}
+            <CheckCircle2 size={12} className="text-violet-400" />
+            <span>Mark all as read</span>
           </button>
-        ))}
+        )}
       </div>
 
-      {/* Notification Feed */}
-      {loading ? (
-        <div style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>Loading notifications...</div>
-      ) : filtered.length === 0 ? (
-        <div style={{ background: '#ffffff', borderRadius: '20px', padding: '40px', textAlign: 'center', color: '#64748b' }}>
-          No notifications found in this category.
+      {notifications.length === 0 ? (
+        <div className="p-16 rounded-[24px] bg-slate-900/40 border border-dashed border-white/10 text-center flex flex-col items-center justify-center space-y-4">
+          <div className="w-12 h-12 rounded-2xl bg-slate-950 border border-white/5 flex items-center justify-center text-slate-500 shadow-md">
+            <Inbox size={20} />
+          </div>
+          <div className="space-y-1">
+            <h3 className="text-sm font-black text-white uppercase tracking-wider">No notifications yet</h3>
+            <p className="text-[11px] text-slate-500 font-semibold">We will let you know when recruiter activity occurs.</p>
+          </div>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {filtered.map((item) => (
+        <div className="space-y-4">
+          {notifications.map((notif) => (
             <div
-              key={item.id}
-              onClick={() => handleNotificationClick(item)}
-              style={{
-                background: item.is_read ? '#ffffff' : '#f0f9ff',
-                borderRadius: '16px',
-                padding: '20px 24px',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
-                border: item.is_read ? '1px solid #e2e8f0' : '1px solid #bfdbfe',
-                display: 'flex',
-                alignItems: 'flex-start',
-                justifyContent: 'space-between',
-                gap: '16px',
-                cursor: 'pointer',
-                transition: 'transform 0.15s ease'
-              }}
+              key={notif.id}
+              className={`p-5 rounded-[24px] border transition-all flex items-start gap-4 shadow-xl relative overflow-hidden group ${
+                notif.is_read
+                  ? 'bg-slate-900/20 border-white/5 opacity-75'
+                  : 'bg-gradient-to-r from-violet-650/10 to-transparent border-violet-500/20 shadow-violet-500/5'
+              }`}
             >
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
-                <div style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '12px',
-                  background: item.bg,
-                  color: item.color,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '20px',
-                  flexShrink: 0
-                }}>
-                  {item.icon}
+              <div className={`p-2.5 rounded-xl border shrink-0 ${
+                notif.is_read 
+                  ? 'bg-slate-950 border-white/5 text-slate-500' 
+                  : 'bg-violet-600/20 border-violet-500/30 text-violet-400 shadow-md animate-pulse'
+              }`}>
+                <Bell size={16} />
+              </div>
+
+              <div className="min-w-0 flex-1 space-y-1.5 pt-0.5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[11px] font-extrabold text-white block">
+                    {notif.title || "Alert"}
+                  </span>
+                  {!notif.is_read && (
+                    <span className="w-1.5 h-1.5 bg-violet-400 rounded-full animate-ping" />
+                  )}
                 </div>
-                <div>
-                  <div style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a' }}>
-                    {item.title} {!item.is_read && <span style={{ width: '8px', height: '8px', background: '#2563eb', borderRadius: '50%', display: 'inline-block', marginLeft: '6px' }} />}
-                  </div>
-                  <div style={{ fontSize: '14px', color: '#475569', marginTop: '4px', lineHeight: '1.5' }}>
-                    {item.message}
-                  </div>
+                <p className={`text-[11px] leading-relaxed font-semibold ${notif.is_read ? 'text-slate-400' : 'text-slate-200'}`}>
+                  {notif.message}
+                </p>
+                <div className="flex items-center gap-2 text-[9px] text-slate-500 font-bold uppercase tracking-wider">
+                  <Clock size={10} />
+                  <span>{formatRelativeTime(notif.created_at)}</span>
                 </div>
               </div>
 
-              <span style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 600, whiteSpace: 'nowrap' }}>
-                {item.time_ago}
-              </span>
+              <div className="flex items-center gap-2 shrink-0">
+                {!notif.is_read && (
+                  <button
+                    onClick={() => markAsRead(notif.id)}
+                    className="p-2 rounded-lg bg-slate-950 border border-white/5 text-slate-400 hover:text-white hover:border-violet-500/30 transition-all cursor-pointer"
+                    title="Mark as Read"
+                  >
+                    <Check size={12} />
+                  </button>
+                )}
+                <button
+                  onClick={() => deleteNotification(notif.id)}
+                  className="p-2 rounded-lg bg-slate-950 border border-white/5 text-slate-400 hover:text-rose-455 hover:border-rose-500/30 transition-all cursor-pointer"
+                  title="Delete Notification"
+                >
+                  <Trash2 size={12} />
+                </button>
+              </div>
             </div>
           ))}
         </div>
       )}
-
-      {/* Notification Message Details Modal */}
-      {selectedNotification && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(15,23,42,0.6)',
-          backdropFilter: 'blur(4px)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000,
-          padding: '20px'
-        }}>
-          <div style={{
-            background: '#ffffff',
-            borderRadius: '24px',
-            padding: '32px',
-            maxWidth: '540px',
-            width: '100%',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px'
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: selectedNotification.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>
-                  {selectedNotification.icon}
-                </div>
-                <div>
-                  <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-                    {selectedNotification.title}
-                  </h2>
-                  <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 600 }}>
-                    {selectedNotification.time_ago} • {selectedNotification.category}
-                  </span>
-                </div>
-              </div>
-              <button
-                onClick={() => setSelectedNotification(null)}
-                style={{ background: '#f1f5f9', border: 'none', borderRadius: '50%', width: '32px', height: '32px', fontWeight: 800, cursor: 'pointer', color: '#475569' }}
-              >
-                ✕
-              </button>
-            </div>
-
-            <div style={{ background: '#f8fafc', padding: '20px', borderRadius: '16px', border: '1px solid #e2e8f0', color: '#334155', fontSize: '15px', lineHeight: '1.6', fontWeight: 500 }}>
-              {selectedNotification.message}
-            </div>
-
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '8px' }}>
-              <button
-                onClick={() => {
-                  const targetJobId = selectedNotification.related_job_id;
-                  setSelectedNotification(null);
-                  if (targetJobId) {
-                    navigate(`/jobseeker/job/${targetJobId}`);
-                  } else if (selectedNotification.category === 'Applications') {
-                    navigate('/jobseeker/applied');
-                  } else {
-                    navigate('/jobseeker/recommended');
-                  }
-                }}
-                style={{ padding: '12px 24px', borderRadius: '12px', border: 'none', background: '#2563eb', color: '#ffffff', fontWeight: 700, cursor: 'pointer', fontSize: '14px' }}
-              >
-                View Details →
-              </button>
-              <button
-                onClick={() => setSelectedNotification(null)}
-                style={{ padding: '12px 20px', borderRadius: '12px', border: '1px solid #cbd5e1', background: '#ffffff', color: '#475569', fontWeight: 700, cursor: 'pointer', fontSize: '14px' }}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </PageTransition>
   );
-};
-
-export default Notifications;
+}
