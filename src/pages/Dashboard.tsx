@@ -15,6 +15,7 @@ import {
   SimpleBarChart,
   SimpleDonutChart
 } from "../components/Charts";
+import { UserAvatar } from "../components/UserAvatar";
 
 export const Dashboard: React.FC = () => {
   const { user } = useAuth();
@@ -346,10 +347,12 @@ export const Dashboard: React.FC = () => {
                   {/* Candidate Profile Details */}
                   <div className="space-y-3 flex-1">
                     <div className="flex items-start space-x-3.5">
-                      <img
-                        src={app.candidateAvatar || `https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200`}
-                        alt={app.candidateName}
-                        className="w-12 h-12 rounded-xl object-cover border border-slate-200 shrink-0"
+                      <UserAvatar
+                        name={app.candidateName}
+                        email={app.candidateEmail}
+                        avatarUrl={app.candidateAvatar}
+                        className="w-12 h-12 rounded-xl text-base shadow-sm shrink-0"
+                        textSize="text-base"
                       />
                       <div>
                         <div className="flex flex-wrap items-center gap-2">

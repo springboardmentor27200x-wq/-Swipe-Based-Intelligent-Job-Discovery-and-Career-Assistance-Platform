@@ -59,7 +59,7 @@ api.interceptors.response.use(
 
     // Guard: Avoid loop on refresh endpoint or when request has already been retried
     if (
-      error.response?.status === 401 &&
+      (error.response?.status === 401 || error.response?.status === 403) &&
       !originalRequest._retry &&
       !originalRequest.url?.includes("/login") &&
       !originalRequest.url?.includes("/register") &&
