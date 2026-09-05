@@ -20,11 +20,10 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return derived.hex() == derived_hex
 
 
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
-SENDER_EMAIL = "perumalhema600@gmail.com"
-SENDER_PASSWORD = "swxd tuij ykot tesi"
-
+SMTP_SERVER = os.getenv("EMAIL_HOST", "smtp.gmail.com")
+SMTP_PORT = int(os.getenv("EMAIL_PORT", "587"))
+SENDER_EMAIL = os.getenv("EMAIL_HOST_USER")
+SENDER_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 def send_reset_email(user_email: str, uidb64: str, token: str):
     reset_link = f"http://localhost:3000/reset-password?uidb64={uidb64}&token={token}"
