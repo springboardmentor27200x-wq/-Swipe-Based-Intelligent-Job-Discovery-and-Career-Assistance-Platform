@@ -13,15 +13,13 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-
-# Local development fallback
 if not DATABASE_URL:
-    DATABASE_URL = (
-        "postgresql://postgres@localhost:5432/jobmatch_ai"
+    raise RuntimeError(
+        "DATABASE_URL environment variable is not set"
     )
 
 
-# Render / PostgreSQL compatibility
+# Render / Railway / PostgreSQL compatibility
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace(
         "postgres://",
@@ -35,8 +33,7 @@ if DATABASE_URL.startswith("postgres://"):
 # =====================================================
 
 engine = create_engine(
-    DATABASE_URL,
-    connect_args={"hostaddr": "18.233.142.186"}
+    DATABASE_URL
 )
 
 
