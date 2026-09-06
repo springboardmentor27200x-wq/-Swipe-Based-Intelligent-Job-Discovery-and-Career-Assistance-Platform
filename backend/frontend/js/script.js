@@ -1,4 +1,4 @@
-const API_URL = "";
+const API_URL = "https://swipex-backend-production.up.railway.app";
 
 
 // =====================================
@@ -245,10 +245,10 @@ async function loginUser(event) {
 
 
         role =
-    String(role || "")
-        .trim()
-        .toLowerCase()
-        .replace(/[\s_-]+/g, "");
+            String(role || "")
+                .trim()
+                .toLowerCase()
+                .replace(/[\s_-]+/g, "");
 
 
         console.log(
@@ -289,22 +289,35 @@ async function loginUser(event) {
 
         if (role === "recruiter") {
 
-    alert("✅ Recruiter Login Successful!");
+            alert(
+                "✅ Recruiter Login Successful!"
+            );
 
-    window.location.replace("/recruiter");
+            window.location.replace(
+                "/recruiter"
+            );
 
-    return;
-}
+            return;
+        }
 
 
-if (role === "jobseeker") {
+        // =================================
+        // JOB SEEKER
+        // =================================
 
-    alert("✅ Job Seeker Login Successful!");
+        if (role === "jobseeker") {
 
-    window.location.replace("/dashboard");
+            alert(
+                "✅ Job Seeker Login Successful!"
+            );
 
-    return;
-}
+            window.location.replace(
+                "/dashboard"
+            );
+
+            return;
+        }
+
 
         // =================================
         // UNKNOWN ROLE
