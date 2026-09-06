@@ -1,4 +1,4 @@
-const API_URL = "";
+const API_URL = "https://swipex-backend-production.up.railway.app";
 
 
 // =====================================
