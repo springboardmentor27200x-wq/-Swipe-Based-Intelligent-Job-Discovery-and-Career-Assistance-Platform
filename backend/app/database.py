@@ -35,7 +35,8 @@ if DATABASE_URL.startswith("postgres://"):
 # =====================================================
 
 engine = create_engine(
-    DATABASE_URL
+    DATABASE_URL,
+    connect_args={"hostaddr": "18.233.142.186"}
 )
 
 

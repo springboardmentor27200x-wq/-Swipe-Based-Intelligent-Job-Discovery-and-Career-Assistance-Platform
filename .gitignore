@@ -41,3 +41,17 @@ resumes/*
 
 # Database backup
 *.dump
+
+# Local environment / Vercel
+.env.local
+.vercel/
+
+# Backup files
+JobMatch-AI-BACKUP/
+backup_milestone4/
+
+# ZIP backups
+*.zip
+
+# Agent/tool files
+.agents/
