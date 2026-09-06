@@ -1,1 +1,1 @@
-window.API_BASE_URL = "https://swipex-f83k4ufoc-nidrashris-projects.vercel.app/";
+window.API_BASE_URL = "https://swipex-backend-production.up.railway.app";
