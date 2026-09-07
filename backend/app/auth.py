@@ -354,13 +354,16 @@ def profile(
         )
 
     return {
-        "message": "Welcome to your profile 🎉",
-        "user": {
-            "name": user.name,
-            "email": user.email,
-            "role": user.role
-        }
+    "message": "Welcome to your profile 🎉",
+    "user": {
+        "name": user.name,
+        "email": user.email,
+        "role": user.role,
+        "resume_text": user.resume_text,
+        "resume_filename": user.resume_filename,
+        "resume_path": user.resume_path
     }
+}
 
 
 # =============================

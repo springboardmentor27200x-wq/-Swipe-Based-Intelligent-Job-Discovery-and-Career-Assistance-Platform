@@ -70,6 +70,83 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+    // =====================================================
+    // VERIFY RESUME FROM BACKEND
+    // =====================================================
+
+    async function getValidResume() {
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/profile`,
+                    {
+                        headers:
+                            authHeaders()
+                    }
+                );
+
+            if (!response.ok) {
+
+                return null;
+
+            }
+
+            const data =
+                await response.json();
+
+            const user =
+                data.user;
+
+            const resume =
+                user &&
+                user.resume_text
+                    ? user.resume_text
+                    : null;
+
+            if (!resume) {
+
+                localStorage.removeItem(
+                    "resume_text"
+                );
+
+                localStorage.removeItem(
+                    "ats_score"
+                );
+
+                localStorage.removeItem(
+                    "match_score"
+                );
+
+                localStorage.removeItem(
+                    "best_match_score"
+                );
+
+                return null;
+
+            }
+
+            localStorage.setItem(
+                "resume_text",
+                resume
+            );
+
+            return resume;
+
+        } catch (error) {
+
+            console.error(
+                "Unable to verify resume:",
+                error
+            );
+
+            return null;
+
+        }
+
+    }
+
 
     // =====================================================
     // SAFE NUMBER
@@ -1406,33 +1483,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function loadDashboard() {
 
-        const resume =
-            localStorage.getItem(
-                "resume_text"
+               try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/profile`,
+                    {
+                        headers:
+                            authHeaders()
+                    }
+                );
+
+            if (response.ok) {
+
+                const data =
+                    await response.json();
+
+                const user =
+                    data.user;
+
+                const hasResume =
+                    !!(
+                        user &&
+                        (
+                            user.resume_text ||
+                            user.resume_filename ||
+                            user.resume_path
+                        )
+                    );
+
+                if (resumeStatus) {
+
+                    resumeStatus.innerText =
+                        hasResume
+                            ? "Uploaded"
+                            : "Not Uploaded";
+
+                }
+
+                if (!hasResume) {
+
+                    localStorage.removeItem(
+                        "resume_text"
+                    );
+
+                    localStorage.removeItem(
+                        "ats_score"
+                    );
+
+                    localStorage.removeItem(
+                        "match_score"
+                    );
+
+                    localStorage.removeItem(
+                        "best_match_score"
+                    );
+
+                }
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Error loading profile:",
+                error
             );
 
-
-        if (resume) {
-
-            if (resumeStatus) {
-
-                resumeStatus.innerText =
-                    "Uploaded ✅";
-
-            }
-
         }
-        else {
-
-            if (resumeStatus) {
-
-                resumeStatus.innerText =
-                    "Not Uploaded";
-
-            }
-
-        }
-
 
         const savedJobs =
             await loadSavedJobs();
@@ -1659,9 +1777,7 @@ document.addEventListener("DOMContentLoaded", () => {
             async () => {
 
                 const resume =
-                    localStorage.getItem(
-                        "resume_text"
-                    );
+                    await getValidResume();
 
 
                 if (!resume) {
@@ -1832,10 +1948,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             async () => {
 
-                const resume =
-                    localStorage.getItem(
-                        "resume_text"
-                    );
+                const resume = await getValidResume();
 
 
                 if (!resume) {
@@ -1960,10 +2073,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             async () => {
 
-                const resume =
-                    localStorage.getItem(
-                        "resume_text"
-                    );
+                const resume = await getValidResume();
 
 
                 if (!resume) {
