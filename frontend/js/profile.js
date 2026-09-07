@@ -1,10 +1,11 @@
+const API_URL = "https://swipex-backend-production.up.railway.app";
 const token = localStorage.getItem("token");
 
 if (!token) {
     window.location.href = "/login";
 }
 
-fetch("/api/profile", {
+fetch(`${API_URL}/api/profile`, {
     method: "GET",
     headers: {
         "Authorization": "Bearer " + token
@@ -56,3 +57,4 @@ if (logoutButton) {
     };
 
 }
+
