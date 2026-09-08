@@ -55,21 +55,13 @@ docker run -p 8000:8000 \
 
 ## 2. Push to GitHub — same repo, same branch
 
-No need for a second repo or a `deploy` branch. Everything (backend +
-frontend + Docker + CI/CD config) lives in this one repo, and pushing
-to `main` is what triggers deployment in step 4.
+The project is maintained in a single GitHub repository containing the
+backend, frontend, Docker configuration, and deployment configuration.
 
-```bash
-git add .
-git commit -m "Milestone 4: notifications, tracking, analytics, deployment"
-git push origin main
-```
+The current development branch is:
 
-> If your actual GitHub repo root is one level **above** this
-> `backend/` folder, move the `.github/workflows/ci-cd.yml` file here
-> up to that repo root — GitHub Actions only reads workflows from
-> `.github/workflows/` at the repository root.
-
+```text
+Nidrashri-V
 ---
 
 ## 3. Backend on Render
