@@ -242,11 +242,15 @@ real database records rather than browser `localStorage` data.
 
 These features provide the main additions that should be demonstrated
 during the Milestone 4 review.
-## 9. Your GitHub profile link
 
-Add it to the top of your repo's main `README.md` so reviewers can find
-your other work, e.g.:
+---
+
+## 9. GitHub profile
+
+Add the project author's GitHub profile to the repository's main
+`README.md` so reviewers can easily find other projects and work.
+
+Example:
 
 ```md
-**Author:** Nidrashri V — [github.com/your-username](https://github.com/your-username)
-```
+**Author:** Nidrashri V — [GitHub](https://github.com/nidrashri)
