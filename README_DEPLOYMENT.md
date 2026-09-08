@@ -6,26 +6,33 @@ deployment (Docker → GitHub → Render + Vercel + AWS/managed Postgres).
 
 ---
 
-## 0. Before anything else: update your database
+## 0. Database migration
 
-Milestones 1–3 already created your `users` and `jobs` tables. New
-Milestone 4 tables (`applications`, `saved_jobs`, `notifications`,
-`resume_score_history`) are created automatically the first time you
-start the app — SQLAlchemy's `create_all()` handles brand-new tables.
+Milestones 1–3 already created the `users` and `jobs` tables. Milestone 4
+introduces the following additional tables:
 
-What it **won't** do is add new columns to tables that already exist.
-So the very first time you run this update against your existing
-database (local or deployed), run the migration once:
+- `applications`
+- `saved_jobs`
+- `notifications`
+- `resume_score_history`
+
+Brand-new tables are created automatically when the application starts
+because SQLAlchemy's `create_all()` handles tables that do not already
+exist.
+
+However, `create_all()` does not add new columns to existing tables.
+Therefore, the migration must be run once when updating an existing
+database.
+
+### Run the migration
+
+From the project root:
 
 ```bash
 cd backend
 python -m scripts.migrate
-```
 
-It's safe to re-run — every statement uses `IF NOT EXISTS`.
-
----
-
+----
 ## 1. Run locally with Docker (satisfies the "Docker" requirement)
 
 ```bash
