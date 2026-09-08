@@ -64,26 +64,34 @@ The current development branch is:
 Nidrashri-V
 ---
 
-## 3. Backend on Render
+## 3. Backend on Railway
 
-**Option A — Blueprint (fastest):**
-1. Push this repo to GitHub.
-2. On [render.com](https://render.com) → **New +** → **Blueprint**.
-3. Point it at your repo/branch. Render reads `render.yaml` and creates
-   both the web service and a managed Postgres database automatically.
-4. Once live, copy the service URL (e.g. `https://jobmatch-ai-backend.onrender.com`).
+The production backend is deployed on Railway.
 
-**Option B — Manual:**
-1. **New +** → **Web Service** → connect this repo, root directory `backend/`.
-2. Runtime: **Docker** (it'll pick up the `Dockerfile` automatically).
-3. Add environment variables from `.env.example` (`DATABASE_URL`,
-   `SECRET_KEY`, `ALLOWED_ORIGINS`).
-4. Deploy.
+**Production backend URL:**
 
-Either way, after the first deploy, run the migration once against the
-live database (Render gives you a `psql` connection string in the
-database dashboard, or run `python -m scripts.migrate` from a Render
-shell).
+https://swipex-backend-production.up.railway.app
+
+The backend is a FastAPI application using PostgreSQL and SQLAlchemy.
+
+### Current production setup
+
+- **Backend:** FastAPI
+- **Hosting:** Railway
+- **Database:** PostgreSQL on Neon
+- **ORM:** SQLAlchemy
+- **Python:** 3.11
+- **Frontend:** Vercel
+- **Frontend → Backend:** HTTPS API requests
+
+### Railway deployment
+
+The backend can be deployed from the project root using the Railway CLI:
+
+```bash
+railway login
+railway link
+railway up
 
 ---
 
