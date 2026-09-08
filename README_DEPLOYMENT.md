@@ -97,28 +97,45 @@ railway up
 
 ## 4. Frontend on Vercel
 
-The `backend/frontend` folder is a fully static site (plain HTML/CSS/JS)
-— no build step needed.
+The `frontend` folder contains the fully static frontend (HTML/CSS/JS)
+— no build step is required.
 
-1. On [vercel.com](https://vercel.com) → **New Project** → import this
-   GitHub repo.
-2. Set **Root Directory** to `backend/frontend`.
-3. Framework preset: **Other** (static). Leave build command empty.
-4. Deploy. Vercel will use `frontend/vercel.json` to route pretty URLs
-   like `/dashboard` to `dashboard.html`.
+### Current production setup
 
-**Then connect it to your live backend:** open
-`backend/frontend/js/config.js` and replace the placeholder with your
-real Render URL:
+- **Hosting:** Vercel
+- **Root Directory:** `frontend`
+- **Framework Preset:** Other
+- **Build Command:** None
+- **Production URL:** https://swipex-ai.vercel.app
+- **Backend API:** https://swipex-backend-production.up.railway.app
 
-```js
-const RENDER_BACKEND_URL = "https://jobmatch-ai-backend.onrender.com";
-```
+### Vercel deployment
 
-Commit and push — Vercel redeploys automatically. Also update the
-backend's `ALLOWED_ORIGINS` env var on Render to your Vercel URL
-(instead of `*`) once you have it, so CORS is locked down properly.
+1. Import the GitHub repository into Vercel.
+2. Set **Root Directory** to `frontend`.
+3. Set **Framework Preset** to **Other**.
+4. Leave the build command empty.
+5. Deploy the project.
 
+The project uses `vercel.json` to route pretty URLs such as
+`/dashboard`, `/profile`, and `/jobs-page` to their corresponding
+HTML pages.
+
+### Backend connection
+
+The frontend API configuration is stored in:
+
+`frontend/js/config.js`
+
+The production API base URL is:
+
+https://swipex-backend-production.up.railway.app
+
+Frontend JavaScript files use this Railway backend for API requests.
+
+For production CORS, configure the backend's `ALLOWED_ORIGINS`
+environment variable with the Vercel frontend URL rather than relying
+on a wildcard configuration.
 ---
 
 ## 5. Database on AWS (alternative to Render's managed Postgres)
