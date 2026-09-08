@@ -218,19 +218,30 @@ production deployment.
 
 ## 8. What's new for the reviewer / demo
 
-- **Notifications** — bell icon (top-right, any logged-in page):
-  instant new-job alerts, >80% match alerts, low-competition alerts,
-  application status-change alerts.
-- **`/track`** — new page: full application status pipeline
-  (applied → shortlisted → rejected/selected) + resume score trend chart.
-- **Dashboard** — resume performance ranking (percentile vs. all
-  users), recommendation insights, resume score trend chart.
-- **Recruiter `/applications`** — hiring trend chart (last 14 days) +
-  top skills in demand, backed by real database rows instead of
-  browser localStorage.
+Milestone 4 adds several features that improve monitoring,
+recommendations, application tracking, and recruiter analytics.
 
----
+### New user-facing features
 
+- **Notifications** — a bell icon is available on logged-in pages for
+  instant new-job alerts, high-match alerts, low-competition alerts,
+  and application status-change alerts.
+- **`/track`** — provides an application status pipeline
+  (applied → shortlisted → rejected/selected) along with a resume score
+  trend chart.
+- **Dashboard improvements** — includes resume performance ranking
+  (percentile vs. all users), recommendation insights, and a resume
+  score trend chart.
+- **Recruiter `/applications`** — includes a 14-day hiring trend chart
+  and top skills in demand.
+
+### Data and application improvements
+
+The recruiter analytics and application-tracking features are backed by
+real database records rather than browser `localStorage` data.
+
+These features provide the main additions that should be demonstrated
+during the Milestone 4 review.
 ## 9. Your GitHub profile link
 
 Add it to the top of your repo's main `README.md` so reviewers can find
