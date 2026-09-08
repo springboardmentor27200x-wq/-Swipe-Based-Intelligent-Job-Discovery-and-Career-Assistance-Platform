@@ -138,19 +138,24 @@ environment variable with the Vercel frontend URL rather than relying
 on a wildcard configuration.
 ---
 
-## 5. Database on AWS (alternative to Render's managed Postgres)
+## 5. Database on AWS (alternative to Neon PostgreSQL)
+
+The current production database is PostgreSQL hosted on Neon.
+AWS RDS is an alternative if AWS-hosted PostgreSQL is required.
 
 If you'd rather use AWS RDS:
 
-1. Create a **PostgreSQL** RDS instance (free tier: `db.t3.micro`).
-2. Note the endpoint, and create a database named `jobmatch_ai`.
-3. Set `DATABASE_URL` on Render (or wherever the backend runs) to:
-   ```
-   postgresql://<username>:<password>@<rds-endpoint>:5432/jobmatch_ai
-   ```
-4. Run `python -m scripts.migrate` once, pointed at that URL.
+1. Create a **PostgreSQL** RDS instance.
+2. Note the RDS endpoint and create a database named `jobmatch_ai`.
+3. Set `DATABASE_URL` in the Railway backend environment to the RDS
+   connection string:
 
----
+`postgresql://<username>:<password>@<rds-endpoint>:5432/jobmatch_ai`
+
+4. Run the migration once against the new database:
+
+```bash
+python -m scripts.migrate
 
 ## 6. CI/CD — GitHub Actions
 
