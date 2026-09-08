@@ -194,18 +194,26 @@ The active development branch for this project is:
 `Nidrashri-V`
 ## 7. Cross-platform / mobile handling
 
-This is a responsive web app, not separate native Android/iOS builds.
-What's included for Milestone 4's "different OS handling":
-- `manifest.json` + Apple meta tags so the site can be **added to the
-  home screen** on both Android (Chrome) and iOS (Safari) and opens in
-  standalone/full-screen mode like an app.
-- The existing CSS is already responsive across breakpoints.
+SwipeX is a responsive web application rather than separate native
+Android or iOS applications.
 
-If a true native app is required later, the cleanest path is wrapping
-this same frontend in Capacitor or React Native WebView — worth
-flagging to your mentor as a possible Milestone 5 item rather than
-something to force into this deployment.
+### Current cross-platform support
 
+- `manifest.json` and Apple-specific meta tags allow the website to be
+  added to the home screen on supported Android and iOS devices.
+- The frontend uses responsive CSS so the interface adapts to different
+  screen sizes and breakpoints.
+- The same deployed web application can be accessed from desktop,
+  Android, and iOS browsers.
+
+### Future native application
+
+If a dedicated native Android or iOS application is required later,
+the existing frontend can be wrapped or adapted using technologies
+such as Capacitor or React Native.
+
+This is a possible future enhancement rather than part of the current
+production deployment.
 ---
 
 ## 8. What's new for the reviewer / demo
