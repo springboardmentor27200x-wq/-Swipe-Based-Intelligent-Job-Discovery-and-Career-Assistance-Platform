@@ -159,22 +159,39 @@ python -m scripts.migrate
 
 ## 6. CI/CD — GitHub Actions
 
-`.github/workflows/ci-cd.yml` runs on every push to `main`:
-1. Installs dependencies, compiles all Python files (catches syntax
-   errors before they reach production).
-2. Builds the Docker image.
-3. Triggers your Render + Vercel deploy hooks so the live app updates.
+The repository includes a GitHub Actions workflow at:
 
-One-time setup — in your GitHub repo, go to **Settings → Secrets and
-variables → Actions** and add:
-- `RENDER_DEPLOY_HOOK_URL` — Render dashboard → your service → Settings → Deploy Hook
-- `VERCEL_DEPLOY_HOOK_URL` — Vercel dashboard → your project → Settings → Git → Deploy Hooks
+`.github/workflows/ci-cd.yml`
 
-(Vercel usually auto-deploys on push if the repo is connected directly
-— the hook is just a harmless extra trigger.)
+The workflow is named **SwipeX CI**.
 
----
+### Current workflow
 
+The workflow runs for pushes and pull requests targeting the
+`main` branch.
+
+It performs the following checks:
+
+1. Checks out the repository.
+2. Sets up Python 3.11.
+3. Installs the dependencies from `requirements.txt`.
+4. Compiles the Python application files to detect syntax errors.
+5. Builds the Docker image to verify that the backend can be containerized.
+
+### Important
+
+This workflow currently performs **CI validation only**. It does not
+trigger Railway or Vercel deployments.
+
+Production deployment is handled separately:
+
+- **Frontend:** Vercel
+- **Backend:** Railway
+- **Database:** Neon PostgreSQL
+
+The active development branch for this project is:
+
+`Nidrashri-V`
 ## 7. Cross-platform / mobile handling
 
 This is a responsive web app, not separate native Android/iOS builds.
