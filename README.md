@@ -53,7 +53,17 @@ The main objectives of SwipeX are:
 - Review candidate information
 - Shortlist candidates
 - Recruiter analytics
-- 
+Live Application:
+https://swipe-x-sage.vercel.app/
+
+👨‍💻 Job Seeker
+Username / Email: jobseeker123@gmail.com Password: seeker@123
+
+🏢 Recruiter
+Username / Email: recruiter123@gmail.com Password: recruiter@123
+
+These credentials are provided for demonstration purposes so reviewers can explore both Job Seeker and Recruiter workflows.
+
 ## Technologies Used
 
 ### Frontend
