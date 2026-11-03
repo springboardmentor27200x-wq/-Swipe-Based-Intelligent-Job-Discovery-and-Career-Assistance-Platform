@@ -39,7 +39,7 @@ export default function Login() {
 
     dispatch(setLoading(true));
     try {
-      const response = await api.post('/auth/login/', { email, password });
+      const response = await api.post('/login', { email, password });
       dispatch(setCredentials(response.data));
       
       const role = response.data.user.role;
