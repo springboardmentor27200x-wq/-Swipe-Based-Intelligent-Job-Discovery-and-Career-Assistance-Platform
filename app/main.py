@@ -102,40 +102,16 @@ app.add_middleware(
 # STATIC FILES
 # ======================================================
 
-app.mount(
-    "/resumes",
-    StaticFiles(
-        directory=str(RESUMES_DIR)
-    ),
-    name="resumes"
-)
+for folder in ("css", "js", "images"):
+    folder_path = FRONTEND_DIR / folder
+    if folder_path.is_dir():
+        app.mount(
+            f"/{folder}",
+            StaticFiles(directory=str(folder_path)),
+            name=folder
+        )
 
 
-app.mount(
-    "/css",
-    StaticFiles(
-        directory=str(FRONTEND_DIR / "css")
-    ),
-    name="css"
-)
-
-
-app.mount(
-    "/js",
-    StaticFiles(
-        directory=str(FRONTEND_DIR / "js")
-    ),
-    name="js"
-)
-
-
-app.mount(
-    "/images",
-    StaticFiles(
-        directory=str(FRONTEND_DIR / "images")
-    ),
-    name="images"
-)
 
 
 # ======================================================
