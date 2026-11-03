@@ -22,15 +22,17 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      const { user, access, refresh } = action.payload;
+      const { user, access, access_token, refresh, refresh_token } = action.payload;
+const finalToken = access || access_token;
+const finalRefresh = refresh || refresh_token;
       state.user = user;
-      state.token = access;
+      state.token = finalToken;
       state.isAuthenticated = true;
       state.error = null;
-      localStorage.setItem('token', access);
-      if (refresh) {
-        localStorage.setItem('refresh_token', refresh);
-      }
+      localStorage.setItem('token', finalToken);
+      if (finalRefresh) {
+  localStorage.setItem('refresh_token', finalRefresh);
+}
       localStorage.setItem('user', JSON.stringify(user));
     },
     clearCredentials: (state) => {
